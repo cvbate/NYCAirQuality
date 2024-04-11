@@ -1,5 +1,7 @@
 # NYCAirQuality
 
+## Introduction
+
 ## Setup
 
 I wil be using Google Cloud Console for this project. There is a free trial available with $300 in free credits. First, you must create an account and connect your git repository. I followed the instructions from [this page to connect to my repository using Cloud Build](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github). I will also walk you through the process below:
@@ -18,8 +20,8 @@ I wil be using Google Cloud Console for this project. There is a free trial avai
     ` edit cloudbuild.yaml `  
     You wil need to set up a basic congig file that tells Cloud Build how to build/host your repository. There are a couple of differnt builds available through Cloud Builder. I chose to use Docker because I have some prior experience. The only required argument in the build file is the `name` argument. Here is a basic config.yaml file(but there are many arguments available):  
     ![Alt text](Imgs/cloudbuild.png)  
-    [Click here to read about Build Config file schema](https://cloud.google.com/build/docs/build-config-file-schema)  
-    [Click here to read about how to create a basic config file. ](https://cloud.google.com/build/docs/configuring-builds/create-basic-configuration)
+    [Click here to read about Build Config file schema.](https://cloud.google.com/build/docs/build-config-file-schema)  
+    [Click here to read about how to create a basic config file.](https://cloud.google.com/build/docs/configuring-builds/create-basic-configuration)
 
 1. Here we will follow the steps under ["Connecting to a GitHub host"](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#connecting_a_github_host)
     Complete steps 1-7 under "Connecting a GitHub host"  
@@ -41,3 +43,59 @@ I wil be using Google Cloud Console for this project. There is a free trial avai
 Now you should be all set up and ready to make commits to your GitHub repository!!
 You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commit" and then "Sync Changes", copy the code that will pop up, then you will be redirected to GitHub. Enter the code given to you and sign into your account.  
 ![Alt text](Imgs/sourcecontrol.png)
+
+## Data
+
+**Vector Data**
+
+1. City boundaries 
+
+1. Parks 
+
+1. US census data 
+
+1. Neighborhood data 
+
+1. Borough boundaries 
+
+**Raster Data**
+
+1. UV Aerosol Index (GEE) 
+
+1. CO Concentrations(GEE) 
+
+1. NDVI- or other vegetation index of nyc (to get street trees(?))- I have scripts from a previous class I could adapt. 
+
+1. Elevation
+
+## For Assignment 1 Due 04/12/24 5pm EST
+
+1. Set Up Database Schema 
+
+    - Create schema for your chosen topic.  
+    - What attributes should you be mindful of? 
+
+ 
+
+1. Pre-process the Data 
+
+    - Process the data to align different datasets temporally and spatially. 
+    - Be sure to capture the details in your README. 
+
+
+## For Assignment 2 Due 04/XX/24 5pm EST - Import Spatial Data & Normalize Tables 
+
+1. Import your data into PostgreSQL tables/schema created in Assignment 1. 
+
+1. Normalize your tables (1NF up to possibly 4NF, depending on your data) and explain the logic in your README. 
+
+    - Even if normalization is not required, explain why in your README. 
+
+## For Assignment 3 Due 04/25/24 5pm EST - Spatial Analyssi!
+
+- SELECT the CO and Aerosol Index over the parks/vegetated areas and calculate the average concentration/ intensity over these areas. Do the same for Each neighborhood – see how those areas compare to pre/during/post values 
+- Use SQL to identify areas of income below a certain level and above a certain level 
+- Identify neighborhoods that have with languages other than English spoken at home over 25% (this number may change) 
+- See if there is a correlation between race, income, ethnicity, languages and concentrations of CO or aerosol 
+
+**Final Pushes to Github Due May3rd 5pm!!!**
