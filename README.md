@@ -45,7 +45,8 @@ You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commi
 ![Alt text](Imgs/sourcecontrol.png)
 
 ### Triggers - Cloud Build
-(Link to Cloud Build instructions)[https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github?generation=2nd-gen]
+
+[Link to Cloud Build instructions](https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github?generation=2nd-gen)
 
 
 ## Data
@@ -85,7 +86,10 @@ You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commi
 
 1. Rasters to SQL
 
-## For Assignment 1 Due 04/12/24 5pm EST
+
+
+------------------------------------------------
+##### For Assignment 1 Due 04/12/24 5pm EST
 
 1. Find and Process Geospatial Data (10 Points)
 
@@ -93,7 +97,7 @@ You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commi
     - Data Processing (5 Points): Shared steps on GitHub that includes additional software needs and detailed descriptions of their data attributes and sources.
 
 
-## For Assignment 2 Due 04/XX/24 5pm EST - Import Spatial Data & Normalize Tables 
+##### For Assignment 2 Due 04/XX/24 5pm EST - Import Spatial Data & Normalize Tables 
 
 1. Import your data into PostgreSQL tables/schema created in Assignment 1. 
 
@@ -101,7 +105,7 @@ You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commi
 
     - Even if normalization is not required, explain why in your README. 
 
-## For Assignment 3 Due 04/25/24 5pm EST - Spatial Analyssi!
+#####  For Assignment 3 Due 04/25/24 5pm EST - Spatial Analyssi!
 
 - SELECT the CO and Aerosol Index over the parks/vegetated areas and calculate the average concentration/ intensity over these areas. Do the same for Each neighborhood – see how those areas compare to pre/during/post values 
 - Use SQL to identify areas of income below a certain level and above a certain level 
