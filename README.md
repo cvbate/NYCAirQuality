@@ -22,6 +22,7 @@ I wil be using Google Cloud Console for this project. There is a free trial avai
     ![Alt text](Imgs/cloudbuild.png)  
     [Click here to read about Build Config file schema.](https://cloud.google.com/build/docs/build-config-file-schema)  
     [Click here to read about how to create a basic config file.](https://cloud.google.com/build/docs/configuring-builds/create-basic-configuration)
+    [Click here to read an overview of Cloud Build](https://cloud.google.com/build/docs/overview#:~:text=Cloud%20Build%20can%20import%20source,protect%20your%20software%20supply%20chain.)
 
 1. Here we will follow the steps under ["Connecting to a GitHub host"](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#connecting_a_github_host)
     Complete steps 1-7 under "Connecting a GitHub host"  
@@ -46,7 +47,38 @@ You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commi
 
 ### Triggers - Cloud Build
 
-[Link to Cloud Build instructions](https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github?generation=2nd-gen)
+In order to pull from your GitHub repository you will need to set up a trigger request. I will be uploading my vector datafiles on my computer and then pushing it to GitHub so I can pull it here.
+[Click here to look at the Cloud Build instructions](https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github?generation=2nd-gen)
+
+Once you have created the trigger
+![Alt text](Imgs/gitpullrequest.png)
+
+
+### CloudSQL/PostgresSQL Instance
+
+ [How to create instances](https://cloud.google.com/sql/docs/postgres/create-instance#console)
+ Enable Cloud SQL Admin API
+ 
+ `gcloud init`
+
+Create an Instance
+ 
+ 
+ Make sure Compute Engine API is activated in your poeject
+
+ A Create a PostgreSQL instance
+
+ In terminal run the following code: 
+    `sudo apt-get update`
+    `sudo apt-get install postgresql`
+
+Go to your instances and click on the name of your instance to open the configuation panel. I named mine postgres. Scroll down to "Connect to this instance" and click on OPEN CLOUD SHELL. 
+![Alt text](image.png)  
+
+Upon clicking OPEN CLOUD SHELL 
+Something similar to this code will be automatically pasted into your terminal. Press enter to execute the code:  
+`gcloud sql connect postgres --user=postgres --quiet`  
+This is the code that you will run everytime you want to access your Database.
 
 
 ## Data
