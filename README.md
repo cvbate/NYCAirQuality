@@ -63,20 +63,18 @@ Once you have created the trigger
 
 Create an Instance
  
- 
  Make sure Compute Engine API is activated in your poeject
 
  A Create a PostgreSQL instance
 
- In terminal run the following code: 
+In terminal run the following code: 
     `sudo apt-get update`
     `sudo apt-get install postgresql`
 
 Go to your instances and click on the name of your instance to open the configuation panel. I named mine postgres. Scroll down to "Connect to this instance" and click on OPEN CLOUD SHELL. 
 ![Alt text](image.png)  
 
-Upon clicking OPEN CLOUD SHELL 
-Something similar to this code will be automatically pasted into your terminal. Press enter to execute the code:  
+Upon clicking OPEN CLOUD SHELL something similar to this code will be automatically pasted into your terminal. Press enter to execute the code:  
 `gcloud sql connect postgres --user=postgres --quiet`  
 This is the code that you will run everytime you want to access your Database.
 
