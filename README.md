@@ -19,10 +19,10 @@ I wil be using Google Cloud Console for this project. There is a free trial avai
     [Click here to read about how to create a basic config file. ](https://cloud.google.com/build/docs/configuring-builds/create-basic-configuration)
 
 1. Here we will follow the steps under ["Connecting to a GitHub host"](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#connecting_a_github_host)
-    Complete steps 1-7 under "Connecting a GitHub host"
+    Complete steps 1-7 under "Connecting a GitHub host"  
     ![Alt text](Imgs/ConnectingToGitHubHost.png)
 1. Here we will follow the steps under ["Connecting a GitHub repository"](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#connecting_a_github_repository_2)
-    Complete steps 1-5 under "Connecting a GitHub repository"
+    Complete steps 1-5 under "Connecting a GitHub repository"  
     ![Alt text](Imgs/ConnectingToGitHubRepo.png)
 1. After these steps you will have to configure your global username and email associated with your github account. Run the following code in the terminal of your project dashboard to finalize the configuration of your github repository:
     `
