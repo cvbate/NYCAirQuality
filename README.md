@@ -44,6 +44,10 @@ Now you should be all set up and ready to make commits to your GitHub repository
 You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commit" and then "Sync Changes", copy the code that will pop up, then you will be redirected to GitHub. Enter the code given to you and sign into your account.  
 ![Alt text](Imgs/sourcecontrol.png)
 
+### Triggers - Cloud Build
+(Link to Cloud Build instructions)[https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github?generation=2nd-gen]
+
+
 ## Data
 
 **Vector Data**
