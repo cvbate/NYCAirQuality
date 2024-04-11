@@ -50,13 +50,13 @@ You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commi
 
 1. City boundaries 
 
-1. Parks 
+1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data) [X]
 
-1. US census data 
+1. [2020 US census data](https://data.cityofnewyork.us/City-Government/2020-Census-Tracts-Tabular/63ge-mke6/about_data) [X]
 
-1. Neighborhood data 
+1. [2020 Neighborhood Data](https://data.cityofnewyork.us/City-Government/2020-Neighborhood-Tabulation-Areas-NTAs-Tabular/9nt8-h7nd/about_data) [X]
 
-1. Borough boundaries 
+1. [Borough boundaries](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm) [x]
 
 **Raster Data**
 
@@ -66,21 +66,27 @@ You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commi
 
 1. NDVI- or other vegetation index of nyc (to get street trees(?))- I have scripts from a previous class I could adapt. 
 
-1. Elevation
+1. [Elevation 1ft DEM](https://data.cityofnewyork.us/City-Government/1-foot-Digital-Elevation-Model-DEM-Integer-Raster/7kuu-zah7/about_data) [X]
+
+## Methodology
+
+### Data Aquisition
+
+1. Download vector data from (NYC Open Data)[https://opendata.cityofnewyork.us/]
+1. Aquire Raster
+    - Elevation data from NYC Open Data
+    - Aquire Data from GEE 
+
+### Data Prep
+
+1. Rasters to SQL
 
 ## For Assignment 1 Due 04/12/24 5pm EST
 
-1. Set Up Database Schema 
+1. Find and Process Geospatial Data (10 Points)
 
-    - Create schema for your chosen topic.  
-    - What attributes should you be mindful of? 
-
- 
-
-1. Pre-process the Data 
-
-    - Process the data to align different datasets temporally and spatially. 
-    - Be sure to capture the details in your README. 
+    - Data Acquisition (5 Points): Successfully obtained and processed the necessary data to address their proposed queries.
+    - Data Processing (5 Points): Shared steps on GitHub that includes additional software needs and detailed descriptions of their data attributes and sources.
 
 
 ## For Assignment 2 Due 04/XX/24 5pm EST - Import Spatial Data & Normalize Tables 
