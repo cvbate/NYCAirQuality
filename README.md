@@ -22,12 +22,11 @@ I wil be using Google Cloud Console for this project. There is a free trial avai
 1. Here we will follow the steps under ["Connecting a GitHub repository"](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#connecting_a_github_repository_2)
     Complete steps 1-5 under "Connecting a GitHub repository"  
     ![Alt text](Imgs/ConnectingToGitHubRepo.png)
-1. After these steps you will have to configure your global username and email associated with your github account. Run the following code in the terminal of your project dashboard to finalize the configuration of your github repository:
-    `
-    git init # you will be told to configure your username and email
-    git config --global user.name <gitusername>
-    git config --global user.email <email> 
-    `
+1. After these steps you will have to configure your global username and email associated with your github account. Run the following code in the terminal of your project dashboard to finalize the configuration of your github repository:  
+    
+    ` git init # you will be told to configure your username and email`  
+    ` git config --global user.name <gitusername>  `
+    ` git config --global user.email <email> `
 
 Now you should be all set up and ready to make commits to your GitHub repository!!
 You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commit" and then "Sync Changes", copy the code that will pop up, then you will be redirected to GitHub. Enter the code given to you and sign into your account.  
