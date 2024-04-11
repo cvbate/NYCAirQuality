@@ -9,11 +9,10 @@ I wil be using Google Cloud Console for this project. There is a free trial avai
     Enable cloud API
     Enable sectret manager API
 1. Use the terminal in your project dashboard to create a file called config.yaml
-    ` touch config.yaml `   
+    ` touch cloudbuild.yaml `   
+    ` edit cloudbuild.yaml `
     You wil need to set up a basic congig file that tells Cloud Build how to build/host your repository. There are a couple of differnt builds available through Cloud Builder. I chose to use Docker because I have some prior experience. The only required argument in the build file is the `name` argument. Here is a basic config.yaml file(but there are many arguments available):  
-    `steps:
-    - name: 'gcr.io/cloud-builders/docker'
-    `  
+    ![Alt text](Imgs/cloudbuild.png)  
     [Click here to read about Build Config file schema](https://cloud.google.com/build/docs/build-config-file-schema)  
     [Click here to read about how to create a basic config file. ](https://cloud.google.com/build/docs/configuring-builds/create-basic-configuration)
 
