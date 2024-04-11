@@ -1,7 +1,7 @@
 # NYCAirQuality
 
 ## Setup
-I wil be using Google Cloud Console for this project. There is a free trial available with $300 in free credits. You must create an account and connect your git repository. I followed the instructions from [this page to connect to my repository using Cloud Build](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github). Follow the link to see more detailed instructions for setup for steps 3-X!
+I wil be using Google Cloud Console for this project. There is a free trial available with $300 in free credits. You must create an account and connect your git repository. I followed the instructions from [this page to connect to my repository using Cloud Build](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github). Follow the link to see more detailed instructions for setup for steps 3-6!
 1. Create a Google Console account.
     I named it the same as my github repository, although I am not sure that is necessary.
 1. Creating a project in Cloud Console. I named it the same as this repository. 
