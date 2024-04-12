@@ -11,6 +11,8 @@
     1. [Buckets for Google Cloud Storage](#setup3)
     1. [Setting Up Instances](#setup4)
 1. [Data](#data)
+    1.[Vector](#vector-data)
+    1.[Raster](#raster-data)
 1. [Methodology](#methodology)
     1. [Data Aquisition](#data-aquisition)
     1. [Data Prep](#data-prep)
@@ -133,27 +135,40 @@ The tutorial I looked at also said to then do this code which will allow you to 
 
 ### Raster Data
 
-1. [UV Aerosol Index (GEE)](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_AER_AI)
+1. [Sentinel-5P NRTI AER AI: Near Real-Time UV Aerosol Index ](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_AER_AI)  
+Sentinel 5 Data. 
+"This dataset provides near real-time high-resolution imagery of the UV Aerosol Index (UVAI), also called the Absorbing Aerosol Index (AAI).
+
+The AAI is based on wavelength-dependent changes in Rayleigh scattering in the UV spectral range for a pair of wavelengths. The difference between observed and modelled reflectance results in the AAI. When the AAI is positive, it indicates the presence of UV-absorbing aerosols like dust and smoke. It is useful for tracking the evolution of episodic aerosol plumes from dust outbreaks, volcanic ash, and biomass burning.
+
+The wavelengths used have very low ozone absorption, so unlike aerosol optical thickness measurements, AAI can be calculated in the presence of clouds. Daily global coverage is therefore possible.
+
+For this L3 AER_AI product, the absorbing_aerosol_index is calculated with a pair of measurements at the 354 nm and 388 nm wavelengths."   
+- Above text from GEE catalog page.
   
-Pre:  
+Pre(one year prior):  
 ![pre](Imgs/Aerosol_pre.png)  
   
 Durring:  
 ![durr](Imgs/Aerosol_durr.png)  
   
-Post  
+Post (one month after):  
 ![post](Imgs/Aerosol_post.png)
 
 
-1. [CO Concentrations(GEE)](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_CO)
+1. [Sentinel-5P NRTI CO: Near Real-Time Carbon Monoxide](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_CO)
+" This dataset provides near real-time high-resolution imagery of CO concentrations.
 
-Pre:  
+Carbon monoxide (CO) is an important atmospheric trace gas for understanding tropospheric chemistry. In certain urban areas, it is a major atmospheric pollutant. Main sources of CO are combustion of fossil fuels, biomass burning, and atmospheric oxidation of methane and other hydrocarbons. Whereas fossil fuel combustion is the main source of CO at northern mid-latitudes, the oxidation of isoprene and biomass burning play an important role in the tropics. TROPOMI on the Sentinel 5 Precursor (S5P) satellite observes the CO global abundance exploiting clear-sky and cloudy-sky Earth radiance measurements in the 2.3 μm spectral range of the shortwave infrared (SWIR) part of the solar spectrum. TROPOMI clear sky observations provide CO total columns with sensitivity to the tropospheric boundary layer. For cloudy atmospheres, the column sensitivity changes according to the light path. More information."
+- Above text from GEE catalog page.
+
+Pre(one year prior):  
 ![pre - one year before](Imgs/co_pre.png)
   
-Durring:  
+Durring(June 5th- June 8th):  
 ![durring](Imgs/co_durr.png)
   
-Post:  
+Post(one month after):  
 ![post 1 month later](Imgs/co_post.png)
 
 
@@ -209,6 +224,10 @@ After exporting each of the images, from GEE. The bucket should look something l
 1. Rasters to SQL
 
 ### Analysis
+
+
+### Next Steps
+
 
 #### Challenges
 
