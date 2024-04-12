@@ -116,25 +116,41 @@ The tutorial I looked at also said to then do this code which will allow you to 
 
 ### Vector Data
 
-1. [City boundaries](https://data.gis.ny.gov/datasets/sharegisny::nys-civil-boundaries/explore?layer=4&location=40.695449%2C-73.623530%2C9.29) 
+1. [City boundaries](https://data.gis.ny.gov/datasets/sharegisny::nys-civil-boundaries/explore?layer=4&location=40.695449%2C-73.623530%2C9.29)  
+![Alt text](Imgs/boundary_gee.png)
 
-1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data) [X]
+1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data)
 
 1. [2020 US census data](https://data.cityofnewyork.us/City-Government/2020-Census-Tracts-Tabular/63ge-mke6/about_data) [X]
 
-1. [2020 Neighborhood Data](https://data.cityofnewyork.us/City-Government/2020-Neighborhood-Tabulation-Areas-NTAs-Tabular/9nt8-h7nd/about_data) [X]
+1. [2020 Neighborhood Data](https://data.cityofnewyork.us/City-Government/2020-Neighborhood-Tabulation-Areas-NTAs-Tabular/9nt8-h7nd/about_data)
 
-1. [Borough boundaries](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm) [x]
+1. [Borough boundaries](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm)
 
 ### Raster Data
 
 1. [UV Aerosol Index (GEE)](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_AER_AI)
 
+![pre](Imgs/Aerosol_pre.png)
+
+![durr](Imgs/Aerosol_durr.png)
+
+![post](Imgs/Aerosol_post.png)
+
+
 1. [CO Concentrations(GEE)](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_CO)
+
+![pre - one year before](Imgs/co_pre.png)
+
+![durring](Imgs/co_durr.png)
+
+![post 1 month later](Imgs/co_post.png)
+
 
 1. EVI (GEE)
     - Written by Clio Bate, adapted from a thread of [Stack Exchange](https://gis.stackexchange.com/questions/370978/time-series-chart-of-evi-landsat-8-for-a-single-pixel-in-gee
-with the help of Chat GPT to make visualizations)
+with the help of Chat GPT to make visualizations)  
+![Alt text](Imgs/evi_gee.png)
 
 1. [Elevation 1ft DEM](https://data.cityofnewyork.us/City-Government/1-foot-Digital-Elevation-Model-DEM-Integer-Raster/7kuu-zah7/about_data) [X]
 
@@ -142,38 +158,38 @@ with the help of Chat GPT to make visualizations)
 
 ### Data Aquisition
 
-1. Download vector data from (NYC Open Data)[https://opendata.cityofnewyork.us/] and save locally on computer
+1. Download vector data from (NYC Open Data)[https://opendata.cityofnewyork.us/] and save locally on computer.
+1. Reproject all the data to ensure its in a Geospatial Cordinate Sytesm EPSG:4326 and then upload to GitHub repository. All vector data (exept for NYCBoundary) is located in Data_Reprojected.
 1. The NYC Boundary Data  was loaded into GEE, only the NYC bounary was selected to be use as a boundary for my raster data and saved as a new variable. Then it was exported to Cloud storage from GEE using the following code:
 1. Aquire Raster
-    - Elevation data from NYC Open Data Enable *Google Earth Engine API*
-    - Aquire Data from GEE 
-    - Export Data from GEE to Cloud Storage **see code... will add**
+    - Elevation data from NYC Open Data Enable
+    - Aquire Aresol, EVI, and CO Data from GEE 
+        - See x and x file for source code.
+        - Enable the Google Earth Engine API in Console.
+    - Export Data from GEE to Cloud Storage
     ```
     // Export the image to Cloud Storage. 
     Export.image.toCloudStorage({
-        image: evi_exp,
+        image: evi_exp, // name of your feature/image
         description: 'evi_export',
         bucket: 'gee_data_nyc',
         fileNamePrefix: 'evi_nyc',
         crs: 'EPSG:4326',
         scale: 30,
-        region: geometryrec
+        region: geometryrec //rectangualar geometry that defines the region to export
     });
-    
+
+    // Export a SHP file to Cloud Storage.
+    Export.table.toCloudStorage({
+        collection: nycBoundary,
+        description:'nycboundary_shapefile',
+        bucket: 'gee_data_nyc',
+        fileNamePrefix: 'nycboundary',
+        fileFormat: 'SHP'
+});
     ```
 
-
-// Export a SHP file to Cloud Storage.
-Export.table.toCloudStorage({
-  collection: nycBoundary,
-  description:'nycboundary_shapefile',
-  bucket: 'gee_data_nyc',
-  fileNamePrefix: 'nycboundary',
-  fileFormat: 'SHP'
-});
-
-
-After exporting each of the images, from GEE. The bucket should look something like this. I moved all the Boundary SHP into a single folder. 
+After exporting each of the images, from GEE. The bucket should look something like this. I moved all the Boundary SHP into a single folder.  
 ![Alt text](Imgs/bucket_exported.png)
 
 ### Data Prep
