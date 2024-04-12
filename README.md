@@ -1,5 +1,8 @@
+
 # NYCAirQuality
+
 # Table of contents
+
 1. [Introduction](#introduction)
 1. [Setup](#Setup)
     1. [Google Cloud Console: Creating a Project/Connecting to Github](#setup1)
@@ -117,6 +120,7 @@ The tutorial I looked at also said to then do this code which will allow you to 
 
 1. [City boundaries](https://data.gis.ny.gov/datasets/sharegisny::nys-civil-boundaries/explore?layer=4&location=40.695449%2C-73.623530%2C9.29) 
 
+
 1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data) [X]
 
 1. [2020 US census data](https://data.cityofnewyork.us/City-Government/2020-Census-Tracts-Tabular/63ge-mke6/about_data) [X]
@@ -139,18 +143,28 @@ The tutorial I looked at also said to then do this code which will allow you to 
 
 ### Data Aquisition
 
-1. Download vector data from (NYC Open Data)[https://opendata.cityofnewyork.us/]
+1. Download vector data from (NYC Open Data)[https://opendata.cityofnewyork.us/] and save locally on computer
+1. The NYC Boundary Data  was loaded into GEE, only the NYC bounary was selected to be use as a boundary for my raster data and saved as a new variable. Then it was exported to Cloud storage from GEE using the following code:
 1. Aquire Raster
     - Elevation data from NYC Open Data Enable *Google Earth Engine API*
     - Aquire Data from GEE 
     - Export Data from GEE to Cloud Storage **see code... will add**
 
+
+
+After exporting each of the images, from GEE. The bucket should look something like this. I moved all the Boundary SHP into a single folder. 
+![Alt text](Imgs/bucket_exported.png)
 ### Data Prep
 
 1. Rasters to SQL
 
 ### Analysis
 
+
+
+#### Challenges
+
+Trying to export my raster data from GEE to Cloud Storage. The code was running fine and a file was being exported. However, when I downloaded the file and opened in in ArcPro(to check that there was in fact data), there were only two values.
 
 ------------------------------------------------
 ##### For Assignment 1 Due 04/12/24 5pm EST
