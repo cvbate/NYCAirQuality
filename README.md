@@ -45,7 +45,9 @@ I wil be using Google Cloud Console for this project. There is a free trial avai
 
 Now you should be all set up and ready to make commits to your GitHub repository!!
 You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commit" and then "Sync Changes", copy the code that will pop up, then you will be redirected to GitHub. Enter the code given to you and sign into your account.  
-![Alt text](Imgs/sourcecontrol.png)
+![Alt text](Imgs/sourcecontrol.png)  
+
+------------------------------------------------  
 
 #### Triggers - Cloud Build
 
@@ -54,7 +56,9 @@ In order to pull from your GitHub repository you will need to set up a trigger r
 [Click here to look at the Cloud Build instructions](https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github?generation=2nd-gen)
 
 Once you have created the trigger
-![Alt text](Imgs/gitpullrequest.png)
+![Alt text](Imgs/gitpullrequest.png)  
+
+------------------------------------------------
 
 ### Buckets for Google Cloud Storage (Exporting Data from GEE to Cloud Storage)
 
@@ -62,9 +66,9 @@ Setting up a Bucket is important if you are exporting raster data from GEE. Acco
 
 [To set up your bucket follow these instructions.](https://cloud.google.com/storage/docs/discover-object-storage-console)
 
-![Alt text](Imgs/bucket.png)
+![Alt text](Imgs/bucket.png)  
 
-
+------------------------------------------------
 ### CloudSQL/PostgresSQL Instance
 
  [How to create instances](https://cloud.google.com/sql/docs/postgres/create-instance#console)
