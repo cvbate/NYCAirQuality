@@ -1,10 +1,10 @@
 # NYCAirQuality
 # Table of contents
 1. [Introduction](#introduction)
-2. [Setup](#Setup)
+1. [Setup](#Setup)
     1. [Google Cloud Console: Creating a Project/Connecting to Github](#setup1)
-    2. [Triggers - Cloud Build](#setup2)
-3. [Data](#data)
+    1. [Triggers - Cloud Build](#setup2)
+1. [Data](#data)
 
 
 ## Introduction <a name="introduction"></a>
