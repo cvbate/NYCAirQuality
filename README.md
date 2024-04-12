@@ -15,6 +15,7 @@
     1.[Raster](#raster-data)
 1. [Methodology](#methodology)
     1. [Data Aquisition](#data-aquisition)
+    1. [Scripts](#scripts)
     1. [Data Prep](#data-prep)
     1. [Analysis](#analysis)
 
@@ -218,6 +219,12 @@ with the help of Chat GPT to make visualizations)
 
 After exporting each of the images, from GEE. The bucket should look something like this. I moved all the Boundary SHP into a single folder.  
 ![Alt text](Imgs/bucket_exported.png)
+
+#### Scripts
+
+[Link to GEE Aerosol Script](https://code.earthengine.google.com/fbd7677c9c8c354ae38f88c99c6c70fc)  
+[Link to GEE CO Script](https://code.earthengine.google.com/087b036e06b996e1cc49e5329ae9cbd2)  
+[Link to GEE EVI Script](https://code.earthengine.google.com/e3d6c85ddccae6000194cbaa98dc0eee)  
 
 ### Data Prep
 
