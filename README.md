@@ -120,12 +120,16 @@ The tutorial I looked at also said to then do this code which will allow you to 
 ![Alt text](Imgs/boundary_gee.png)
 
 1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data)
+![Alt text](Imgs/parks.png)
 
-1. [2020 US census data](https://data.cityofnewyork.us/City-Government/2020-Census-Tracts-Tabular/63ge-mke6/about_data) [X]
+1. [2020 US census data](https://data.cityofnewyork.us/City-Government/2020-Census-Tracts-Tabular/63ge-mke6/about_data)
+![Alt text](Imgs/census.png)
 
 1. [2020 Neighborhood Data](https://data.cityofnewyork.us/City-Government/2020-Neighborhood-Tabulation-Areas-NTAs-Tabular/9nt8-h7nd/about_data)
+![Alt text](Imgs/neighborhoods.png)
 
 1. [Borough boundaries](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm)
+![buroghs](Imgs/buroghbounds.png)
 
 ### Raster Data
 
@@ -152,7 +156,8 @@ The tutorial I looked at also said to then do this code which will allow you to 
 with the help of Chat GPT to make visualizations)  
 ![Alt text](Imgs/evi_gee.png)
 
-1. [Elevation 1ft DEM](https://data.cityofnewyork.us/City-Government/1-foot-Digital-Elevation-Model-DEM-Integer-Raster/7kuu-zah7/about_data) [X]
+1. [Elevation 1ft DEM](https://data.cityofnewyork.us/City-Government/1-foot-Digital-Elevation-Model-DEM-Integer-Raster/7kuu-zah7/about_data)  
+![Alt text](Imgs/evlevation.png)
 
 ## Methodology
 
