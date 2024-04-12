@@ -4,7 +4,14 @@
 1. [Setup](#Setup)
     1. [Google Cloud Console: Creating a Project/Connecting to Github](#setup1)
     1. [Triggers - Cloud Build](#setup2)
+    1. [Buckets for Google Cloud Storage](setup3)
+    1. [Setting Up Instances](setup4)
 1. [Data](#data)
+1. [Methodology](#methodology)
+    1. [Data Aquisition](#data-aquisition)
+    1. [Data Prep](#data-prep)
+    1. [Analysis](#analysis)
+
 
 
 ## Introduction <a name="introduction"></a>
@@ -67,7 +74,7 @@ Once you have created the trigger
 
 ------------------------------------------------
 
-### Buckets for Google Cloud Storage (Exporting Data from GEE to Cloud Storage)
+### Buckets for Google Cloud Storage (Exporting Data from GEE to Cloud Storage) <a name="setup3"></a>
 
 Setting up a Bucket is important if you are exporting raster data from GEE. According to Cloud Console, "Buckets are the basic containers that hold your data in Cloud Storage."  
 
@@ -76,7 +83,7 @@ Setting up a Bucket is important if you are exporting raster data from GEE. Acco
 ![Alt text](Imgs/bucket.png)  
 
 ------------------------------------------------
-### CloudSQL/PostgresSQL Instance
+### CloudSQL/PostgresSQL Instances <a name="setup4"></a>
 
  [How to create instances](https://cloud.google.com/sql/docs/postgres/create-instance#console)
  Enable Cloud SQL Admin API
@@ -136,11 +143,13 @@ The tutorial I looked at also said to then do this code which will allow you to 
 1. Aquire Raster
     - Elevation data from NYC Open Data Enable *Google Earth Engine API*
     - Aquire Data from GEE 
+    - Export Data from GEE to Cloud Storage **see code... will add**
 
 ### Data Prep
 
 1. Rasters to SQL
 
+### Analysis
 
 
 ------------------------------------------------
