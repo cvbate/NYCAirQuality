@@ -4,7 +4,8 @@
 # Table of contents
 
 1. [Introduction](#introduction)
-1. [Setup](#Setup)
+
+1. [Setup](#setup)
     1. [Google Cloud Console: Creating a Project/Connecting to Github](#setup1)
     1. [Triggers - Cloud Build](#setup2)
     1. [Buckets for Google Cloud Storage](#setup3)
@@ -14,8 +15,6 @@
     1. [Data Aquisition](#data-aquisition)
     1. [Data Prep](#data-prep)
     1. [Analysis](#analysis)
-
-
 
 ## Introduction <a name="introduction"></a>
 
@@ -86,16 +85,15 @@ Setting up a Bucket is important if you are exporting raster data from GEE. Acco
 ![Alt text](Imgs/bucket.png)  
 
 ------------------------------------------------
+
 ### CloudSQL/PostgresSQL Instances <a name="setup4"></a>
 
  [How to create instances](https://cloud.google.com/sql/docs/postgres/create-instance#console)
- Enable Cloud SQL Admin API
- 
+ Enable Cloud SQL Admin API  
  `gcloud init`
 
 Create an Instance
- 
- Make sure Compute Engine API is activated in your poeject
+ Make sure Compute Engine API is activated in your poeject  
 
  A Create a PostgreSQL instance... Follow the steps from the link above!
 
@@ -103,23 +101,22 @@ In terminal run the following code:
     `sudo apt-get update`
     `sudo apt-get install postgresql`
 
-Go to your instances and click on the name of your instance to open the configuation panel. I named mine postgres. Scroll down to "Connect to this instance" and click on OPEN CLOUD SHELL. 
+Go to your instances and click on the name of your instance to open the configuation panel. I named mine postgres. Scroll down to "Connect to this instance" and click on OPEN CLOUD SHELL.  
 ![Alt text](Imgs/opencloudshell.png)  
 
 Upon clicking OPEN CLOUD SHELL something similar to this code will be automatically pasted into your terminal. Press enter to execute the code:  
 `gcloud sql connect postgres --user=postgres --quiet`  
 This is the code that you will run everytime you want to access your Database.
 
-
 The tutorial I looked at also said to then do this code which will allow you to access postgres just by typing psql in the Cloud Terminal, however when I tired to run it, it timed out before asking me for my password. It seems like the previous code will also work fine.
+
 `psql -h <publicIPAddress> -U postgres `
 
 ## Data
 
-**Vector Data**
+### Vector Data
 
 1. [City boundaries](https://data.gis.ny.gov/datasets/sharegisny::nys-civil-boundaries/explore?layer=4&location=40.695449%2C-73.623530%2C9.29) 
-
 
 1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data) [X]
 
@@ -129,13 +126,13 @@ The tutorial I looked at also said to then do this code which will allow you to 
 
 1. [Borough boundaries](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm) [x]
 
-**Raster Data**
+### Raster Data
 
-1. UV Aerosol Index (GEE) 
+1. UV Aerosol Index (GEE)
 
-1. CO Concentrations(GEE) 
+1. CO Concentrations(GEE)
 
-1. EVI (GEE) 
+1. EVI (GEE)
 
 1. [Elevation 1ft DEM](https://data.cityofnewyork.us/City-Government/1-foot-Digital-Elevation-Model-DEM-Integer-Raster/7kuu-zah7/about_data) [X]
 
@@ -150,23 +147,21 @@ The tutorial I looked at also said to then do this code which will allow you to 
     - Aquire Data from GEE 
     - Export Data from GEE to Cloud Storage **see code... will add**
 
-
-
 After exporting each of the images, from GEE. The bucket should look something like this. I moved all the Boundary SHP into a single folder. 
 ![Alt text](Imgs/bucket_exported.png)
+
 ### Data Prep
 
 1. Rasters to SQL
 
 ### Analysis
 
-
-
 #### Challenges
 
 Trying to export my raster data from GEE to Cloud Storage. The code was running fine and a file was being exported. However, when I downloaded the file and opened in in ArcPro(to check that there was in fact data), there were only two values.
 
 ------------------------------------------------
+
 ##### For Assignment 1 Due 04/12/24 5pm EST
 
 1. Find and Process Geospatial Data (10 Points)
@@ -174,20 +169,19 @@ Trying to export my raster data from GEE to Cloud Storage. The code was running 
     - Data Acquisition (5 Points): Successfully obtained and processed the necessary data to address their proposed queries.
     - Data Processing (5 Points): Shared steps on GitHub that includes additional software needs and detailed descriptions of their data attributes and sources.
 
-
 ##### For Assignment 2 Due 04/XX/24 5pm EST - Import Spatial Data & Normalize Tables 
 
 1. Import your data into PostgreSQL tables/schema created in Assignment 1. 
 
-1. Normalize your tables (1NF up to possibly 4NF, depending on your data) and explain the logic in your README. 
+1. Normalize your tables (1NF up to possibly 4NF, depending on your data) and explain the logic in your README.
 
     - Even if normalization is not required, explain why in your README. 
 
-#####  For Assignment 3 Due 04/25/24 5pm EST - Spatial Analyssi!
+##### For Assignment 3 Due 04/25/24 5pm EST - Spatial Analyssi!
 
 - SELECT the CO and Aerosol Index over the parks/vegetated areas and calculate the average concentration/ intensity over these areas. Do the same for Each neighborhood – see how those areas compare to pre/during/post values 
-- Use SQL to identify areas of income below a certain level and above a certain level 
-- Identify neighborhoods that have with languages other than English spoken at home over 25% (this number may change) 
-- See if there is a correlation between race, income, ethnicity, languages and concentrations of CO or aerosol 
+- Use SQL to identify areas of income below a certain level and above a certain level
+- Identify neighborhoods that have with languages other than English spoken at home over 25% (this number may change)
+- See if there is a correlation between race, income, ethnicity, languages and concentrations of CO or aerosol
 
 **Final Pushes to Github Due May3rd 5pm!!!**
