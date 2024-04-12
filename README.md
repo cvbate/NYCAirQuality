@@ -118,10 +118,10 @@ The tutorial I looked at also said to then do this code which will allow you to 
 
 1. [City boundaries](https://data.gis.ny.gov/datasets/sharegisny::nys-civil-boundaries/explore?layer=4&location=40.695449%2C-73.623530%2C9.29)  
 ![Alt text](Imgs/boundary_gee.png)  
-
-1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data)
+  
+1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data)  
 ![Alt text](Imgs/parks.png)  
-
+  
 1. [2020 US census data](https://data.cityofnewyork.us/City-Government/2020-Census-Tracts-Tabular/63ge-mke6/about_data)  
 ![Alt text](Imgs/census.png)
 
