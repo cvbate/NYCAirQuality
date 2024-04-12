@@ -117,43 +117,50 @@ The tutorial I looked at also said to then do this code which will allow you to 
 ### Vector Data
 
 1. [City boundaries](https://data.gis.ny.gov/datasets/sharegisny::nys-civil-boundaries/explore?layer=4&location=40.695449%2C-73.623530%2C9.29)  
-![Alt text](Imgs/boundary_gee.png)
+![Alt text](Imgs/boundary_gee.png)  
 
 1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data)
-![Alt text](Imgs/parks.png)
+![Alt text](Imgs/parks.png)  
 
-1. [2020 US census data](https://data.cityofnewyork.us/City-Government/2020-Census-Tracts-Tabular/63ge-mke6/about_data)
+1. [2020 US census data](https://data.cityofnewyork.us/City-Government/2020-Census-Tracts-Tabular/63ge-mke6/about_data)  
 ![Alt text](Imgs/census.png)
 
-1. [2020 Neighborhood Data](https://data.cityofnewyork.us/City-Government/2020-Neighborhood-Tabulation-Areas-NTAs-Tabular/9nt8-h7nd/about_data)
-![Alt text](Imgs/neighborhoods.png)
+1. [2020 Neighborhood Data](https://data.cityofnewyork.us/City-Government/2020-Neighborhood-Tabulation-Areas-NTAs-Tabular/9nt8-h7nd/about_data)  
+![Alt text](Imgs/neighborhoods.png)  
 
-1. [Borough boundaries](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm)
+1. [Borough boundaries](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm)  
 ![buroghs](Imgs/buroghbounds.png)
 
 ### Raster Data
 
 1. [UV Aerosol Index (GEE)](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_AER_AI)
-
-![pre](Imgs/Aerosol_pre.png)
-
-![durr](Imgs/Aerosol_durr.png)
-
+  
+Pre:  
+![pre](Imgs/Aerosol_pre.png)  
+  
+Durring:  
+![durr](Imgs/Aerosol_durr.png)  
+  
+Post  
 ![post](Imgs/Aerosol_post.png)
 
 
 1. [CO Concentrations(GEE)](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_CO)
 
+Pre:  
 ![pre - one year before](Imgs/co_pre.png)
-
+  
+Durring:  
 ![durring](Imgs/co_durr.png)
-
+  
+Post:  
 ![post 1 month later](Imgs/co_post.png)
 
 
 1. EVI (GEE)
     - Written by Clio Bate, adapted from a thread of [Stack Exchange](https://gis.stackexchange.com/questions/370978/time-series-chart-of-evi-landsat-8-for-a-single-pixel-in-gee
 with the help of Chat GPT to make visualizations)  
+
 ![Alt text](Imgs/evi_gee.png)
 
 1. [Elevation 1ft DEM](https://data.cityofnewyork.us/City-Government/1-foot-Digital-Elevation-Model-DEM-Integer-Raster/7kuu-zah7/about_data)  
