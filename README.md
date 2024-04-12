@@ -47,11 +47,20 @@ You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commi
 
 ### Triggers - Cloud Build
 
-In order to pull from your GitHub repository you will need to set up a trigger request. I will be uploading my vector datafiles on my computer and then pushing it to GitHub so I can pull it here.
+In order to pull from your GitHub repository you will need to set up a trigger request. I will be uploading my vector datafiles stored locally on my computer and then pushing it to GitHub so I can pull it here.  
+
 [Click here to look at the Cloud Build instructions](https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github?generation=2nd-gen)
 
 Once you have created the trigger
 ![Alt text](Imgs/gitpullrequest.png)
+
+### Buckets for Google Cloud Storage (Exporting Data from GEE to Cloud Storage)
+
+Setting up a Bucket is important if you are exporting raster data from GEE. According to Cloud Console, "Buckets are the basic containers that hold your data in Cloud Storage."  
+
+[To set up your bucket follow these instructions.](https://cloud.google.com/storage/docs/discover-object-storage-console)
+
+![Alt text](Imgs/bucket.png)
 
 
 ### CloudSQL/PostgresSQL Instance
@@ -65,25 +74,28 @@ Create an Instance
  
  Make sure Compute Engine API is activated in your poeject
 
- A Create a PostgreSQL instance
+ A Create a PostgreSQL instance... Follow the steps from the link above!
 
 In terminal run the following code: 
     `sudo apt-get update`
     `sudo apt-get install postgresql`
 
 Go to your instances and click on the name of your instance to open the configuation panel. I named mine postgres. Scroll down to "Connect to this instance" and click on OPEN CLOUD SHELL. 
-![Alt text](image.png)  
+![Alt text](Imgs/opencloudshell.png)  
 
 Upon clicking OPEN CLOUD SHELL something similar to this code will be automatically pasted into your terminal. Press enter to execute the code:  
 `gcloud sql connect postgres --user=postgres --quiet`  
 This is the code that you will run everytime you want to access your Database.
 
 
+The tutorial I looked at also said to then do this code which will allow you to access postgres just by typing psql in the Cloud Terminal, however when I tired to run it, it timed out before asking me for my password. It seems like the previous code will also work fine.
+`psql -h <publicIPAddress> -U postgres `
+
 ## Data
 
 **Vector Data**
 
-1. City boundaries 
+1. [City boundaries](https://data.gis.ny.gov/datasets/sharegisny::nys-civil-boundaries/explore?layer=4&location=40.695449%2C-73.623530%2C9.29) 
 
 1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data) [X]
 
@@ -99,7 +111,7 @@ This is the code that you will run everytime you want to access your Database.
 
 1. CO Concentrations(GEE) 
 
-1. NDVI- or other vegetation index of nyc (to get street trees(?))- I have scripts from a previous class I could adapt. 
+1. EVI (GEE) 
 
 1. [Elevation 1ft DEM](https://data.cityofnewyork.us/City-Government/1-foot-Digital-Elevation-Model-DEM-Integer-Raster/7kuu-zah7/about_data) [X]
 
@@ -109,7 +121,7 @@ This is the code that you will run everytime you want to access your Database.
 
 1. Download vector data from (NYC Open Data)[https://opendata.cityofnewyork.us/]
 1. Aquire Raster
-    - Elevation data from NYC Open Data
+    - Elevation data from NYC Open Data Enable *Google Earth Engine API*
     - Aquire Data from GEE 
 
 ### Data Prep
