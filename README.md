@@ -1,10 +1,17 @@
 # NYCAirQuality
+# Table of contents
+1. [Introduction](#introduction)
+2. [Setup](#Setup)
+    1. [Google Cloud Console: Creating a Project/Connecting to Github](#setup1)
+    2. [Triggers - Cloud Build](#setup2)
+3. [Data](#data)
 
-## Introduction
+
+## Introduction <a name="introduction"></a>
 
 ## Setup
 
-### Creating a Project and Connecting to GitHub
+### Creating a Project and Connecting to GitHub <<a name="introduction"></a>
 
 I wil be using Google Cloud Console for this project. There is a free trial available with $300 in free credits. First, you must create an account and connect your git repository. I followed the instructions from [this page to connect to my repository using Cloud Build](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github). I will also walk you through the process below:
 
@@ -49,7 +56,7 @@ You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commi
 
 ------------------------------------------------  
 
-#### Triggers - Cloud Build
+#### Triggers - Cloud Build <a name="setup2"></a>
 
 In order to pull from your GitHub repository you will need to set up a trigger request. I will be uploading my vector datafiles stored locally on my computer and then pushing it to GitHub so I can pull it here.  
 
