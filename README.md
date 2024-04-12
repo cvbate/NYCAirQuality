@@ -128,11 +128,13 @@ The tutorial I looked at also said to then do this code which will allow you to 
 
 ### Raster Data
 
-1. UV Aerosol Index (GEE)
+1. [UV Aerosol Index (GEE)](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_AER_AI)
 
-1. CO Concentrations(GEE)
+1. [CO Concentrations(GEE)](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_CO)
 
 1. EVI (GEE)
+    - Written by Clio Bate, adapted from a thread of [Stack Exchange](https://gis.stackexchange.com/questions/370978/time-series-chart-of-evi-landsat-8-for-a-single-pixel-in-gee
+with the help of Chat GPT to make visualizations)
 
 1. [Elevation 1ft DEM](https://data.cityofnewyork.us/City-Government/1-foot-Digital-Elevation-Model-DEM-Integer-Raster/7kuu-zah7/about_data) [X]
 
@@ -146,6 +148,30 @@ The tutorial I looked at also said to then do this code which will allow you to 
     - Elevation data from NYC Open Data Enable *Google Earth Engine API*
     - Aquire Data from GEE 
     - Export Data from GEE to Cloud Storage **see code... will add**
+    ```
+    // Export the image to Cloud Storage. 
+    Export.image.toCloudStorage({
+        image: evi_exp,
+        description: 'evi_export',
+        bucket: 'gee_data_nyc',
+        fileNamePrefix: 'evi_nyc',
+        crs: 'EPSG:4326',
+        scale: 30,
+        region: geometryrec
+    });
+    
+    ```
+
+
+// Export a SHP file to Cloud Storage.
+Export.table.toCloudStorage({
+  collection: nycBoundary,
+  description:'nycboundary_shapefile',
+  bucket: 'gee_data_nyc',
+  fileNamePrefix: 'nycboundary',
+  fileFormat: 'SHP'
+});
+
 
 After exporting each of the images, from GEE. The bucket should look something like this. I moved all the Boundary SHP into a single folder. 
 ![Alt text](Imgs/bucket_exported.png)
