@@ -27,7 +27,7 @@
 
 ## Setup
 
-### Creating a Project and Connecting to GitHub <<a name="introduction"></a>
+### Creating a Project and Connecting to GitHub <a name="introduction"></a>
 
 I wil be using Google Cloud Console for this project. There is a free trial available with $300 in free credits. First, you must create an account and connect your git repository. I followed the instructions from [this page to connect to my repository using Cloud Build](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github). I will also walk you through the process below:
 
