@@ -1,3 +1,13 @@
+/*
+
+-- Clio V Bate
+-- Created 04/15/2024
+-- Google Cloud Console 
+-- Postgres 16
+
+*/ 
+
+-- Before starting......
 -- Connect to database in SQL Shell
 CREATE DATABASE "NYCAirQuality";
 
@@ -6,25 +16,17 @@ CREATE DATABASE "NYCAirQuality";
 CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION IF NOT EXISTS postgis_raster;
 ------------------------------------------------------------------------
--- Google Cloud Console 
-
--- Vector
--- In CloudShell/Terminal
--- navigate to where data is stored
-cd NYCAirQuality/DATA_REPROJECTED
-
+-- Convert shp to sql file using shp2pgsql. This data is stored "locally" in a cloned GitRepository in Cloud Console. In CloudShell/Terminal navigate to where data is stored
 shp2pgsql -s 4326 -I buroughbounds.shp public.buroughbounds > buroughbounds.sql
 shp2pgsql -s 4326 -I cencustracts.shp public.cencustracts > cencustracts.sql
 shp2pgsql -s 4326 -I neighborshoods.shp public.neighborshoods > neighborshoods.sql
 shp2pgsql -s 4326 -I parks.shp public.parks > parks.sql
 
+------------------------------------------------------------------------
 -- Raster/ One nyc bounds shp
--- for connecting to cloud storage to convert files to .sql
--- first navigate to the folder you want to hold your data!
--- cvalentinebate@cloudshell:~/rast (nycairquality)$ 
-
--- Transfer to "local" directory
-
+-- Transfer to "local" directory using gsutil UTI to connect to Cloud Storage
+-- nyc boundary vector
+gsutil cp gs://gee_data_nyc/nycboundary/nycboundary.shp nycboundary.shp
 -- aerosol
 gsutil cp gs://gee_data_nyc/aerosol_durr.tif aerosol_durr.tif
 gsutil cp gs://gee_data_nyc/aerosol_post.tif aerosol_post.tif 
@@ -35,23 +37,26 @@ gsutil cp gs://gee_data_nyc/co_post.tif co_post.tif
 gsutil cp gs://gee_data_nyc/co_pre.tif co_pre.tif
 -- ndvi
 gsutil cp gs://gee_data_nyc/evi_nyc.tif evi_nyc.tif
-/* --example output:
 
-Copying gs://gee_data_nyc/aerosol_durr.tif...
- / [1 files][  1.9 MiB/  1.9 MiB]   
- 
- */
- 
+-- potential issue with this?
+/*
+Unable to open nycboundary.shx or nycboundary.SHX. Set SHAPE_RESTORE_SHX config option to YES to restore or create it.
+nycboundary.shp: dbf file (.dbf) can not be opened
+-- however, its in the dir(?)
+*/
 
+-- Convert .shp to .sql file using shp2pgsql
+-- vector file
+shp2pgsql -s 4326 -I nycboundary.shp public.nycboundary > nycboundary.sql 
+
+-- Convert .tif to .sql file using raster2pgsql
+-- raster aerosol
 raster2pgsql -s 4326 -I -C -M aerosol_durr.tif public.aerosol_durr_rast > aerosol_durr.sql
 raster2pgsql -s 4326 -I -C -M aerosol_post.tif public.aerosol_post_rast > aerosol_post.sql
 raster2pgsql -s 4326 -I -C -M aerosol_pre.tif public.aerosol_pre_rast > aerosol_pre.sql
-
+-- co
 raster2pgsql -s 4326 -I -C -M co_durr.tif public.co_durr_rast > co_durr.sql
 raster2pgsql -s 4326 -I -C -M co_post.tif public.co_post_rast > co_post.sql
 raster2pgsql -s 4326 -I -C -M co_pre.tif public.co_pre_rast > co_pre.sql
-
+-- evi
 raster2pgsql -s 4326 -I -C -M evi_nyc.tif public.evi_nyc_rast > evi_nyc.sql
-
--- Processing 1/1: aerosol_durr.tif
-

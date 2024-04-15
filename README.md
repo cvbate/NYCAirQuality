@@ -118,16 +118,16 @@ The tutorial I looked at also said to then do this code which will allow you to 
 Next, install postGIS in the bin of postgresql
 
 ```console
-cvalentinebate@cloudshell:/usr/lib/postgresql/16/bin (nycairquality)$ sudo apt install postgis
+<email>>@cloudshell:/usr/lib/postgresql/16/bin (nycairquality)$ sudo apt install postgis
 ```
 
 #### For data stored in cloud storage
 
 1. Make a new directory, and navigate to that dir.
-1. Transfer file from cloud storage, to local dir
+1. Transfer file from cloud storage, to local dir using the following code:
 
 ```console
-cvalentinebate@cloudshell:~/rast (nycairquality)$ gsutil cp <gsuil URI> <filename>`
+<email>>@cloudshell:~/rast (nycairquality)$ gsutil cp <gsuil URI> <filename>`
 ```
 
 1. use shp2pgsql/rast2pgsql to convert files from .tiff/.shp to .sql
@@ -138,9 +138,27 @@ examples for raster and vector files
 raster2pgsql -s 4326 -I -C -M aerosol_durr.tif public.aerosol_durr_rast > aerosol_durr.sql
 ```
 
+example output:  
+
+```console
+Copying gs://gee_data_nyc/aerosol_durr.tif...
+ / [1 files][  1.9 MiB/  1.9 MiB]   
+```  
+
 ```console
 shp2pgsql -s 4326 -I buroughbounds.shp public.buroughbounds > buroughbounds.sql
 ```
+  
+example output:  
+
+```console
+Processing 1/1: aerosol_durr.tif
+```
+
+#### For Data stored "locally" in CloudShell linux system
+
+1. navigate to the dir with the data
+1. Use raster2pgsql or shp2pgsql to convert data to a .sql file. See code example in the previous section.
 
 #### For data stored in cloned GitHub Repo 
 
@@ -283,7 +301,7 @@ to:
 After I creating the instance for PostgreSQL and creating the database, I tried to create an extension for POSTGIS and rastergis in my database. It did not return an error however, when I tried to run the shp2pgsql I got an error saying it was an unknown command. This was because PostGIS was not actually installed. I had to navigate to the bin where postgres was installed and install the extension.  
 
 ```console
-cvalentinebate@cloudshell:/usr/lib/postgresql/16/bin (nycairquality)$ sudo apt install postgis
+<email>>@cloudshell:/usr/lib/postgresql/16/bin (nycairquality)$ sudo apt install postgis
 ```
 
 ------------------------------------------------
