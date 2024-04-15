@@ -53,7 +53,7 @@ I wil be using Google Cloud Console for this project. There is a free trial avai
     Complete steps 1-7 under "Connecting a GitHub host"  
     <details>
         <summary>Connecting To GitHubHost ex. images</summary>
-        IMG src="blob:https://dev.azure.com/..." alt="Imgs/ConnectingToGitHubHost.png"/>
+        <IMG src="blob:https://dev.azure.com/..." alt="Imgs/ConnectingToGitHubHost.png"/>
         After the previous steps, your repo page should look something like this:  
         ![Alt text](Imgs/repo_ex_1.png)
     </details>
