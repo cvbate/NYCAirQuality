@@ -10,7 +10,7 @@
     1. [Triggers - Cloud Build](#setup2)
     1. [Buckets for Google Cloud Storage](#setup3)
     1. [Setting Up Instances](#setup4)
-    1. [Access Cloud Storage and](#setup5)
+    1. [Access Cloud Storage & Convert files to .sql](#setup5)
         - gsutil URI
         - raster2pgsql
         - shp2pgsql
