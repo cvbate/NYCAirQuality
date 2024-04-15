@@ -53,9 +53,9 @@ I wil be using Google Cloud Console for this project. There is a free trial avai
     Complete steps 1-7 under "Connecting a GitHub host"  
     <details>
         <summary>Connecting To GitHubHost ex. images</summary>
-    ![Alt text](Imgs/ConnectingToGitHubHost.png)  
-    After the previous steps, your repo page should look something like this:  
-    ![Alt text](Imgs/repo_ex_1.png)
+        ![Alt text](Imgs/ConnectingToGitHubHost.png)  
+        After the previous steps, your repo page should look something like this:  
+        ![Alt text](Imgs/repo_ex_1.png)
     <details>
 s
 1. Here we will follow the steps under ["Connecting a GitHub repository"](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#connecting_a_github_repository_2)
