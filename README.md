@@ -19,7 +19,7 @@
     1. [Raster](#raster-data)
 1. [Methodology](#methodology)
     1. [Data Aquisition](#data-aquisition)
-    1. [Scripts](#scripts)
+    1. [GEE Scripts](#scripts)
     1. [Data Prep](#data-prep)
     1. [Analysis](#analysis)
 
@@ -278,7 +278,13 @@ After exporting each of the images, from GEE. The bucket should look something l
 
 ### Data Prep
 
-1. Rasters to SQL
+1. After donwloading the data, convert vectors and Rasters to SQL see [Access Cloud Storage & Convert files to .sql](#setup5) for more information on the steps.
+
+1. Import the data into your database
+
+1. Normalize/Clean the data
+
+Does this data need to be normalized?
 
 ### Analysis
 
@@ -292,13 +298,35 @@ Trying to export my raster data from GEE to Cloud Storage. The code was running 
 I had to go back into GEE and change the code from: 
 
 ```js
+//check projection/crs
+var projection = evi_exp.projection().getInfo();
+print(projection);
 
+Export.image.toCloudStorage({
+  image: evi_exp,
+  description: 'evi_export',
+  bucket: 'gee_data_nyc',
+  fileNamePrefix: 'evi_nyc', 
+  crs: projection.transform
+  region: nycboundary
 ```
 
 to:  
 
 ```js
+// Create a geometry representing an export region.
+var geometryrec = ee.Geometry.Rectangle(-74.25884568811979, 40.476585245386836, -73.70023628178262, 40.917637783354124);
+Map.addLayer(geometryrec); // check validity of geom
 
+Export.image.toCloudStorage({
+  image: evi_exp,
+  description: 'evi_export',
+  bucket: 'gee_data_nyc',
+  fileNamePrefix: 'evi_nyc', 
+  crs: 'EPSG:4326',
+  scale: 30,
+  region: geometryrec
+});
 ```  
   
 After I creating the instance for PostgreSQL and creating the database, I tried to create an extension for POSTGIS and rastergis in my database. It did not return an error however, when I tried to run the shp2pgsql I got an error saying it was an unknown command. This was because PostGIS was not actually installed. I had to navigate to the bin where postgres was installed and install the extension.  
