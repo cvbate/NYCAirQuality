@@ -15,8 +15,8 @@
         - raster2pgsql
         - shp2pgsql
 1. [Data](#data)
-    1.[Vector](#vector-data)
-    1.[Raster](#raster-data)
+        1.[Vector](#vector-data)
+        1.[Raster](#raster-data)
 1. [Methodology](#methodology)
     1. [Data Aquisition](#data-aquisition)
     1. [Scripts](#scripts)
