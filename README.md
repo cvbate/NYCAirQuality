@@ -6,10 +6,14 @@
 1. [Introduction](#introduction)
 
 1. [Setup](#setup)
-    1. [Google Cloud Console: Creating a Project/Connecting to Github](#setup1)
+    1. [Google Cloud Console: Creating a Project & Connecting to Github](#setup1)
     1. [Triggers - Cloud Build](#setup2)
     1. [Buckets for Google Cloud Storage](#setup3)
     1. [Setting Up Instances](#setup4)
+    1. [Access Cloud Storage and](#setup5)
+        - gsutil URI
+        - raster2pgsql
+        - shp2pgsql
 1. [Data](#data)
     1.[Vector](#vector-data)
     1.[Raster](#raster-data)
@@ -91,7 +95,7 @@ Setting up a Bucket is important if you are exporting raster data from GEE. Acco
 
 ### CloudSQL/PostgresSQL Instances <a name="setup4"></a>
 
- [How to create instances](https://cloud.google.com/sql/docs/postgres/create-instance#console)
+ [How to create instances](https://cloud.google.com/sql/docs/postgres/create-instance#console)  
  Enable Cloud SQL Admin API  
  `gcloud init`
 
@@ -101,14 +105,15 @@ Create an Instance
  A Create a PostgreSQL instance... Follow the steps from the link above!
 
 In terminal run the following code:  
-    `sudo apt-get update`
+    `sudo apt-get update`  
     `sudo apt-get install postgresql`
 
 Go to your instances and click on the name of your instance to open the configuation panel. I named mine postgres. Scroll down to "Connect to this instance" and click on OPEN CLOUD SHELL.  
 ![Alt text](Imgs/opencloudshell.png)  
 
 Upon clicking OPEN CLOUD SHELL something similar to this code will be automatically pasted into your terminal. Press enter to execute the code:  
-`gcloud sql connect postgres --user=postgres --quiet`  
+    `gcloud sql connect postgres --user=postgres --quiet`  
+  
 This is the code that you will run everytime you want to access your Database.
 
 The tutorial I looked at also said to then do this code which will allow you to access postgres just by typing psql in the Cloud Terminal, however when I tired to run it, it timed out before asking me for my password. It seems like the previous code will also work fine.
@@ -121,7 +126,7 @@ Next, install postGIS in the bin of postgresql
 <email>>@cloudshell:/usr/lib/postgresql/16/bin (nycairquality)$ sudo apt install postgis
 ```
 
-#### For data stored in cloud storage
+#### Access shp/tif files in Cloud Storage and save "locally" <a name="setup5"></a>
 
 1. Make a new directory, and navigate to that dir.
 1. Transfer file from cloud storage, to local dir using the following code:
@@ -132,7 +137,7 @@ Next, install postGIS in the bin of postgresql
 
 1. use shp2pgsql/rast2pgsql to convert files from .tiff/.shp to .sql
 
-examples for raster and vector files 
+examples for raster and vector files  
 
 ```console
 raster2pgsql -s 4326 -I -C -M aerosol_durr.tif public.aerosol_durr_rast > aerosol_durr.sql
@@ -159,8 +164,6 @@ Processing 1/1: aerosol_durr.tif
 
 1. navigate to the dir with the data
 1. Use raster2pgsql or shp2pgsql to convert data to a .sql file. See code example in the previous section.
-
-#### For data stored in cloned GitHub Repo 
 
 ## Data
 
