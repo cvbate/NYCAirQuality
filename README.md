@@ -100,7 +100,7 @@ Create an Instance
 
  A Create a PostgreSQL instance... Follow the steps from the link above!
 
-In terminal run the following code: 
+In terminal run the following code:  
     `sudo apt-get update`
     `sudo apt-get install postgresql`
 
@@ -113,7 +113,36 @@ This is the code that you will run everytime you want to access your Database.
 
 The tutorial I looked at also said to then do this code which will allow you to access postgres just by typing psql in the Cloud Terminal, however when I tired to run it, it timed out before asking me for my password. It seems like the previous code will also work fine.
 
-`psql -h <publicIPAddress> -U postgres `
+`psql -h <publicIPAddress> -U postgres`
+
+Next, install postGIS in the bin of postgresql
+
+```console
+cvalentinebate@cloudshell:/usr/lib/postgresql/16/bin (nycairquality)$ sudo apt install postgis
+```
+
+#### For data stored in cloud storage
+
+1. Make a new directory, and navigate to that dir.
+1. Transfer file from cloud storage, to local dir
+
+```console
+cvalentinebate@cloudshell:~/rast (nycairquality)$ gsutil cp <gsuil URI> <filename>`
+```
+
+1. use shp2pgsql/rast2pgsql to convert files from .tiff/.shp to .sql
+
+examples for raster and vector files 
+
+```console
+raster2pgsql -s 4326 -I -C -M aerosol_durr.tif public.aerosol_durr_rast > aerosol_durr.sql
+```
+
+```console
+shp2pgsql -s 4326 -I buroughbounds.shp public.buroughbounds > buroughbounds.sql
+```
+
+#### For data stored in cloned GitHub Repo 
 
 ## Data
 
@@ -239,6 +268,23 @@ After exporting each of the images, from GEE. The bucket should look something l
 #### Challenges
 
 Trying to export my raster data from GEE to Cloud Storage. The code was running fine and a file was being exported. However, when I downloaded the file and opened in in ArcPro(to check that there was in fact data), there were only two values.
+I had to go back into GEE and change the code from: 
+
+```js
+
+```
+
+to:  
+
+```js
+
+```  
+  
+After I creating the instance for PostgreSQL and creating the database, I tried to create an extension for POSTGIS and rastergis in my database. It did not return an error however, when I tried to run the shp2pgsql I got an error saying it was an unknown command. This was because PostGIS was not actually installed. I had to navigate to the bin where postgres was installed and install the extension.  
+
+```console
+cvalentinebate@cloudshell:/usr/lib/postgresql/16/bin (nycairquality)$ sudo apt install postgis
+```
 
 ------------------------------------------------
 
