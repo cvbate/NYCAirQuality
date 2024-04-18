@@ -22,6 +22,7 @@
     1. [GEE Scripts](#scripts)
     1. [Data Prep](#data-prep)
     1. [Analysis](#analysis)
+1. 
 
 ## Introduction <a name="introduction"></a>
 
@@ -281,6 +282,18 @@ After exporting each of the images, from GEE. The bucket should look something l
 1. After donwloading the data, convert vectors and Rasters to SQL see [Access Cloud Storage & Convert files to .sql](#setup5) for more information on the steps.
 
 1. Import the data into your database
+    1. connect to your database
+    ```console
+    gcloud sql connect postgres --user=postgres --quiet`  
+    ```
+    1. once connected to your data base paste the path to your data
+    ```console
+    \cd /home/cvalentinebate/rast
+    ```
+    1. import your sql file
+    ```console
+    \i <filename.sql>
+    ```
 
 1. Normalize/Clean the data
 
@@ -292,7 +305,7 @@ Does this data need to be normalized?
 ### Next Steps
 
 
-#### Challenges
+#### Troubleshooing
 
 Trying to export my raster data from GEE to Cloud Storage. The code was running fine and a file was being exported. However, when I downloaded the file and opened in in ArcPro(to check that there was in fact data), there were only two values.
 I had to go back into GEE and change the code from: 
@@ -329,11 +342,44 @@ Export.image.toCloudStorage({
 });
 ```  
   
+
 After I creating the instance for PostgreSQL and creating the database, I tried to create an extension for POSTGIS and rastergis in my database. It did not return an error however, when I tried to run the shp2pgsql I got an error saying it was an unknown command. This was because PostGIS was not actually installed. I had to navigate to the bin where postgres was installed and install the extension.  
 
 ```console
 <email>>@cloudshell:/usr/lib/postgresql/16/bin (nycairquality)$ sudo apt install postgis
 ```
+
+When trying to import data into the postgres console
+```console
+psql -h 34.118.179.17 -U postgres NYCAirQuality < evi_nyc.sql
+psql: error: connection to server at "34.118.179.17", port 5432 failed: Connection timed out
+        Is the server running on that host and accepting TCP/IP connections?
+```
+
+
+I checked to see the status of the instance:  
+```console
+service postgresql status
+16/main (port 5432): down
+```
+It was down, so I restarted it and tried again:
+```console
+sudo service postgresql restart
+Restarting PostgreSQL 16 database server: main.
+```
+I rechecked the status and now it says its online, but I am still getting the same psql error.
+
+To check the IP address of cloud shell session run the following code:
+```console
+curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'
+```
+or for a simpler command....
+
+```console
+curl ifconfig.co
+```
+
+The Public and Private IP address for your cloud shell changes each time a new container is started- aka everytime you start a new session.
 
 ------------------------------------------------
 

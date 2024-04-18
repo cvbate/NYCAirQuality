@@ -75,3 +75,5 @@ raster2pgsql -s 4326 -I -C -M evi_nyc.tif public.evi_nyc_rast > evi_nyc.sql
 https://cloud.google.com/alloydb/docs/import-sql-file
 
 psql -h 34.118.179.17 -U postgres NYCFloding < evi_nyc.sql
+
+
