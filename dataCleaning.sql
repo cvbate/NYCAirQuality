@@ -9,7 +9,7 @@
 
 -- Before starting......
 -- Connect to database in SQL Shell
--- gcloud sql connect postgres --user=postgres --quiet
+-- gcloud sql connect postgres --user=postgres --database=NYCAirQuality --quiet
 
 
 -- a lot of the tables contain extraneous information, so to simplify things 
@@ -54,11 +54,24 @@ FROM neighborshoods;
 
 ------------------------------------------------------------
 
-CREATE TABLE cencustracts_clean(
-
-    
+CREATE TABLE socialVul_clean(
+gid int PRIMARY KEY,
+ep_hburd numeric, -- cost burdened housing units
+ep_limeng numeric, -- limited eng
+epl_pov150 numeric, -- percent under poverty line
+ep_minrty numeric,  --percent minority
+epl_nohsdp numeric, -- persons over 25 with no hsd
+rpl_theme1 numeric, -- percentile ranking of soc. econ. status
+shape__are numeric,
+shape__len numeric,
+geom GEOMETRY    
 );
 
+INSERT INTO socialVul_clean(gid,ep_hburd, ep_limeng, epl_pov150, ep_minrty, epl_nohsdp, rpl_theme1, shape__are, shape__len, geom)
+SELECT gid,ep_hburd, ep_limeng, epl_pov150, ep_minrty, epl_nohsdp, rpl_theme1, shape__are, shape__len, geom
+FROM cdc_social_vuln_20_project;
+
+-----------------------------------------
 CREATE TABLE nycboundary_clean(
 
     

@@ -29,6 +29,9 @@
 
 ## Introduction <a name="introduction"></a>
 
+-- what is the project about and why
+-- what are the goals
+
 ## Setup
 
 ### Creating a Project and Connecting to GitHub <a name="introduction"></a>
@@ -315,9 +318,17 @@ After exporting each of the images, from GEE. The bucket should look something l
 
 1. Normalize
 
-Luckily for me, none of my data needs to be normalized. I aquired it from NYC Open Data, and from the census bureou wich are managed by city/ the federal government and have good database management practices in place. All of my tables *list tables* are already in 4NF because:
+Luckily for me, none of my data needs to be normalized. I aquired it from NYC Open Data, and from the census bureou wich are managed by city/ the federal government and have good database management practices in place. All of my vector tables 
+- buroughbounds
+- CDC_Social_Vuln_20_project
+- neighborshoods
+- parks
+are already in 4NF because:
 
-- *list 4NF qulifications*
+- 1NF Each cell contians **atomic values** aka there is only one value stored in a single cell of the table(no multiple values).
+- 2NF Satisfies 1NF and there are **no partial dependencies** (there are no partial primary keys/ the data doesn't depend on mutiple keys for unique identification. In the case for all of my talbes, there is a gid that serves as the unique primary key)
+- 3NF: Satisfies 2NF and there are **no transitive dependencies** among non-prime attributes, each non-key attribute is directly dependent on the primary key (gid).
+- 4NF: Satisfies 3NF and there are **no multi-valued dependencies**. This means that there are no columsn that are unrelated but both depend on the same primary key.
 
 ### Analysis
 
@@ -343,6 +354,7 @@ Export.image.toCloudStorage({
   fileNamePrefix: 'evi_nyc', 
   crs: projection.transform
   region: nycboundary
+  })
 ```
 
 to:  
