@@ -22,7 +22,7 @@
     1. [GEE Scripts](#scripts)
     1. [Data Prep](#data-prep)
     1. [Analysis](#analysis)
-1. 
+1. [Troubleshooting](#troubleshooing)
 
 ## Introduction <a name="introduction"></a>
 
@@ -190,14 +190,15 @@ Processing 1/1: aerosol_durr.tif
 ### Raster Data
 
 1. [Sentinel-5P NRTI AER AI: Near Real-Time UV Aerosol Index ](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_AER_AI)  
-Sentinel 5 Data. 
+Sentinel 5 Data.  
 "This dataset provides near real-time high-resolution imagery of the UV Aerosol Index (UVAI), also called the Absorbing Aerosol Index (AAI).
 
 The AAI is based on wavelength-dependent changes in Rayleigh scattering in the UV spectral range for a pair of wavelengths. The difference between observed and modelled reflectance results in the AAI. When the AAI is positive, it indicates the presence of UV-absorbing aerosols like dust and smoke. It is useful for tracking the evolution of episodic aerosol plumes from dust outbreaks, volcanic ash, and biomass burning.
 
 The wavelengths used have very low ozone absorption, so unlike aerosol optical thickness measurements, AAI can be calculated in the presence of clouds. Daily global coverage is therefore possible.
 
-For this L3 AER_AI product, the absorbing_aerosol_index is calculated with a pair of measurements at the 354 nm and 388 nm wavelengths."   
+For this L3 AER_AI product, the absorbing_aerosol_index is calculated with a pair of measurements at the 354 nm and 388 nm wavelengths."
+
 - Above text from GEE catalog page.
   
 Pre(one year prior):  
@@ -248,7 +249,8 @@ with the help of Chat GPT to make visualizations)
         - See x and x file for source code.
         - Enable the Google Earth Engine API in Console.
     - Export Data from GEE to Cloud Storage
-    ```
+
+    ```js
     // Export the image to Cloud Storage. 
     Export.image.toCloudStorage({
         image: evi_exp, // name of your feature/image
@@ -267,7 +269,7 @@ with the help of Chat GPT to make visualizations)
         bucket: 'gee_data_nyc',
         fileNamePrefix: 'nycboundary',
         fileFormat: 'SHP'
-});
+    });
     ```
 
 After exporting each of the images, from GEE. The bucket should look something like this. I moved all the Boundary SHP into a single folder.  
@@ -285,14 +287,19 @@ After exporting each of the images, from GEE. The bucket should look something l
 
 1. Import the data into your database
     1. connect to your instance and database
+
     ```console
     gcloud sql connect postgres --user=postgres --database NYCAirQuality --quiet`  
     ```
+
     1. once connected to your data base paste the path to your data
+
     ```console
     \cd /home/cvalentinebate/rast
     ```
+
     1. import your sql file
+
     ```console
     \i <filename.sql>
     ```
@@ -309,6 +316,7 @@ Does this data need to be normalized?
 
 #### Troubleshooing
 
+1. GEE to Cloud Storage
 Trying to export my raster data from GEE to Cloud Storage. The code was running fine and a file was being exported. However, when I downloaded the file and opened in in ArcPro(to check that there was in fact data), there were only two values.
 I had to go back into GEE and change the code from: 
 
@@ -344,43 +352,64 @@ Export.image.toCloudStorage({
 });
 ```  
   
+1. shp2pgsql command not recognized
 After I creating the instance for PostgreSQL and creating the database, I tried to create an extension for POSTGIS and rastergis in my database. It did not return an error however, when I tried to run the shp2pgsql I got an error saying it was an unknown command. This was because PostGIS was not actually installed. I had to navigate to the bin where postgres was installed and install the extension.  
 
 ```console
 <email>>@cloudshell:/usr/lib/postgresql/16/bin (nycairquality)$ sudo apt install postgis
 ```
 
-When trying to import data into the postgres console
+Note: later on I when I had to go back and convert a differnt shapefile cause there was an issue with the original data, I had to reinstall postgis AGAIN because I was getting the same error.
+
+1. Importing .sql files into my NYCAirQuality postgres database
+
+When trying to import data into the postgres, I orignally tried this command: however it failed.
+
 ```console
-psql -h 34.118.179.17 -U postgres NYCAirQuality < evi_nyc.sql
-psql: error: connection to server at "34.118.179.17", port 5432 failed: Connection timed out
+psql -h <public ip address for instance> -U postgres NYCAirQuality < evi_nyc.sql
+psql: error: connection to server at <public ip address for instance>, port 5432 failed: Connection timed out
         Is the server running on that host and accepting TCP/IP connections?
 ```
 
-
 I checked to see the status of the instance:  
+
 ```console
 service postgresql status
 16/main (port 5432): down
 ```
+
 It was down, so I restarted it and tried again:
+
 ```console
 sudo service postgresql restart
 Restarting PostgreSQL 16 database server: main.
 ```
+
 I rechecked the status and now it says its online, but I am still getting the same psql error.
 
 To check the IP address of cloud shell session run the following code:
+
 ```console
 curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'
 ```
+
 or for a simpler command....
 
 ```console
 curl ifconfig.co
 ```
 
-The Public and Private IP address for your cloud shell changes each time a new container is started- aka everytime you start a new session.
+None of this worked.... however what did was was:
+
+```console
+gcloud sql connect postgres --user=postgres --database=nycairquality --quiet` 
+
+# set the path to your data - note nothing will happen
+\cd /home/cvalentinebate/rast
+
+# import your sql file
+\i aerosol_durr.sql  
+```
 
 ------------------------------------------------
 
