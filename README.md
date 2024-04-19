@@ -21,6 +21,9 @@
     1. [Data Aquisition](#data-aquisition)
     1. [GEE Scripts](#scripts)
     1. [Data Prep](#data-prep)
+        - move setup5 here (gsutil URI,raster2pgsql, shp2pgsql)
+        - data cleaning
+        - normalization
     1. [Analysis](#analysis)
 1. [Troubleshooting](#troubleshooing)
 
@@ -210,11 +213,11 @@ Durring:
 Post (one month after):  
 ![post](Imgs/Aerosol_post.png)
 
-
 1. [Sentinel-5P NRTI CO: Near Real-Time Carbon Monoxide](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_CO)
 " This dataset provides near real-time high-resolution imagery of CO concentrations.
 
 Carbon monoxide (CO) is an important atmospheric trace gas for understanding tropospheric chemistry. In certain urban areas, it is a major atmospheric pollutant. Main sources of CO are combustion of fossil fuels, biomass burning, and atmospheric oxidation of methane and other hydrocarbons. Whereas fossil fuel combustion is the main source of CO at northern mid-latitudes, the oxidation of isoprene and biomass burning play an important role in the tropics. TROPOMI on the Sentinel 5 Precursor (S5P) satellite observes the CO global abundance exploiting clear-sky and cloudy-sky Earth radiance measurements in the 2.3 μm spectral range of the shortwave infrared (SWIR) part of the solar spectrum. TROPOMI clear sky observations provide CO total columns with sensitivity to the tropospheric boundary layer. For cloudy atmospheres, the column sensitivity changes according to the light path. More information."
+
 - Above text from GEE catalog page.
 
 Pre(one year prior):  
@@ -283,6 +286,8 @@ After exporting each of the images, from GEE. The bucket should look something l
 
 ### Data Prep
 
+1. Import any data from buckets to "local" cloud shell directory [](#setup5)
+
 1. After donwloading the data, convert vectors and Rasters to SQL see [Access Cloud Storage & Convert files to .sql](#setup5) for more information on the steps.
 
 1. Import the data into your database
@@ -304,9 +309,15 @@ After exporting each of the images, from GEE. The bucket should look something l
     \i <filename.sql>
     ```
 
-1. Normalize/Clean the data
+1. Clean the tables by populating new tables with relevent columns
 
-Does this data need to be normalized?
+ Because many of my tables have extraneous columns now relevant to my project, to make my data more straightforward, I will create new tables and populate them with only the columns necesary. It is important not to just drop the columns from the orignal table because you never know if a column will become relevant to your analysis at a later time, and its best to practice to keep a copy of the unalterned, orignal data.
+
+1. Normalize
+
+Luckily for me, none of my data needs to be normalized. I aquired it from NYC Open Data, and from the census bureou wich are managed by city/ the federal government and have good database management practices in place. All of my tables *list tables* are already in 4NF because:
+
+- *list 4NF qulifications*
 
 ### Analysis
 
