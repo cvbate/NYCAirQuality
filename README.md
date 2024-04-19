@@ -53,7 +53,7 @@ I wil be using Google Cloud Console for this project. There is a free trial avai
     You wil need to set up a basic congig file that tells Cloud Build how to build/host your repository. There are a couple of differnt builds available through Cloud Builder. I chose to use Docker because I have some prior experience. The only required argument in the build file is the `name` argument. Here is a basic config.yaml file(but there are many arguments available):  
     ![Alt text](Imgs/cloudbuild.png)  
     [Click here to read about Build Config file schema.](https://cloud.google.com/build/docs/build-config-file-schema)  
-    [Click here to read about how to create a basic config file.](https://cloud.google.com/build/docs/configuring-builds/create-basic-configuration)
+    [Click here to read about how to create a basic config file.](https://cloud.google.com/build/docs/configuring-builds/create-basic-configuration)  
     [Click here to read an overview of Cloud Build](https://cloud.google.com/build/docs/overview#:~:text=Cloud%20Build%20can%20import%20source,protect%20your%20software%20supply%20chain.)
 
 1. Here we will follow the steps under ["Connecting to a GitHub host"](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#connecting_a_github_host)
@@ -197,6 +197,7 @@ Processing 1/1: aerosol_durr.tif
 
 1. [Sentinel-5P NRTI AER AI: Near Real-Time UV Aerosol Index ](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_AER_AI)  
 Sentinel 5 Data.  
+
 "This dataset provides near real-time high-resolution imagery of the UV Aerosol Index (UVAI), also called the Absorbing Aerosol Index (AAI).
 
 The AAI is based on wavelength-dependent changes in Rayleigh scattering in the UV spectral range for a pair of wavelengths. The difference between observed and modelled reflectance results in the AAI. When the AAI is positive, it indicates the presence of UV-absorbing aerosols like dust and smoke. It is useful for tracking the evolution of episodic aerosol plumes from dust outbreaks, volcanic ash, and biomass burning.
@@ -246,7 +247,7 @@ with the help of Chat GPT to make visualizations)
 
 ### Data Aquisition
 
-1. Download vector data from (NYC Open Data)[https://opendata.cityofnewyork.us/] and save locally on computer.
+1. Download vector data from [NYC Open Data](https://opendata.cityofnewyork.us/) and save locally on computer.
 1. Reproject all the data to ensure its in a Geospatial Cordinate Sytesm EPSG:4326 and then upload to GitHub repository. All vector data (exept for NYCBoundary) is located in Data_Reprojected.
 1. The NYC Boundary Data  was loaded into GEE, only the NYC bounary was selected to be use as a boundary for my raster data and saved as a new variable. Then it was exported to Cloud storage from GEE using the following code:
 1. Aquire Raster
@@ -288,35 +289,38 @@ After exporting each of the images, from GEE. The bucket should look something l
 [Link to GEE EVI Script](https://code.earthengine.google.com/e3d6c85ddccae6000194cbaa98dc0eee)  
 
 ### Data Prep
-
+#### Import data from buckets
 1. Import any data from buckets to "local" cloud shell directory [](#setup5)
 
 1. After donwloading the data, convert vectors and Rasters to SQL see [Access Cloud Storage & Convert files to .sql](#setup5) for more information on the steps.
 
+#### Export data to your postgres instance database
 1. Import the data into your database
-    1. connect to your instance and database
+    - Connect to postgres instance and database
 
     ```console
     gcloud sql connect postgres --user=postgres --database NYCAirQuality --quiet`  
     ```
 
-    1. once connected to your data base paste the path to your data
+    - Paste the path to your data
 
     ```console
     \cd /home/cvalentinebate/rast
     ```
 
-    1. import your sql file
+    - Import sql file
 
     ```console
     \i <filename.sql>
     ```
 
-1. Clean the tables by populating new tables with relevent columns
+#### Clean the tables by populating new tables with relevent columns
+
+**examples from script**
 
  Because many of my tables have extraneous columns now relevant to my project, to make my data more straightforward, I will create new tables and populate them with only the columns necesary. It is important not to just drop the columns from the orignal table because you never know if a column will become relevant to your analysis at a later time, and its best to practice to keep a copy of the unalterned, orignal data.
 
-1. Normalize
+#### Normalization
 
 Luckily for me, none of my data needs to be normalized. I aquired it from NYC Open Data, and from the census bureou wich are managed by city/ the federal government and have good database management practices in place. All of my vector tables 
 - buroughbounds
@@ -343,7 +347,6 @@ borobounds_cleadned:
 ![Alt text](Imgs/borobounds_cleaned.png)  
 
 nycboundary:  
-
 
 
 ### Analysis
