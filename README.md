@@ -340,7 +340,7 @@ social_vuln_cleaned:
 ![Alt text](Imgs/socialvuln_cleaned.png)  
 
 borobounds_cleadned:  
-![Alt text](Imgs/buroghbounds.png)  
+![Alt text](Imgs/borobounds_cleaned.png)  
 
 nycboundary:  
 
