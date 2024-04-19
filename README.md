@@ -10,10 +10,6 @@
     1. [Triggers - Cloud Build](#setup2)
     1. [Buckets for Google Cloud Storage](#setup3)
     1. [Setting Up Instances](#setup4)
-    1. [Access Cloud Storage & Convert files to .sql](#setup5)
-        - gsutil URI
-        - raster2pgsql
-        - shp2pgsql
 1. [Data](#data)
     1. [Vector](#vector-data)
     1. [Raster](#raster-data)
@@ -21,9 +17,13 @@
     1. [Data Aquisition](#data-aquisition)
     1. [GEE Scripts](#scripts)
     1. [Data Prep](#data-prep)
-        - move setup5 here (gsutil URI,raster2pgsql, shp2pgsql)
-        - data cleaning
-        - normalization
+        - [Access Cloud Storage & Convert files to .sql](#tosql)
+            -  gsutil URI
+            - raster2pgsql
+            - shp2pgsql
+        - [Export data to postgres instance](#exportdata)
+        - [Data cleaning](#clean)
+        - [Normalization](#normalization)
     1. [Analysis](#analysis)
 1. [Troubleshooting](#troubleshooing)
 
@@ -33,6 +33,21 @@
 -- what are the goals
 
 ## Setup
+
+This project uses Google Cloud Console so if you are new to this platform. Cloud Console essentually creates a Virtual Linux bash sytem in which you can use to interact with the rest of console. Bash commands work the same as on your local machine, with a few extra commands, with VSCode Shell as the GUI interface. If you are familiar with Bash and VSCode(steep learning curve), it should make things easier.
+For Cloud Console however, there is a learning curve with quite a few steps required to get started including:
+1. Setting up your account(simple and intuative)
+1. Creating a project
+1. Connecting to GitHub
+    - Setting up triggers (allow for git pull)
+1. Setting up buckets to store exported data from GEE (optional)
+1. Creating a postgres instance
+    - creating a database
+
+I belive I included all the APIs necesary in the instructions, however if not, google console should tell you if you dont have a required API enabled, and will direct you to the page where it can be enabled.  
+
+APIs Used in this project:  
+![Alt text](Imgs/Apis.png)
 
 ### Creating a Project and Connecting to GitHub <a name="introduction"></a>
 
@@ -51,10 +66,10 @@ I wil be using Google Cloud Console for this project. There is a free trial avai
     ` touch cloudbuild.yaml `  
     ` edit cloudbuild.yaml `  
     You wil need to set up a basic congig file that tells Cloud Build how to build/host your repository. There are a couple of differnt builds available through Cloud Builder. I chose to use Docker because I have some prior experience. The only required argument in the build file is the `name` argument. Here is a basic config.yaml file(but there are many arguments available):  
-    ![Alt text](Imgs/cloudbuild.png)  
-    [Click here to read about Build Config file schema.](https://cloud.google.com/build/docs/build-config-file-schema)  
-    [Click here to read about how to create a basic config file.](https://cloud.google.com/build/docs/configuring-builds/create-basic-configuration)  
-    [Click here to read an overview of Cloud Build](https://cloud.google.com/build/docs/overview#:~:text=Cloud%20Build%20can%20import%20source,protect%20your%20software%20supply%20chain.)
+    ![Alt text](Imgs/cloudbuild.png)    
+    [Read about Build Config file schema.](https://cloud.google.com/build/docs/build-config-file-schema)  
+    [Read about how to create a basic config file.](https://cloud.google.com/build/docs/configuring-builds/create-basic-configuration)  
+    [Read an overview of Cloud Build](https://cloud.google.com/build/docs/overview#:~:text=Cloud%20Build%20can%20import%20source,protect%20your%20software%20supply%20chain.)
 
 1. Here we will follow the steps under ["Connecting to a GitHub host"](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#connecting_a_github_host)
     Complete steps 1-7 under "Connecting a GitHub host"  
@@ -67,21 +82,24 @@ I wil be using Google Cloud Console for this project. There is a free trial avai
     ![Alt text](Imgs/ConnectingToGitHubRepo.png)  
     After the previous steps, your repo page should now look something like this:  
     ![Alt text](Imgs/repo_ex.png)  
-1. After these steps you will have to configure your global username and email associated with your github account. Run the following code in the terminal of your project dashboard to finalize the configuration of your github repository:  
+1. After these steps you will have to configure your global username and email associated with your github account. Run the following code in cloud shell to finalize the configuration of your github repository:  
 
-    ` git init # you will be told to configure your username and email `  
-    ` git config --global user.name <gitusername> `  
-    ` git config --global user.email <email> `  
+```console
+git init # you will be told to configure your username and email
+git config --global user.name <gitusername>
+git config --global user.email <email> 
+```
 
 Now you should be all set up and ready to make commits to your GitHub repository!!
 You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commit" and then "Sync Changes", copy the code that will pop up, then you will be redirected to GitHub. Enter the code given to you and sign into your account.  
 ![Alt text](Imgs/sourcecontrol.png)  
 
+If you use ` git push ` in command line you will be asked for user and password authentication which was disabled by GitHub in 2021.
 ------------------------------------------------  
 
 #### Triggers - Cloud Build <a name="setup2"></a>
 
-In order to pull from your GitHub repository you will need to set up a trigger request. I will be uploading my vector datafiles stored locally on my computer and then pushing it to GitHub so I can pull it here.  
+In order to pull from your GitHub repository you will need to set up a trigger request. I will be uploading my vector datafiles stored locally on my computer to the cloned GitHub repository and then pushing it to GitHub so I can pull it in Cloud Shell.  
 
 [Click here to look at the Cloud Build instructions](https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github?generation=2nd-gen)
 
@@ -92,7 +110,7 @@ Once you have created the trigger
 
 ### Buckets for Google Cloud Storage (Exporting Data from GEE to Cloud Storage) <a name="setup3"></a>
 
-Setting up a Bucket is important if you are exporting raster data from GEE. According to Cloud Console, "Buckets are the basic containers that hold your data in Cloud Storage."  
+Setting up a Bucket is important if you are exporting raster data from GEE. If you will not be using GEE this step is optional. Buckets are basic containers that hold your data in Cloud Storage.
 
 [To set up your bucket follow these instructions.](https://cloud.google.com/storage/docs/discover-object-storage-console)
 
@@ -103,15 +121,12 @@ Setting up a Bucket is important if you are exporting raster data from GEE. Acco
 ### CloudSQL/PostgresSQL Instances <a name="setup4"></a>
 
  [How to create instances](https://cloud.google.com/sql/docs/postgres/create-instance#console)  
- Enable Cloud SQL Admin API  
+1. Enable Cloud SQL Admin API and Compute Engine API 
  `gcloud init`
 
-Create an Instance
- Make sure Compute Engine API is activated in your poeject  
+1. Create a PostgreSQL instance... Follow the steps from the link above!
 
- A Create a PostgreSQL instance... Follow the steps from the link above!
-
-In terminal run the following code:  
+1. In terminal run the following code:  
     `sudo apt-get update`  
     `sudo apt-get install postgresql`
 
@@ -120,59 +135,20 @@ Go to your instances and click on the name of your instance to open the configua
 
 Upon clicking OPEN CLOUD SHELL something similar to this code will be automatically pasted into your terminal. Press enter to execute the code:  
     `gcloud sql connect postgres --user=postgres --quiet`  
-    or to connect direclty to your database add the --database = "name of database"  
-    `gcloud sql connect postgres --user=postgres --database NYCAirQuality --quiet`  
+    or to connect direclty to your database add the --database="name of database"  
+    `gcloud sql connect postgres --user=postgres --database=NYCAirQuality --quiet`  
   
-This is the code that you will run everytime you want to access your Database.
+This is the code that you will run everytime you want to access your Database in GC's SQLShell
 
-The tutorial I looked at also said to then do this code which will allow you to access postgres just by typing psql in the Cloud Terminal, however when I tired to run it, it timed out before asking me for my password. It seems like the previous code will also work fine.
+The tutorial I looked at also said to then do this code which will allow you to access postgres just by typing psql in the Cloud Terminal, however when I tired to run it, it timed out before asking me for my password. It seems like this is uncessary and the previous code will also work fine.
 
 `psql -h <publicIPAddress> -U postgres`
 
-Next, install postGIS in the bin of postgresql
+Next, install postGIS in the bin of postgresql -- see [Troublshooting](#troubleshooing) for recurring issues accessing postGIS
 
 ```console
 <email>>@cloudshell:/usr/lib/postgresql/16/bin (nycairquality)$ sudo apt install postgis
 ```
-
-#### Access shp/tif files in Cloud Storage and save "locally" <a name="setup5"></a>
-
-1. Make a new directory, and navigate to that dir.
-1. Transfer file from cloud storage, to local dir using the following code:
-
-```console
-<email>>@cloudshell:~/rast (nycairquality)$ gsutil cp <gsuil URI> <filename>`
-```
-
-1. use shp2pgsql/rast2pgsql to convert files from .tiff/.shp to .sql
-
-examples for raster and vector files  
-
-```console
-raster2pgsql -s 4326 -I -C -M aerosol_durr.tif public.aerosol_durr_rast > aerosol_durr.sql
-```
-
-example output:  
-
-```console
-Copying gs://gee_data_nyc/aerosol_durr.tif...
- / [1 files][  1.9 MiB/  1.9 MiB]   
-```  
-
-```console
-shp2pgsql -s 4326 -I buroughbounds.shp public.buroughbounds > buroughbounds.sql
-```
-  
-example output:  
-
-```console
-Processing 1/1: aerosol_durr.tif
-```
-
-#### For Data stored "locally" in CloudShell linux system
-
-1. navigate to the dir with the data
-1. Use raster2pgsql or shp2pgsql to convert data to a .sql file. See code example in the previous section.
 
 ## Data
 
@@ -289,12 +265,50 @@ After exporting each of the images, from GEE. The bucket should look something l
 [Link to GEE EVI Script](https://code.earthengine.google.com/e3d6c85ddccae6000194cbaa98dc0eee)  
 
 ### Data Prep
-#### Import data from buckets
-1. Import any data from buckets to "local" cloud shell directory [](#setup5)
+
+#### Import data from buckets to "local" cloud shell directory <a name="tosql"></a>
+
+1. Make a new directory, and navigate to that dir.
+1. Transfer file from cloud storage, to local dir using the following code:
+
+```console
+<email>>@cloudshell:~/rast (nycairquality)$ gsutil cp <gsuil URI> <filename>`
+```
+
+1. use shp2pgsql/rast2pgsql to convert files from .tiff/.shp to .sql
+
+examples for raster and vector files  
+
+```console
+raster2pgsql -s 4326 -I -C -M aerosol_durr.tif public.aerosol_durr_rast > aerosol_durr.sql
+```
+
+example output:  
+
+```console
+Copying gs://gee_data_nyc/aerosol_durr.tif...
+ / [1 files][  1.9 MiB/  1.9 MiB]   
+```  
+
+```console
+shp2pgsql -s 4326 -I buroughbounds.shp public.buroughbounds > buroughbounds.sql
+```
+  
+example output:  
+
+```console
+Processing 1/1: aerosol_durr.tif
+```
+
+#### For Data stored "locally" in CloudShell linux system
+
+1. navigate to the dir with the data
+1. Use raster2pgsql or shp2pgsql to convert data to a .sql file. See code example in the previous section.
+
 
 1. After donwloading the data, convert vectors and Rasters to SQL see [Access Cloud Storage & Convert files to .sql](#setup5) for more information on the steps.
 
-#### Export data to your postgres instance database
+#### Export data to your postgres instance database <a name="exportdata"></a>
 1. Import the data into your database
     - Connect to postgres instance and database
 
@@ -314,7 +328,7 @@ After exporting each of the images, from GEE. The bucket should look something l
     \i <filename.sql>
     ```
 
-#### Clean the tables by populating new tables with relevent columns
+#### Clean the tables by populating new tables with relevent columns <a name="clean"></a>
 
 **examples from script**
 
