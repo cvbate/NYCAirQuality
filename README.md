@@ -344,7 +344,6 @@ Export.image.toCloudStorage({
 });
 ```  
   
-
 After I creating the instance for PostgreSQL and creating the database, I tried to create an extension for POSTGIS and rastergis in my database. It did not return an error however, when I tried to run the shp2pgsql I got an error saying it was an unknown command. This was because PostGIS was not actually installed. I had to navigate to the bin where postgres was installed and install the extension.  
 
 ```console

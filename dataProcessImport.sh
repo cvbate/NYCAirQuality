@@ -22,7 +22,7 @@ CREATE EXTENSION IF NOT EXISTS postgis_raster;'
 
 #Convert shp to sql file using shp2pgsql. This data is stored "locally" in a cloned GitRepository in Cloud Console. In CloudShell/Terminal navigate to where data is stored
 shp2pgsql -s 4326 -I buroughbounds.shp public.buroughbounds > buroughbounds.sql
-shp2pgsql -s 4326 -I cencustracts.shp public.cencustracts > cencustracts.sql
+shp2pgsql -s 4326 -I CDC_Social_Vuln_20_project.shp public.CDC_Social_Vuln_20_project > social_vuln.sql
 shp2pgsql -s 4326 -I neighborshoods.shp public.neighborshoods > neighborshoods.sql
 shp2pgsql -s 4326 -I parks.shp public.parks > parks.sql
 
@@ -88,11 +88,11 @@ gcloud sql connect postgres --user=postgres --quiet`
 \i nycboundary.sql
 
 # my shapefiles are stored in a differnt 
-\c /home/cvalentinebate/NYCAirQuality/DATA_REPROJECTED
+\cd /home/cvalentinebate/NYCAirQuality/DATA_REPROJECTED
 \i parks.sql
 \i neighborshoods.sql
 \i buroughbounds.sql  
-\i cencustracts.sql 
+\i social_vuln.sql 
 
 # look at tables infomration like column names
 \dt parks.sql
