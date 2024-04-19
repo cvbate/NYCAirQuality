@@ -25,6 +25,7 @@ shp2pgsql -s 4326 -I buroughbounds.shp public.buroughbounds > buroughbounds.sql
 shp2pgsql -s 4326 -I CDC_Social_Vuln_20_project.shp public.CDC_Social_Vuln_20_project > social_vuln.sql
 shp2pgsql -s 4326 -I neighborshoods.shp public.neighborshoods > neighborshoods.sql
 shp2pgsql -s 4326 -I parks.shp public.parks > parks.sql
+shp2pgsql -s 4326 -I nycbound_proj.shp public.nycbound_proj > nycbound_proj.sql
 
 #------------------------------------------------------------------------
 #Raster/ One nyc bounds shp
@@ -69,7 +70,7 @@ raster2pgsql -s 4326 -I -C -M evi_nyc.tif public.evi_nyc_rast > evi_nyc.sql
 #---------------Step 2: import sql files using command prompt
 
 # connect to database 
-gcloud sql connect postgres --user=postgres --quiet` 
+gcloud sql connect postgres --user=postgres --database=NYCAirQuality --quiet 
 ``
 #connect to database
 \c NYCAirQuality
@@ -85,7 +86,7 @@ gcloud sql connect postgres --user=postgres --quiet`
 \i co_post.sql  
 \i co_pre.sql  
 \i evi_nyc.sql
-\i nycboundary.sql
+
 
 # my shapefiles are stored in a differnt 
 \cd /home/cvalentinebate/NYCAirQuality/DATA_REPROJECTED
@@ -93,6 +94,7 @@ gcloud sql connect postgres --user=postgres --quiet`
 \i neighborshoods.sql
 \i buroughbounds.sql  
 \i social_vuln.sql 
+\i nycbound_proj.sql
 
 # look at tables infomration like column names
 \dt parks.sql

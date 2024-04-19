@@ -361,7 +361,7 @@ borobounds_cleadned:
 ![Alt text](Imgs/borobounds_cleaned.png)  
 
 nycboundary:  
-
+![Alt text](image.png)
 
 ### Analysis
 
