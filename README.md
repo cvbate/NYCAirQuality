@@ -330,6 +330,22 @@ are already in 4NF because:
 - 3NF: Satisfies 2NF and there are **no transitive dependencies** among non-prime attributes, each non-key attribute is directly dependent on the primary key (gid).
 - 4NF: Satisfies 3NF and there are **no multi-valued dependencies**. This means that there are no columsn that are unrelated but both depend on the same primary key.
 
+parks_cleaned:  
+![Alt text](Imgs/parks_cleaned.png)  
+
+neighborhood_cleaned:  
+![Alt text](Imgs/neighbhor_cleaned.png)  
+
+social_vuln_cleaned:  
+![Alt text](Imgs/socialvuln_cleaned.png)  
+
+borobounds_cleadned:  
+![Alt text](Imgs/buroghbounds.png)  
+
+nycboundary:  
+
+
+
 ### Analysis
 
 
