@@ -114,6 +114,8 @@ Go to your instances and click on the name of your instance to open the configua
 
 Upon clicking OPEN CLOUD SHELL something similar to this code will be automatically pasted into your terminal. Press enter to execute the code:  
     `gcloud sql connect postgres --user=postgres --quiet`  
+    or to connect direclty to your database add the --database = "name of database"  
+    `gcloud sql connect postgres --user=postgres --database NYCAirQuality --quiet`  
   
 This is the code that you will run everytime you want to access your Database.
 
@@ -282,9 +284,9 @@ After exporting each of the images, from GEE. The bucket should look something l
 1. After donwloading the data, convert vectors and Rasters to SQL see [Access Cloud Storage & Convert files to .sql](#setup5) for more information on the steps.
 
 1. Import the data into your database
-    1. connect to your database
+    1. connect to your instance and database
     ```console
-    gcloud sql connect postgres --user=postgres --quiet`  
+    gcloud sql connect postgres --user=postgres --database NYCAirQuality --quiet`  
     ```
     1. once connected to your data base paste the path to your data
     ```console

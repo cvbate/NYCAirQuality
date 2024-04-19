@@ -2,6 +2,7 @@
 '
 -- Clio V Bate
 -- Created 04/15/2024
+-- Last updated 04/18/2024
 -- Google Cloud Console 
 -- Postgres 16
 '
@@ -66,14 +67,35 @@ raster2pgsql -s 4326 -I -C -M evi_nyc.tif public.evi_nyc_rast > evi_nyc.sql
 
 
 #---------------Step 2: import sql files using command prompt
-#-U connects to the database as a specific user
-#-d points to the destiniation database
-#-f points to the .sql file to be imported
 
-"cvalentinebate@cloudshell:/usr/lib/postgresql/16/bin/psql.exe" -U postgres -d NYCAirQuality -f evi_nyc.sql
+# connect to database 
+gcloud sql connect postgres --user=postgres --quiet` 
+``
+#connect to database
+\c NYCAirQuality
 
-https://cloud.google.com/alloydb/docs/import-sql-file
+# set the path to your data
+\cd /home/cvalentinebate/rast
 
-psql -h 34.118.179.17 -U postgres NYCFloding < evi_nyc.sql
+# import your sql file
+\i aerosol_durr.sql  
+\i aerosol_post.sql  
+\i aerosol_pre.sql  
+\i co_durr.sql  
+\i co_post.sql  
+\i co_pre.sql  
+\i evi_nyc.sql
+\i nycboundary.sql
+
+# my shapefiles are stored in a differnt 
+\c /home/cvalentinebate/NYCAirQuality/DATA_REPROJECTED
+\i parks.sql
+\i neighborshoods.sql
+\i buroughbounds.sql  
+\i cencustracts.sql 
+
+# look at tables infomration like column names
+\dt parks.sql
+
 
 
