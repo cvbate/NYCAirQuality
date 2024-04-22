@@ -365,6 +365,8 @@ nycboundary:
 
 ### Analysis
 
+Goal for today 04/22 create an outline of what I want to do/ write the the script outline
+
 
 ### Next Steps
 

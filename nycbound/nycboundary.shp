@@ -1,0 +1,24 @@
+SET CLIENT_ENCODING TO UTF8;
+SET STANDARD_CONFORMING_STRINGS TO ON;
+BEGIN;
+CREATE TABLE "public"."nycboundary" (gid serial,
+"dosll_date" float8,
+"muni_type" varchar(4),
+"datemod" float8,
+"swis" varchar(6),
+"gnis_id" varchar(7),
+"map_symbol" varchar(1),
+"pop2020" int4,
+"pop2010" int4,
+"pop2000" int4,
+"pop1990" int4,
+"name" varchar(8),
+"calc_sq_mi" float8,
+"munitycode" int2,
+"fips_code" varchar(10),
+"dos_ll" varchar(254),
+"county" varchar(40));
+ALTER TABLE "public"."nycboundary" ADD PRIMARY KEY (gid);
+INSERT INTO "public"."nycboundary" ("dosll_date","muni_type","datemod","swis","gnis_id","map_symbol","pop2020","pop2010","pop2000","pop1990","name","calc_sq_mi","munitycode","fips_code","dos_ll","county") VALUES ('-2209132800000','city','1570172400000','650000','2395220','3','8804190','8175133','8008278','7322564','New York','470.316754336','1','3608151000',NULL,'New York, Bronx, Kings, Richmond, Queens');
+COMMIT;
+ANALYZE "public"."nycboundary";
