@@ -34,24 +34,27 @@
 
 ## Setup
 
-This project uses Google Cloud Console so if you are new to this platform. Cloud Console essentually creates a Virtual Linux bash sytem in which you can use to interact with the rest of console. Bash commands work the same as on your local machine, with a few extra commands, with VSCode Shell as the GUI interface. If you are familiar with Bash and VSCode(steep learning curve), it should make things easier.
-For Cloud Console however, there is a learning curve with quite a few steps required to get started including:
-1. Setting up your account(simple and intuative)
-1. Creating a project
-1. Connecting to GitHub
-    - Setting up triggers (allow for git pull)
-1. Setting up buckets to store exported data from GEE (optional)
-1. Creating a postgres instance
-    - creating a database
+This project uses Google Cloud Console. Cloud Console essentially creates a cloud hosted virtual Linux sytem(bash) in which you can use to interact with the rest of console. This environment is separate from your local machine. Cloud Console uses a credit-based billing system with a trial available with $300 in free credits. Bash commands work the same as on your local machine, with VSCode Shell as the GUI interface.
 
-I belive I included all the APIs necesary in the instructions, however if not, google console should tell you if you dont have a required API enabled, and will direct you to the page where it can be enabled.  
+Overview of steps to get started:
+
+1. Set up an account(simple and intuative)
+1. Create a project
+1. Enable required APIs
+1. Connect to GitHub
+    - Set up triggers (allow for git pull)
+1. Set up buckets to store exported data from GEE (optional)
+1. Create a Postgres instance
+    - create a database
+
+I belive I included all the APIs necesary in the instructions, however if not, Google Console should tell you if you dont have a required API enabled, and will direct you to the page where it can be enabled.  
 
 APIs Used in this project:  
 ![Alt text](Imgs/Apis.png)
 
 ### Creating a Project and Connecting to GitHub <a name="introduction"></a>
 
-I wil be using Google Cloud Console for this project. There is a free trial available with $300 in free credits. First, you must create an account and connect your git repository. I followed the instructions from [this page to connect to my repository using Cloud Build](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github). I will also walk you through the process below:
+First, you must create an account and connect your git repository. I followed the instructions from [this page to connect to my repository using Cloud Build](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github). I will also walk you through the process below:
 
 1. Create a Google Console account.
     I named it the same as my github repository, although I am not sure that is necessary.
@@ -468,6 +471,9 @@ gcloud sql connect postgres --user=postgres --database=nycairquality --quiet`
 # import your sql file
 \i aerosol_durr.sql  
 ```
+
+
+Challenges for raster import
 
 ------------------------------------------------
 

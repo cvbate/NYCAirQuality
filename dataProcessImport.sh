@@ -9,13 +9,13 @@
 
 #Before starting......
 #Connect to database in SQL Shell
-'
+
 CREATE DATABASE "NYCAirQuality";
 
 \c NYCAirQuality;
 
 CREATE EXTENSION IF NOT EXISTS postgis;
-CREATE EXTENSION IF NOT EXISTS postgis_raster;'
+CREATE EXTENSION IF NOT EXISTS postgis_raster;
 ------------------------------------------------------------------------
 
 #---------------Step 1: use wsl from command prompt
@@ -65,7 +65,9 @@ raster2pgsql -s 4326 -I -C -M co_post.tif public.co_post_rast > co_post.sql
 raster2pgsql -s 4326 -I -C -M co_pre.tif public.co_pre_rast > co_pre.sql
 #evi
 raster2pgsql -s 4326 -I -C -M evi_nyc.tif public.evi_nyc_rast > evi_nyc.sql
-
+#dem 
+"c:\Program Files\PostgreSQL\16\bin\raster2pgsql.exe" -s 4326 -I -C -M demnyc_20m.tif public.nycdem_rast > demnyc_20m.sql
+"c:\Program Files\PostgreSQL\16\bin\psql.exe"
 
 #---------------Step 2: import sql files using command prompt
 
