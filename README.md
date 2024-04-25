@@ -472,8 +472,29 @@ gcloud sql connect postgres --user=postgres --database=nycairquality --quiet`
 \i aerosol_durr.sql  
 ```
 
+Challenges for raster import:
+This was me working locally and not on cloud console in order to save credits.
+I am trying to convert o my raster to points:
 
-Challenges for raster import
+```sql
+SELECT ST_Quantile(ST_Intersects(apre.geom, parks.geom))
+FROM (SELECT (ST_PixelAsPoints(rast, 1)).* AS geom FROM aerosol_pre_rast) apre, parks;
+
+SELECT ST_Quantile(ST_Union(apre.geom))
+FROM (SELECT (ST_PixelAsPoints(rast, 1)).* AS geom FROM aerosol_pre_rast) apre
+JOIN parks
+ON ST_Intersects(apre.geom, parks.geom);
+```
+However the second chuck wasn't returning anything. Just this:
+``` sql
+ mean_val
+----------
+(1 row)
+```
+
+So I checked in PgAdmin and the val for my points is NaN. I am not sure why this is happening, or how to fix it. 
+
+![Alt text](image-1.png)
 
 ------------------------------------------------
 
