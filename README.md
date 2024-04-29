@@ -29,8 +29,9 @@
 
 ## Introduction <a name="introduction"></a>
 
--- what is the project about and why
--- what are the goals
+In June 2023, there were extensive wildfires in Quebec, Canada, causing poor air quality in much of the eastern United States with the worst periods falling between June 6th and June 8th. Particulate matter from wildfires can cause adverse health effect to affect respiratory health, cardiovascular health, birth outcomes, and mental health(Liu et al., 2017). One study by Chen et al. analyzing the impacts of the June 2023 wildfies found a significant increase in hospitalizations due to aesthma in children ages 5-17 in New York City during the wildfies(2023).
+
+The goal of this project is to assess Air Quality in New York City due to Canadian Wildfires using two different indeces, Aerosol and Carbon Monoxide through a combination of visual analysis and SQL statiscitcal analysis.
 
 ## Setup
 
@@ -498,6 +499,12 @@ So I checked in PgAdmin and the val for my points is NaN. I am not sure why this
 
 ------------------------------------------------
 
+### Citations
+
+Chen K, Ma Y, Bell ML, Yang W. Canadian Wildfire Smoke and Asthma Syndrome Emergency Department Visits in New York City. JAMA. 2023;330(14):1385–1387. doi:10.1001/jama.2023.18768
+
+Liu  JC, Wilson  A, Mickley  LJ,  et al.  Wildfire-specific fine particulate matter and risk of hospital admissions in urban and rural counties. ﻿  Epidemiology. 2017;28(1):77-85. doi:10.1097/EDE.0000000000000556
+
 ##### For Assignment 1 Due 04/12/24 5pm EST
 
 1. Find and Process Geospatial Data (10 Points)
@@ -521,3 +528,5 @@ So I checked in PgAdmin and the val for my points is NaN. I am not sure why this
 - See if there is a correlation between race, income, ethnicity, languages and concentrations of CO or aerosol
 
 **Final Pushes to Github Due May3rd 5pm!!!**
+
+
