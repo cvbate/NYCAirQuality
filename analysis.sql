@@ -1,3 +1,43 @@
+CREATE TABLE aerosol_pre_vector AS
+SELECT val, geom
+FROM (
+SELECT dp.*
+FROM aerosol_pre_rast, LATERAL ST_DumpAsPolygons(rast) AS dp
+) As foo;
+
+---------- WHAT KUNAL TRIED
+
+SELECT val, ST_ASTEXT(geom)
+FROM aerosol_pre_vector;
+
+SELECT ST_ASTEXT(geom)
+FROM parks;
+
+SELECT AVG(val) AS mean_val
+FROM aerosol_pre_vector
+JOIN parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
+
+WITH dumped AS (
+    SELECT (ST_Dump(geom)).geom
+    FROM parks
+)
+SELECT AVG(val) AS mean_val
+FROM aerosol_pre_vector
+JOIN dumped
+ON ST_Intersects(aerosol_pre_vector.geom, dumped.geom);
+
+SELECT a.id
+FROM dumped a
+JOIN dumped b ON ST_Intersects(a.geom, b.geom)
+WHERE b.id = 999 AND a.id != b.id
+
+-- he would like to be try to find intersection between the geom and the raster
+-- I NEED TO CHOOSE A POINT IN A POLYGON AND FIND THE DISTANCE OF ALL THE OTHER POLYGONS FROM THAT POINT
+---------------------------
+
+
+
 -- convert NDVI to geometry ST_Polygon(maybe)
 
 -- something about elevation, selected vegetation that is a above a certain elevation for canopy(?)
@@ -25,8 +65,6 @@ JOIN parks
 ON ST_Intersects(apre_points.geom, parks.geom);
 
 --------------
-
-
 
 
 --- combination of above.
