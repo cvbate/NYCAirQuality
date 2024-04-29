@@ -34,11 +34,11 @@
 
 ## Setup
 
-This project uses Google Cloud Console. Cloud Console essentially creates a cloud hosted virtual Linux sytem(bash) in which you can use to interact with the rest of console. This environment is separate from your local machine. Cloud Console uses a credit-based billing system with a trial available with $300 in free credits. Bash commands work the same as on your local machine, with VSCode Shell as the GUI interface.
+This project uses Google Cloud Console. Cloud Console essentially creates a cloud hosted virtual Linux system(bash) in which you can use to interact with the rest of console. This environment is separate from your local machine. Cloud Console uses a credit-based billing system with a trial available with $300 in free credits. Bash commands work the same as on your local machine, with VSCode Shell as the GUI interface.
 
 Overview of steps to get started:
 
-1. Set up an account(simple and intuative)
+1. Set up an account(simple and intuitive)
 1. Create a project
 1. Enable required APIs
 1. Connect to GitHub
@@ -47,7 +47,7 @@ Overview of steps to get started:
 1. Create a Postgres instance
     - create a database
 
-I belive I included all the APIs necesary in the instructions, however if not, Google Console should tell you if you dont have a required API enabled, and will direct you to the page where it can be enabled.  
+I believe I included all the APIs necessary in the instructions, however if not, Google Console should tell you if you don't have a required API enabled, and will direct you to the page where it can be enabled.  
 
 APIs Used in this project:  
 ![Alt text](Imgs/Apis.png)
@@ -63,13 +63,13 @@ First, you must create an account and connect your git repository. I followed th
 
 1. Enable required APIs:
     Enable cloud API
-    Enable sectret manager API
+    Enable secret manager API
 
 1. Use the terminal in your project dashboard to create a file called config.yaml  
     ` touch cloudbuild.yaml `  
     ` edit cloudbuild.yaml `  
-    You wil need to set up a basic congig file that tells Cloud Build how to build/host your repository. There are a couple of differnt builds available through Cloud Builder. I chose to use Docker because I have some prior experience. The only required argument in the build file is the `name` argument. Here is a basic config.yaml file(but there are many arguments available):  
-    ![Alt text](Imgs/cloudbuild.png)    
+    You wil need to set up a basic config file that tells Cloud Build how to build/host your repository. There are a couple of different builds available through Cloud Builder. I chose to use Docker because I have some prior experience. The only required argument in the build file is the `name` argument. Here is a basic config.yaml file(but there are many arguments available):  
+    ![Alt text](Imgs/cloudbuild.png)  
     [Read about Build Config file schema.](https://cloud.google.com/build/docs/build-config-file-schema)  
     [Read about how to create a basic config file.](https://cloud.google.com/build/docs/configuring-builds/create-basic-configuration)  
     [Read an overview of Cloud Build](https://cloud.google.com/build/docs/overview#:~:text=Cloud%20Build%20can%20import%20source,protect%20your%20software%20supply%20chain.)
@@ -94,7 +94,7 @@ git config --global user.email <email>
 ```
 
 Now you should be all set up and ready to make commits to your GitHub repository!!
-You wil make commits from VSCode Cloushell Editor 'Source Control'. Press "Commit" and then "Sync Changes", copy the code that will pop up, then you will be redirected to GitHub. Enter the code given to you and sign into your account.  
+You wil make commits from VSCode CloudShell Editor 'Source Control'. Press "Commit" and then "Sync Changes", copy the code that will pop up, then you will be redirected to GitHub. Enter the code given to you and sign into your account.  
 ![Alt text](Imgs/sourcecontrol.png)  
 
 If you use ` git push ` in command line you will be asked for user and password authentication which was disabled by GitHub in 2021.
@@ -102,7 +102,7 @@ If you use ` git push ` in command line you will be asked for user and password 
 
 #### Triggers - Cloud Build <a name="setup2"></a>
 
-In order to pull from your GitHub repository you will need to set up a trigger request. I will be uploading my vector datafiles stored locally on my computer to the cloned GitHub repository and then pushing it to GitHub so I can pull it in Cloud Shell.  
+In order to pull from your GitHub repository you will need to set up a trigger request. I will be uploading my vector data files stored locally on my computer to the cloned GitHub repository and then pushing it to GitHub so I can pull it in Cloud Shell.  
 
 [Click here to look at the Cloud Build instructions](https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github?generation=2nd-gen)
 
@@ -133,17 +133,17 @@ Setting up a Bucket is important if you are exporting raster data from GEE. If y
     `sudo apt-get update`  
     `sudo apt-get install postgresql`
 
-Go to your instances and click on the name of your instance to open the configuation panel. I named mine postgres. Scroll down to "Connect to this instance" and click on OPEN CLOUD SHELL.  
+Go to your instances and click on the name of your instance to open the configuration panel. I named mine postgres. Scroll down to "Connect to this instance" and click on OPEN CLOUD SHELL.  
 ![Alt text](Imgs/opencloudshell.png)  
 
 Upon clicking OPEN CLOUD SHELL something similar to this code will be automatically pasted into your terminal. Press enter to execute the code:  
     `gcloud sql connect postgres --user=postgres --quiet`  
-    or to connect direclty to your database add the --database="name of database"  
+    or to connect directly to your database add the --database="name of database"  
     `gcloud sql connect postgres --user=postgres --database=NYCAirQuality --quiet`  
   
-This is the code that you will run everytime you want to access your Database in GC's SQLShell
+This is the code that you will run every time you want to access your Database in GC's SQLShell
 
-The tutorial I looked at also said to then do this code which will allow you to access postgres just by typing psql in the Cloud Terminal, however when I tired to run it, it timed out before asking me for my password. It seems like this is uncessary and the previous code will also work fine.
+The tutorial I looked at also said to then do this code which will allow you to access postgres just by typing psql in the Cloud Terminal, however when I tired to run it, it timed out before asking me for my password. It seems like this is unnecessary and the previous code will also work fine.
 
 `psql -h <publicIPAddress> -U postgres`
 
@@ -227,11 +227,11 @@ with the help of Chat GPT to make visualizations)
 ### Data Aquisition
 
 1. Download vector data from [NYC Open Data](https://opendata.cityofnewyork.us/) and save locally on computer.
-1. Reproject all the data to ensure its in a Geospatial Cordinate Sytesm EPSG:4326 and then upload to GitHub repository. All vector data (exept for NYCBoundary) is located in Data_Reprojected.
-1. The NYC Boundary Data  was loaded into GEE, only the NYC bounary was selected to be use as a boundary for my raster data and saved as a new variable. Then it was exported to Cloud storage from GEE using the following code:
-1. Aquire Raster
+1. Reproject all the data to ensure its in a Geospatial Cordinate Sytesm EPSG:4326 and then upload to GitHub repository. All vector data (except for NYCBoundary) is located in Data_Reprojected.
+1. The NYC Boundary Data  was loaded into GEE, only the NYC boundary was selected to be use as a boundary for my raster data and saved as a new variable. Then it was exported to Cloud storage from GEE using the following code:
+1. Acquire Raster
     - Elevation data from NYC Open Data Enable
-    - Aquire Aresol, EVI, and CO Data from GEE 
+    - Acquire Aerosol, EVI, and CO Data from GEE 
         - See x and x file for source code.
         - Enable the Google Earth Engine API in Console.
     - Export Data from GEE to Cloud Storage
@@ -245,7 +245,7 @@ with the help of Chat GPT to make visualizations)
         fileNamePrefix: 'evi_nyc',
         crs: 'EPSG:4326',
         scale: 30,
-        region: geometryrec //rectangualar geometry that defines the region to export
+        region: geometryrec //rectangular geometry that defines the region to export
     });
 
     // Export a SHP file to Cloud Storage.
@@ -309,7 +309,7 @@ Processing 1/1: aerosol_durr.tif
 1. Use raster2pgsql or shp2pgsql to convert data to a .sql file. See code example in the previous section.
 
 
-1. After donwloading the data, convert vectors and Rasters to SQL see [Access Cloud Storage & Convert files to .sql](#setup5) for more information on the steps.
+1. After downloading the data, convert vectors and Rasters to SQL see [Access Cloud Storage & Convert files to .sql](#setup5) for more information on the steps.
 
 #### Export data to your postgres instance database <a name="exportdata"></a>
 1. Import the data into your database
@@ -335,21 +335,21 @@ Processing 1/1: aerosol_durr.tif
 
 **examples from script**
 
- Because many of my tables have extraneous columns now relevant to my project, to make my data more straightforward, I will create new tables and populate them with only the columns necesary. It is important not to just drop the columns from the orignal table because you never know if a column will become relevant to your analysis at a later time, and its best to practice to keep a copy of the unalterned, orignal data.
+ Because many of my tables have extraneous columns now relevant to my project, to make my data more straightforward, I will create new tables and populate them with only the columns necessary. It is important not to just drop the columns from the original table because you never know if a column will become relevant to your analysis at a later time, and its best to practice to keep a copy of the unaltered, original data.
 
 #### Normalization
 
-Luckily for me, none of my data needs to be normalized. I aquired it from NYC Open Data, and from the census bureou wich are managed by city/ the federal government and have good database management practices in place. All of my vector tables 
+Luckily for me, none of my vector data needs to be normalized. It was all acquired from the NYC Open Data Portal or from the Census Bureau which are managed by the NYC/federal government and have good database management practices in place. 
 - buroughbounds
 - CDC_Social_Vuln_20_project
 - neighborshoods
 - parks
 are already in 4NF because:
 
-- 1NF Each cell contians **atomic values** aka there is only one value stored in a single cell of the table(no multiple values).
-- 2NF Satisfies 1NF and there are **no partial dependencies** (there are no partial primary keys/ the data doesn't depend on mutiple keys for unique identification. In the case for all of my talbes, there is a gid that serves as the unique primary key)
+- 1NF Each cell contains **atomic values** aka there is only one value stored in a single cell of the table(no multiple values).
+- 2NF Satisfies 1NF and there are **no partial dependencies** (there are no partial primary keys/ the data doesn't depend on multiple keys for unique identification. In the case for all of my tables, there is a gid that serves as the unique primary key)
 - 3NF: Satisfies 2NF and there are **no transitive dependencies** among non-prime attributes, each non-key attribute is directly dependent on the primary key (gid).
-- 4NF: Satisfies 3NF and there are **no multi-valued dependencies**. This means that there are no columsn that are unrelated but both depend on the same primary key.
+- 4NF: Satisfies 3NF and there are **no multi-valued dependencies**. This means that there are no columns that are unrelated but both depend on the same primary key.
 
 parks_cleaned:  
 ![Alt text](Imgs/parks_cleaned.png)  
