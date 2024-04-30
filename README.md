@@ -580,14 +580,6 @@ Success!
 ![alt text](image-5.png)
 
 
-I decided to test out the median and it returned a value- not NaN.
-I tried the SUM and it also returned NaN.
-I told my roommate and she said she had a similar issue with ArcPro not recognizing "NaN" values as "NULL".
-So I ran this code where it sets all NaN values to NULL:
-SELECT SUM(nullif(val, 'NaN')) / COUNT(val) AS average_val
-FROM aerosol_pre_vector
-JOIN parks
-ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 
 ------------------------------------------------
 
