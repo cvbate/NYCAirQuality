@@ -20,8 +20,6 @@ JOIN parks
 ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 -- 0.1631164499369558
 
--------- everything above this line has been successful 
-
 -- CALCULATE MEAN OF AEROSOL OUTSIDE OF PARKS
 
 SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
@@ -31,6 +29,7 @@ ON ST_Difference(aerosol_pre_vector.geom, parks.geom) = aerosol_pre_vector.geom;
 -- avg val: 0.03640181433373871
 
 
+-------- everything above this line has been successful 
 
 
 
