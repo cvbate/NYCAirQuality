@@ -1,9 +1,36 @@
+-- CALCULATE MEAN OF AEROSOL INSIDE OF PARKS
+-- convert raster to vector and create a new table
 CREATE TABLE aerosol_pre_vector AS
 SELECT val, geom
 FROM (
 SELECT dp.*
 FROM aerosol_pre_rast, LATERAL ST_DumpAsPolygons(rast) AS dp
 ) As foo;
+
+-- calculate mean (optional) of intersection between aerosol and parks
+SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
+FROM aerosol_pre_vector
+JOIN parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
+
+
+-- manually calculate average and convert NaN values to NULL
+SELECT sum(nullif(val, 'NaN')) / COUNT(val) AS average_val
+FROM aerosol_pre_vector
+JOIN parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
+
+
+-------- everything above this line has been successful 
+
+-- CALCULATE MEAN OF AEROSOL OUTSIDE OF PARKS
+
+
+
+
+
+
+
 
 ---------- WHAT KUNAL TRIED
 

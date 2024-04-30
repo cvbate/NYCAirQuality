@@ -560,6 +560,7 @@ FROM aerosol_pre_vector
 JOIN parks
 ON ST_Intersects(aerosol_pre_vector.geom, parks.geom)
 ```
+
 and a value for count was returned but SUM was NaN.
 
 Online I found a potential solution, using NULLIF - to convert a selected value to NULL.
