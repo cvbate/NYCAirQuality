@@ -98,8 +98,6 @@ LEFT JOIN parks
 ON ST_Difference(aerosol_post_vector.geom, parks.geom) = aerosol_post_vector.geom;
 -- avg val: -0.30599026363376086
 
--- CALCULATE MEAN OF AEROSOL OUTSIDE OF PARKS
-
 ------------------------------------ CO PRE
 
 CREATE TABLE co_pre_vector AS
@@ -167,8 +165,37 @@ LEFT JOIN parks
 ON ST_Difference(co_durr_vector.geom, parks.geom) = co_durr_vector.geom;
 -- avg val: 0.08792659146550964
 
--------------------------------------------------- CO Post
+-------------------------------------------------- CO Post (NOT YET RUN)
 
+CREATE TABLE co_post_vector AS
+SELECT val, geom
+FROM (
+SELECT dp.*
+FROM co_post_rast, LATERAL ST_DumpAsPolygons(rast) AS dp
+) As foo;
+
+--- mean of entire aerosol
+
+-- calculate meaian (optional) of intersection between aerosol and parks
+SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
+FROM co_post_vector
+JOIN parks
+ON ST_Intersects(co_post_vector.geom, parks.geom);
+-- 
+
+-- manually calculate average and convert NaN values to NULL
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM co_post_vector
+JOIN parks
+ON ST_Intersects(co_post_vector.geom, parks.geom);
+-- 
+
+-- CALCULATE MEAN OF AEROSOL OUTSIDE OF PARKS
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM co_post_vector
+LEFT JOIN parks
+ON ST_Difference(co_post_vector.geom, parks.geom) = co_post_vector.geom;
+-- avg val: 0.08792659146550964
 
 
 
