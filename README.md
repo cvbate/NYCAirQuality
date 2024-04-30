@@ -496,6 +496,97 @@ So I checked in PgAdmin and the val for my points is NaN. I am not sure why this
 
 ![Alt text](image-1.png)
 
+While trying to select the AVG value from aerosol_pre_vector of the intersection between the aerosol_pre_vector and parks geom, the queries kept returning NaN. 
+
+```sql
+SELECT AVG(val) AS mean_val
+FROM aerosol_pre_vector
+JOIN parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
+```
+
+![alt text](image-3.png)  
+
+I thought that maybe there were NULL values however upon running this code to count the number of Null Values.... 0 NULL values were counted...
+
+```sql
+SELECT COUNT(*) AS num_null_values
+FROM aerosol_pre_vector
+JOIN parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom)
+WHERE aerosol_pre_vector.val IS NULL;
+``` 
+
+![alt text](image-4.png)
+
+This was confusing because I could see that there were values in the intersection so it didn't make sense that I was still gettting NaN value returned.
+
+```sql
+SELECT *
+FROM aerosol_pre_vector
+JOIN parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
+```
+![alt text](image-7.png)
+
+I wondered if there was an issue withthe AVG function so I tested out the median.
+
+```sql
+SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
+FROM aerosol_pre_vector
+JOIN parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
+```
+
+and a value was returned!
+
+So I tested out my own AVG function
+
+```sql
+SELECT SUM(val) / COUNT(val) AS average_val
+FROM aerosol_pre_vector
+JOIN parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
+```
+
+and once again a NaN value was returned. 
+
+```sql
+So I tested both the SUM and COUNT functions 
+SELECT SUM(val) AS sum_val,
+COUNT(val) AS count_val
+FROM aerosol_pre_vector
+JOIN parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom)
+```
+and a value for count was returned but SUM was NaN.
+
+Online I found a potential solution, using NULLIF - to convert a selected value to NULL.
+
+```sql
+SELECT SUM(nullif(value, 'NaN'))
+```
+
+```sql
+SELECT sum(nullif(val, 'NaN')) / COUNT(val) AS average_val
+FROM aerosol_pre_vector
+JOIN parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
+```
+
+Success!
+![alt text](image-5.png)
+
+
+I decided to test out the median and it returned a value- not NaN.
+I tried the SUM and it also returned NaN.
+I told my roommate and she said she had a similar issue with ArcPro not recognizing "NaN" values as "NULL".
+So I ran this code where it sets all NaN values to NULL:
+SELECT SUM(nullif(val, 'NaN')) / COUNT(val) AS average_val
+FROM aerosol_pre_vector
+JOIN parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
+
 ------------------------------------------------
 
 ##### For Assignment 1 Due 04/12/24 5pm EST

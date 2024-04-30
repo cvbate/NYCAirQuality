@@ -33,6 +33,14 @@ JOIN dumped b ON ST_Intersects(a.geom, b.geom)
 WHERE b.id = 999 AND a.id != b.id
 
 -- he would like to be try to find intersection between the geom and the raster
+SELECT rast,(st_summarystats(st_clip(aerosol_pre_rast.rast, parks.geom))).*
+FROM aerosol_pre_rast, parks
+WHERE st_intersects(aerosol_pre_rast.rast,parks.geom);
+
+/*
+ERROR:  out of memory
+DETAIL:  Failed on request of size 217554865 in memory context "printtup".
+*/
 -- I NEED TO CHOOSE A POINT IN A POLYGON AND FIND THE DISTANCE OF ALL THE OTHER POLYGONS FROM THAT POINT
 ---------------------------
 
