@@ -365,11 +365,41 @@ borobounds_cleadned:
 ![Alt text](Imgs/borobounds_cleaned.png)  
 
 nycboundary:  
-![Alt text](image.png)
+![Alt text](Imgs/nycboundtable.png)
 
 ### Analysis
 
-Goal for today 04/22 create an outline of what I want to do/ write the the script outline
+Calculate the mean for aerosol pre, during, and post both inside and outside of parks. Calculate the man for CO pre, during and post both inside and outside of parks.
+
+1. Create a new table with columns val, and geom, from rast with a lateral polygon dump. EX:
+
+```sql
+CREATE TABLE aerosol_pre_vector AS
+SELECT val, geom -- selected val and geom from aerosol_pre_vector
+FROM (
+SELECT dp.*
+FROM aerosol_pre_rast, LATERAL ST_DumpAsPolygons(rast) AS dp -- ST_DumpAsPolygons returns a table with val(band value) and geom (poly or multipoly. neighboring pixels of the same value are grouped into multipolygons)
+) As foo;
+```
+
+1. Calculate median (optional) of intersection between raster and parks
+
+```sql
+SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
+FROM aerosol_pre_vector
+JOIN parks -- joining aerosol_pre_vector table with aerosol_pre_vector
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom); -- where the geometries of aerosol_pre_vector and parks intersect
+```
+
+1. Manually calculate average of intersection between rast and parks and convert NaN values to NULL - see [Troubleshooting](#troubleshooing) for an explanation as to why the AVG function is not used.
+
+```sql
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM aerosol_pre_vector
+JOIN parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
+-- 0.1631164499369558
+```
 
 
 ### Next Steps
@@ -495,7 +525,7 @@ However the second chuck wasn't returning anything. Just this:
 
 So I checked in PgAdmin and the val for my points is NaN. I am not sure why this is happening, or how to fix it. 
 
-![Alt text](image-1.png)
+![Alt text](Imgs/nantable.png)
 
 While trying to select the AVG value from aerosol_pre_vector of the intersection between the aerosol_pre_vector and parks geom, the queries kept returning NaN. 
 
@@ -506,7 +536,7 @@ JOIN parks
 ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 ```
 
-![alt text](image-3.png)  
+![alt text](Imgs/nanaavgval.png)  
 
 I thought that maybe there were NULL values however upon running this code to count the number of Null Values.... 0 NULL values were counted...
 
@@ -518,7 +548,7 @@ ON ST_Intersects(aerosol_pre_vector.geom, parks.geom)
 WHERE aerosol_pre_vector.val IS NULL;
 ``` 
 
-![alt text](image-4.png)
+![alt text](Imgs/coutnull.png)
 
 This was confusing because I could see that there were values in the intersection so it didn't make sense that I was still gettting NaN value returned.
 
@@ -528,7 +558,7 @@ FROM aerosol_pre_vector
 JOIN parks
 ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 ```
-![alt text](image-7.png)
+![alt text](Imgs/sumcountnull.png)
 
 I wondered if there was an issue withthe AVG function so I tested out the median.
 
@@ -577,7 +607,7 @@ ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 ```
 
 Success!
-![alt text](image-5.png)
+![alt text](Imgs/sucessavg.png)
 
 
 

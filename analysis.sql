@@ -3,17 +3,17 @@
 -- CALCULATE MEAN OF AEROSOL_PRE INSIDE OF PARKS
 -- convert raster to vector and create a new table
 CREATE TABLE aerosol_pre_vector AS
-SELECT val, geom
+SELECT val, geom -- selected val and geom from aerosol_pre_vector
 FROM (
 SELECT dp.*
-FROM aerosol_pre_rast, LATERAL ST_DumpAsPolygons(rast) AS dp
+FROM aerosol_pre_rast, LATERAL ST_DumpAsPolygons(rast) AS dp -- ST_DumpAsPolygons returns a table with val(band value) and geom (poly or multipoly. neighboring pixels of the same value are grouped into multipolygons)
 ) As foo;
 
 -- calculate mean (optional) of intersection between aerosol and parks
 SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
 FROM aerosol_pre_vector
-JOIN parks
-ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
+JOIN parks -- joining aerosol_pre_vector table with aerosol_pre_vector
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom); -- where the geometries of aerosol_pre_vector and parks intersect
 
 -- manually calculate average and convert NaN values to NULL
 SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
@@ -181,23 +181,21 @@ SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
 FROM co_post_vector
 JOIN parks
 ON ST_Intersects(co_post_vector.geom, parks.geom);
--- 
+-- 0.047788169234991074
 
 -- manually calculate average and convert NaN values to NULL
 SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
 FROM co_post_vector
 JOIN parks
 ON ST_Intersects(co_post_vector.geom, parks.geom);
--- 
+--  0.047632964930155015
 
 -- CALCULATE MEAN OF AEROSOL OUTSIDE OF PARKS
 SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
 FROM co_post_vector
 LEFT JOIN parks
 ON ST_Difference(co_post_vector.geom, parks.geom) = co_post_vector.geom;
--- avg val: 0.08792659146550964
-
-
+-- avg val: 0.04745639917202819
 
 
 
