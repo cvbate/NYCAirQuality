@@ -25,7 +25,7 @@
         - [Data cleaning](#clean)
         - [Normalization](#normalization)
     1. [Analysis](#analysis)
-1. [Troubleshooting](#troubleshooing)
+1. [Troubleshooting](#troubleshooting)
 
 ## Introduction <a name="introduction"></a>
 
@@ -148,7 +148,7 @@ The tutorial I looked at also said to then do this code which will allow you to 
 
 `psql -h <publicIPAddress> -U postgres`
 
-Next, install postGIS in the bin of postgresql -- see [Troublshooting](#troubleshooing) for recurring issues accessing postGIS
+Next, install postGIS in the bin of postgresql -- see [Troublshooting](#troubleshooting) for recurring issues accessing postGIS
 
 ```console
 <email>>@cloudshell:/usr/lib/postgresql/16/bin (nycairquality)$ sudo apt install postgis
@@ -402,10 +402,10 @@ ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 ```
 
 
-### Next Steps
+### Discussion
 
 
-#### Troubleshooing
+#### Troubleshooting
 
 1. GEE to Cloud Storage
 Trying to export my raster data from GEE to Cloud Storage. The code was running fine and a file was being exported. However, when I downloaded the file and opened in in ArcPro(to check that there was in fact data), there were only two values.
@@ -503,31 +503,10 @@ gcloud sql connect postgres --user=postgres --database=nycairquality --quiet`
 \i aerosol_durr.sql  
 ```
 
-Challenges for raster import:
+1. NaN values not recognized as NULL
 This was me working locally and not on cloud console in order to save credits.
-I am trying to convert o my raster to points:
 
-```sql
-SELECT ST_Quantile(ST_Intersects(apre.geom, parks.geom))
-FROM (SELECT (ST_PixelAsPoints(rast, 1)).* AS geom FROM aerosol_pre_rast) apre, parks;
-
-SELECT ST_Quantile(ST_Union(apre.geom))
-FROM (SELECT (ST_PixelAsPoints(rast, 1)).* AS geom FROM aerosol_pre_rast) apre
-JOIN parks
-ON ST_Intersects(apre.geom, parks.geom);
-```
-However the second chuck wasn't returning anything. Just this:
-``` sql
- mean_val
-----------
-(1 row)
-```
-
-So I checked in PgAdmin and the val for my points is NaN. I am not sure why this is happening, or how to fix it. 
-
-![Alt text](Imgs/nantable.png)
-
-While trying to select the AVG value from aerosol_pre_vector of the intersection between the aerosol_pre_vector and parks geom, the queries kept returning NaN. 
+While trying to select the AVG value from aerosol_pre_vector of the intersection between the aerosol_pre_vector and parks geom, the queries kept returning NaN.
 
 ```sql
 SELECT AVG(val) AS mean_val
@@ -558,7 +537,8 @@ FROM aerosol_pre_vector
 JOIN parks
 ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 ```
-![alt text](Imgs/sumcountnull.png)
+
+![alt text](Imgs/sumcountnull.png)  
 
 I wondered if there was an issue withthe AVG function so I tested out the median.
 
@@ -567,11 +547,11 @@ SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
 FROM aerosol_pre_vector
 JOIN parks
 ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
-```
+```  
 
-and a value was returned!
+and a value was returned!  
 
-So I tested out my own AVG function
+So I tested out my own AVG function  
 
 ```sql
 SELECT SUM(val) / COUNT(val) AS average_val
@@ -580,7 +560,7 @@ JOIN parks
 ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 ```
 
-and once again a NaN value was returned. 
+and once again a NaN value was returned.  
 
 ```sql
 So I tested both the SUM and COUNT functions 
@@ -591,9 +571,9 @@ JOIN parks
 ON ST_Intersects(aerosol_pre_vector.geom, parks.geom)
 ```
 
-and a value for count was returned but SUM was NaN.
+and a value for count was returned but SUM was NaN.  
 
-Online I found a potential solution, using NULLIF - to convert a selected value to NULL.
+Online I found a potential solution, using NULLIF - to convert a selected value to NULL.  
 
 ```sql
 SELECT SUM(nullif(value, 'NaN'))
@@ -608,8 +588,6 @@ ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 
 Success!
 ![alt text](Imgs/sucessavg.png)
-
-
 
 ------------------------------------------------
 

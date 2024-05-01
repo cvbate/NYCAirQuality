@@ -63,9 +63,6 @@ ON ST_Difference(aerosol_durr_vector.geom, parks.geom) = aerosol_durr_vector.geo
 -- avg val: 1.9572445261879672
 
 
--------- everything above this line has been successful 
-
-
 -------------------------------------------------------------AEROSOL_POST
 CREATE TABLE aerosol_post_vector AS
 SELECT val, geom
@@ -196,6 +193,176 @@ FROM co_post_vector
 LEFT JOIN parks
 ON ST_Difference(co_post_vector.geom, parks.geom) = co_post_vector.geom;
 -- avg val: 0.04745639917202819
+
+
+
+-- Use SQL to identify areas of income below a certain level and above a certain level
+-- socialvul_clean
+-- pl_pov150 -- percentage of block living below poverty line
+
+-- mean of aerosol_pre >= .75
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM aerosol_pre_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  >= .75) AS pov150
+ON ST_Intersects(aerosol_pre_vector.geom, pov150.geom);
+-- 0.1847996763345447
+
+-- mean of aerosol_pre <= .25
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM aerosol_pre_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  <= .25) AS pov150
+ON ST_Intersects(aerosol_pre_vector.geom, pov150.geom);
+-- 0.14817480306347067
+
+-- mean of aerosol_durr >= .75
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM aerosol_durr_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  >= .75) AS pov150
+ON ST_Intersects(aerosol_durr_vector.geom, pov150.geom);
+-- 2.1261042325867843
+
+-- mean of aerosol_durr <= .25
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM aerosol_durr_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  <= .25) AS pov150
+ON ST_Intersects(aerosol_durr_vector.geom, pov150.geom);
+-- 1.9966970343047508
+
+-- mean of aerosol_post >= .75
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM aerosol_post_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  >= .75) AS pov150
+ON ST_Intersects(aerosol_post_vector.geom, pov150.geom);
+-- -0.09579695084130638
+
+-- mean of aerosol_post <= .25
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM aerosol_post_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  <= .25) AS pov150
+ON ST_Intersects(aerosol_post_vector.geom, pov150.geom);
+-- -0.2176500171382611
+
+-- median of aerosol_durr >= .5
+SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
+FROM aerosol_durr_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  >= .50) AS pov150
+ON ST_Intersects(aerosol_durr_vector.geom, pov150.geom);
+-- 2.131716728210449
+
+
+-------------------- co_durr vs social vulnerability
+-- mean of co_pre >= .75
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM co_pre_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  >= .75) AS pov150
+ON ST_Intersects(co_pre_vector.geom, pov150.geom);
+-- 0.03457263646324386
+
+-- mean of co_pre <= .75
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM co_pre_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  <= .25) AS pov150
+ON ST_Intersects(co_pre_vector.geom, pov150.geom);
+-- 0.03416090318846414
+
+
+-- mean of co_durr >= .75
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM co_durr_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  >= .75) AS pov150
+ON ST_Intersects(co_durr_vector.geom, pov150.geom);
+-- 0.0956476101881646
+
+-- mean of co_durr <= .75
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM co_durr_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  <= .25) AS pov150
+ON ST_Intersects(co_durr_vector.geom, pov150.geom);
+-- 0.08910578930923216
+
+-- mean of co_post >= .75
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM co_post_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  >= .75) AS pov150
+ON ST_Intersects(co_post_vector.geom, pov150.geom);
+-- 0.04787728055152151
+
+-- mean of co_post <= .25
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM co_post_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  <= .25) AS pov150
+ON ST_Intersects(co_post_vector.geom, pov150.geom);
+-- 
+
+
+-- median of co durr >= .50 
+SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
+FROM co_durr_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  >= .50) AS pov150
+ON ST_Intersects(co_durr_vector.geom, pov150.geom);
+-- >= .50 == 0.0895862802863121 
+
+-- median of co durr >= .75
+SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
+FROM co_durr_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  >= .75) AS pov150
+ON ST_Intersects(co_durr_vector.geom, pov150.geom);
+-- >= .75 == 0.09054359793663025
+
+-------- everything above this line has been successful 
+
+-- Identify neighborhoods that have with languages other than English spoken at home over 25% (this number may change)
+
+
+
+
+
+
 
 
 
