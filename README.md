@@ -706,7 +706,7 @@ If you have more than 15 observations in each group, you might want to use the t
 # Pa' hacer
 [] add photos of my co_sheet and aero_sheet frome excel
 [] add price options for google cloud
-[] 
+[] add definition of 150% pov
 
 ##### For Assignment 1 Due 04/12/24 5pm EST
 
