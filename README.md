@@ -481,27 +481,22 @@ T- Test had an alpha = 0.01 and a P_value =  0.00025965145594260324
 
 In all of these time points, one week before the Canadian wildfires, during the Canadian wildfires, and one post after the Canadian wildfires the p-value < 0.01. Therefore we can reject the Null Hypothesis and state that there is a statistically significant difference between the average value of Carbon Monoxide in census blocks where 25% or less of the residents live below the 150% poverty line and neighborhoods where 75% of more of the residents live below the 150% poverty line.
   
-  
 ### Aerosol Levels in New York City
 
-![alt text](Imgs/Aerosol_lineplot.png)
+![alt text](Imgs/Aerosol_lineplot.png)  
 
-
-Pre:   
-T- Test had an alpha = 0.01 and a P_value = 5.650764493008713e-07
+Pre:  
+T- Test had an alpha = 0.01 and a P_value = 5.650764493008713e-07  
 
 During:  
 T- Test had an alpha = 0.01 and a P_value = 1.2330289153745144e-45  
 
 Post:  
-T- Test had an alpha = 0.01 and a P_value =  
+T- Test had an alpha = 0.01 and a P_value =  2.8070983375251e-44  
 
+In all of these time points, one week before the Canadian wildfires, during the Canadian wildfires, and one post after the Canadian wildfires the p-value < 0.01. Therefore we can reject the Null Hypothesis and state that there is a statistically significant difference between the average value of Aerosol in census blocks where 25% or less of the residents live below the 150% poverty line and neighborhoods where 75% of more of the residents live below the 150% poverty line.
 
-We can see a sharp increase in both CO and Aerosol levels in New York City from June 5th- June 8th. Carbon Monoxides don't return to levels a week prior the the fire, however Aerosol levels actually decrease.
-
-
-
-
+Based on the above figures, we can see a sharp increase in both CO and Aerosol levels in New York City from June 5th- June 8th. Carbon Monoxides don't return to levels a week prior the the fire, however Aerosol levels actually decrease.  
 
 ### Discussion
 
@@ -689,7 +684,7 @@ JOIN parks
 ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 ```
 
-Success!
+Success!  
 ![alt text](Imgs/sucessavg.png)
 
 ------------------------------------------------
@@ -707,6 +702,11 @@ https://statisticsbyjim.com/hypothesis-testing/t-test/
 https://statisticsbyjim.com/hypothesis-testing/mann-whitney-u-test/
 If you have more than 15 observations in each group, you might want to use the t-test even when you have nonnormal data. The central limit theorem causes the sampling distributions to converge on normality, making the t-test an appropriate choice.
 
+
+# Pa' hacer
+[] add photos of my co_sheet and aero_sheet frome excel
+[] add price options for google cloud
+[] 
 
 ##### For Assignment 1 Due 04/12/24 5pm EST
 

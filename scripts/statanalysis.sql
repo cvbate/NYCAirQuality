@@ -51,6 +51,28 @@ LIMIT 750; -- Sample 750 rows
 
 ----------------------------------------------------------------------- AEROSOL POST
 
+SELECT *
+FROM aerosol_post_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150 >= 0.75
+) AS pov150
+ON ST_Intersects(aerosol_post_vector.geom, pov150.geom)
+ORDER BY RANDOM()
+LIMIT 750; -- Sample 750 rows
+
+SELECT *
+FROM aerosol_post_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150 <= 0.25
+) AS pov150
+ON ST_Intersects(aerosol_post_vector.geom, pov150.geom)
+ORDER BY RANDOM()
+LIMIT 750; -- Sample 750 rows
+
 ----------------------------------------------------------------------- 
 --------------------------------------CO
 ----------------------------------------------------------------------- CO PRE
