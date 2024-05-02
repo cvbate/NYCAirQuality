@@ -421,13 +421,13 @@ LIMIT 750;
 
 1. Use python to create:
     - line charts
-    - a function that runs a Shapiro-Wilk Test to see if the data is normally distributed, plot the histograms if there one or both are normally distributed and preform a Mann-Whitney U Test test to see if there is a statistically significant difference between the two. See the Jupyter notebook in the scripts folder.
+    - a function that runs a Shapiro-Wilk Test to see if the data is normally distributed, plot the histograms if there one or both are normally distributed and preform a T- Test test to see if there is a statistically significant difference between the two. I originally planned to use the Mann-Whitney test because the data is not normally distributed, however I have a large sample size, therefore a t-test is more appropriate due to the central limit theorem. See the Jupyter notebook in the scripts folder.
 
-Here is the output of one of the runs:
+Here is the output of two of the runs:
 
 ```
 
--------------------------------------------------------------------------------copresample75 vs copresample25---start
+----------------------------------------------copresample75 vs copresample25 ---start
 Shapiro-Wilk Test copresample75:
 Test Statistic: 0.9862560356044754
 p-value: 1.8174099383837593e-06
@@ -436,34 +436,76 @@ Shapiro-Wilk Test copresample25:
 Test Statistic: 0.9760915755380984
 p-value: 1.0778937162327386e-09
 ----------------------------------------
-The data does not look normally distributed (reject H0)
-note: if one histogram is plotted, that data is normally distributed...
+The data does not look normally distributed... continue to levene test
 ----------------------------------------
-Mann-Whitney U Test copresample75 vs copresample25:
-Test Statistic: [312642.]
-p-value: [3.59374375e-05]
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-There is a significant difference between the aerosol levels of the two neighborhoods
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-----------------------------------------------------------------------------copresample75 vs copresample25---end
+Results of Levene test: the variances are NOT equal
+T-Test copresample75 vs copresample25:
+stat= 4.353609794719784, p_value=1.4322021775843049e-05
+P_value < 0.0001. Reject the Null Hypothesis. There is a statistically significant difference between the means.
+
+
+
+
+--------------------------------------------co_durSample75 vs co_durSample25---start
+Shapiro-Wilk Test co_durSample75:
+Test Statistic: 0.8596380730314546
+p-value: 2.6793994544163655e-25
+----------------------------------------
+Shapiro-Wilk Test co_durSample25:
+Test Statistic: 0.8525726348513333
+p-value: 8.197781539081694e-26
+----------------------------------------
+The data does not look normally distributed... continue to levene test
+----------------------------------------
+Results of Levene test: the variances are equal
+T-Test co_durSample75 vs co_durSample25:
+stat= 4.793372307443263, p_value=2.6793994544163655e-25
+ P_value < 0.0001. Reject the Null Hypothesis. There is a statistically significant difference between the means.
 
 ```
 
+## Results/Conclusions
 
-### Conclusion
+### Carbon Monoxide levels in New York City
 
+![alt text](Imgs/co_monox_lineplot.png)  
 
-#### Carbon Monoxide levels in New York City
+Pre:  
+T- Test had an alpha = 0.01 and a P_value = 1.4322021775843049e-05  
 
-![alt text](Imgs/co_monox_lineplot.png)
+During:  
+T- Test had an alpha = 0.01 and a P_value = 2.6793994544163655e-25  
 
-#### Aerosol Levels in New York City
+Post:  
+T- Test had an alpha = 0.01 and a P_value =  0.00025965145594260324
+
+In all of these time points, one week before the Canadian wildfires, during the Canadian wildfires, and one post after the Canadian wildfires the p-value < 0.01. Therefore we can reject the Null Hypothesis and state that there is a statistically significant difference between the average value of Carbon Monoxide in census blocks where 25% or less of the residents live below the 150% poverty line and neighborhoods where 75% of more of the residents live below the 150% poverty line.
+  
+  
+### Aerosol Levels in New York City
 
 ![alt text](Imgs/Aerosol_lineplot.png)
 
+
+Pre:   
+T- Test had an alpha = 0.01 and a P_value = 5.650764493008713e-07
+
+During:  
+T- Test had an alpha = 0.01 and a P_value = 1.2330289153745144e-45  
+
+Post:  
+T- Test had an alpha = 0.01 and a P_value =  
+
+
+We can see a sharp increase in both CO and Aerosol levels in New York City from June 5th- June 8th. Carbon Monoxides don't return to levels a week prior the the fire, however Aerosol levels actually decrease.
+
+
+
+
+
 ### Discussion
 
-
+There are a number of factors that could contribute to the decrease we see in Aerosol to that of our "pre" data, like wind.....
 
 
 #### Troubleshooting
@@ -657,6 +699,14 @@ Success!
 Chen K, Ma Y, Bell ML, Yang W. Canadian Wildfire Smoke and Asthma Syndrome Emergency Department Visits in New York City. JAMA. 2023;330(14):1385–1387. doi:10.1001/jama.2023.18768
 
 Liu  JC, Wilson  A, Mickley  LJ,  et al.  Wildfire-specific fine particulate matter and risk of hospital admissions in urban and rural counties. ﻿  Epidemiology. 2017;28(1):77-85. doi:10.1097/EDE.0000000000000556
+
+
+
+https://statisticsbyjim.com/hypothesis-testing/t-test/
+
+https://statisticsbyjim.com/hypothesis-testing/mann-whitney-u-test/
+If you have more than 15 observations in each group, you might want to use the t-test even when you have nonnormal data. The central limit theorem causes the sampling distributions to converge on normality, making the t-test an appropriate choice.
+
 
 ##### For Assignment 1 Due 04/12/24 5pm EST
 
