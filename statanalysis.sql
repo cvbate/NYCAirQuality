@@ -8,7 +8,7 @@ JOIN (
 ) AS pov150
 ON ST_Intersects(co_pre_vector.geom, pov150.geom)
 ORDER BY RANDOM()
-LIMIT 100; -- Sample 100 rows
+LIMIT 750; -- Sample 100 rows
 
 
 SELECT *
@@ -20,4 +20,4 @@ JOIN (
 ) AS pov150
 ON ST_Intersects(co_pre_vector.geom, pov150.geom)
 ORDER BY RANDOM()
-LIMIT 100;
+LIMIT 750;

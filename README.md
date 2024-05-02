@@ -401,8 +401,59 @@ ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 -- 0.1631164499369558
 ```
 
+#### Statistical tests
+
+1. create samples of aerosol and pre co values for each of the neighbhoroods.
+
+```sql
+FROM co_pre_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150 <= 0.25
+) AS pov150
+ON ST_Intersects(co_pre_vector.geom, pov150.geom)
+ORDER BY RANDOM()
+LIMIT 750;
+```
+
+1. Copy and paste the column into an excel sheet and delte any NaN rows
+1 Use python to create a function to run a Shapiro-Wilk Test to see if the data is normally distibuted, plot the histogram if there one or both are normally ditibuted and preform a mannwhitney test to see if there is a statistically significant difference between the two. See python script to see the code.
+
+Here is the output of one of the runs:
+
+```
+
+-------------------------------------------------------------------------------copresample75 vs copresample25---start
+Shapiro-Wilk Test copresample75:
+Test Statistic: 0.9862560356044754
+p-value: 1.8174099383837593e-06
+----------------------------------------
+Shapiro-Wilk Test copresample25:
+Test Statistic: 0.9760915755380984
+p-value: 1.0778937162327386e-09
+----------------------------------------
+The data does not look normally distributed (reject H0)
+note: if one histogram is plotted, that data is normally distibuted...
+----------------------------------------
+Mann-Whitney U Test copresample75 vs copresample25:
+Test Statistic: [312642.]
+p-value: [3.59374375e-05]
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+There is a significant difference between the aerosol levels of the two neighborhoods
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+----------------------------------------------------------------------------copresample75 vs copresample25---end
+
+```
+
+
+### Conclusion
+
+The differences
 
 ### Discussion
+
+
 
 
 #### Troubleshooting
