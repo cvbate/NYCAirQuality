@@ -403,7 +403,7 @@ ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 
 #### Statistical tests
 
-1. create samples of aerosol and co values for each of the neighbhoroods... pre during and post fires
+1. Use SQL to sample aerosol and co values for epl_pov150 <= 0.25 and epl_pov150 >= 0.75. for each of the three time points.
 
 ```sql
 FROM co_pre_vector
@@ -417,9 +417,11 @@ ORDER BY RANDOM()
 LIMIT 750;
 ```
 
-1. Copy and paste the column into an excel sheet and delete any NaN rows
+1. Copy and paste the val column into an excel sheet and delete any NaN rows
 
-1. Use python to create a function to run a Shapiro-Wilk Test to see if the data is normally distributed, plot the histograms if there one or both are normally distributed and preform a Mann-Whitney U Test test to see if there is a statistically significant difference between the two. See python script to see the code.
+1. Use python to create:
+    - line charts
+    - a function that runs a Shapiro-Wilk Test to see if the data is normally distributed, plot the histograms if there one or both are normally distributed and preform a Mann-Whitney U Test test to see if there is a statistically significant difference between the two. See the Jupyter notebook in the scripts folder.
 
 Here is the output of one of the runs:
 
@@ -435,7 +437,7 @@ Test Statistic: 0.9760915755380984
 p-value: 1.0778937162327386e-09
 ----------------------------------------
 The data does not look normally distributed (reject H0)
-note: if one histogram is plotted, that data is normally distibuted...
+note: if one histogram is plotted, that data is normally distributed...
 ----------------------------------------
 Mann-Whitney U Test copresample75 vs copresample25:
 Test Statistic: [312642.]
@@ -450,7 +452,14 @@ There is a significant difference between the aerosol levels of the two neighbor
 
 ### Conclusion
 
-The differences
+
+#### Carbon Monoxide levels in New York City
+
+![alt text](Imgs/co_monox_lineplot.png)
+
+#### Aerosol Levels in New York City
+
+![alt text](Imgs/Aerosol_lineplot.png)
 
 ### Discussion
 
