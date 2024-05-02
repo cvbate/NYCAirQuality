@@ -403,7 +403,7 @@ ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 
 #### Statistical tests
 
-1. create samples of aerosol and pre co values for each of the neighbhoroods.
+1. create samples of aerosol and co values for each of the neighbhoroods... pre during and post fires
 
 ```sql
 FROM co_pre_vector
@@ -417,8 +417,9 @@ ORDER BY RANDOM()
 LIMIT 750;
 ```
 
-1. Copy and paste the column into an excel sheet and delte any NaN rows
-1 Use python to create a function to run a Shapiro-Wilk Test to see if the data is normally distibuted, plot the histogram if there one or both are normally ditibuted and preform a mannwhitney test to see if there is a statistically significant difference between the two. See python script to see the code.
+1. Copy and paste the column into an excel sheet and delete any NaN rows
+
+1. Use python to create a function to run a Shapiro-Wilk Test to see if the data is normally distributed, plot the histograms if there one or both are normally distributed and preform a Mann-Whitney U Test test to see if there is a statistically significant difference between the two. See python script to see the code.
 
 Here is the output of one of the runs:
 
