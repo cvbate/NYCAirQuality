@@ -418,6 +418,9 @@ LIMIT 750;
 ```
 
 1. Copy and paste the val column into an excel sheet and delete any NaN rows
+![alt text](Imgs/aerosol_pov_mean_excel.png)  
+
+![alt text](Imgs/co_pov_mean_excel.png)  
 
 1. Use python to create:
     - line charts
@@ -685,6 +688,8 @@ ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 ```
 
 Success!  
+<img src="Imgs/sucessavg.png" alt="drawing" width="200"/>  
+
 ![alt text](Imgs/sucessavg.png)
 
 ------------------------------------------------
@@ -696,18 +701,22 @@ Chen K, Ma Y, Bell ML, Yang W. Canadian Wildfire Smoke and Asthma Syndrome Emerg
 Liu  JC, Wilson  A, Mickley  LJ,  et al.  Wildfire-specific fine particulate matter and risk of hospital admissions in urban and rural counties. ﻿  Epidemiology. 2017;28(1):77-85. doi:10.1097/EDE.0000000000000556
 
 
-
 https://statisticsbyjim.com/hypothesis-testing/t-test/
 
 https://statisticsbyjim.com/hypothesis-testing/mann-whitney-u-test/
 If you have more than 15 observations in each group, you might want to use the t-test even when you have nonnormal data. The central limit theorem causes the sampling distributions to converge on normality, making the t-test an appropriate choice.
 
-
 # Pa' hacer
-[] add photos of my co_sheet and aero_sheet frome excel
+[X] add photos of my co_sheet and aero_sheet frome excel
 [] add price options for google cloud
 [] add definition of 150% pov
-
+[] add captions for all photos
+[] fix image widths 
+` <img src="drawing.jpg" alt="drawing" width="200"/> `
+[] add maps from pp for vector layers
+[] write discussion
+[] read over everything/make edits
+[] make nicer maps for rasters
 ##### For Assignment 1 Due 04/12/24 5pm EST
 
 1. Find and Process Geospatial Data (10 Points)
