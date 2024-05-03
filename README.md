@@ -476,20 +476,21 @@ Caption: Average CO in New York City census blocks in which 0.25% and 0.75% of r
 | During      | 2.6793994544163655e-25  |
 | Post        | 0.00025965145594260324  |
 
-[Social vulnerability statistical difference in Carbon Monoxide levels in census blocks in which 0.25% and 0.75% of residents live below the 150% poverty level. n = 750, alpha= 0.01]
-
-Pre:  
-T- Test had an alpha = 0.01 and a P_value = 1.4322021775843049e-05  
-
-During:  
-T- Test had an alpha = 0.01 and a P_value = 2.6793994544163655e-25  
-
-Post:  
-T- Test had an alpha = 0.01 and a P_value =  0.00025965145594260324
-
-In all of these time points, one week before the Canadian wildfires, during the Canadian wildfires, and one post after the Canadian wildfires the p-value < 0.01. Therefore we can reject the Null Hypothesis and state that there is a statistically significant difference between the average value of Carbon Monoxide in census blocks where 25% or less of the residents live below the 150% poverty line and neighborhoods where 75% of more of the residents live below the 150% poverty line.
+Caption: Social vulnerability statistical difference in Carbon Monoxide levels in census blocks in which 0.25% and 0.75% of residents live below the 150% poverty level. n = 750, alpha= 0.01
+  
+  
+In each of these time points, one week before the Canadian wildfires, during the Canadian wildfires, and one post after the Canadian wildfires the p-value < 0.01. Therefore we can reject the Null Hypothesis and state that there is a statistically significant difference between the average value of Carbon Monoxide in census blocks where 25% or less of the residents live below the 150% poverty line and neighborhoods where 75% of more of the residents live below the 150% poverty line.
 
 #### Parks -CO
+
+| Time frame  | P_value                 |
+| ----------- | ----------------------- |
+| Pre         | 4.6169291736476916e-11  |
+| During      | 1.9476543069681188e-08  |
+| Post        | 5.06190361916981e-12    |
+
+Caption: Statistical difference in Carbon Monoxide levels in inside parks vs outside parks in NYC. n = 750, alpha= 0.01
+
 
 Pre:  
 T- Test had an alpha = 0.01 and a P_value =
@@ -505,28 +506,28 @@ T- Test had an alpha = 0.01 and a P_value =
 #### Social Vulnerability - Aerosol
 
 ![alt text](Imgs/Aerosol_lineplot.png)  
+Caption: Average aerosol levels in New York City census blocks in which 0.25% and 0.75% of residents live below the 150% poverty level.
+
+| Time frame  | P_value                 |
+| ----------- | ----------------------- |
+| Pre         | 5.650764493008713e-07   |
+| During      | 1.2330289153745144e-45  |
+| Post        | 2.8070983375251e-44     |
   
-Pre:  
-T- Test had an alpha = 0.01 and a P_value = 5.650764493008713e-07  
-  
-During:  
-T- Test had an alpha = 0.01 and a P_value = 1.2330289153745144e-45  
-  
-Post:  
-T- Test had an alpha = 0.01 and a P_value =  2.8070983375251e-44  
-  
-#### Parks - Aerosol
-  
-Pre:  
-T- Test had an alpha = 0.01 and a P_value = 8.065236401073932e-59  
-  
-During:  
-T- Test had an alpha = 0.01 and a P_value =  1.0819950853631183e-07  
-  
-Post:  
-T- Test had an alpha = 0.01 and a P_value =  1.0819950853631183e-07  
+Caption: Social vulnerability statistical difference in aerosol levels in census blocks in which 0.25% and 0.75% of residents live below the 150% poverty level. n = 750, alpha= 0.01
 
   
+#### Parks - Aerosol
+
+| Time frame  | P_value                 |
+| ----------- | ----------------------- |
+| Pre         | 8.065236401073932e-59   |
+| During      | 1.0819950853631183e-07  |
+| Post        | 1.0819950853631183e-07  |
+
+Caption: Statistical difference in aerosol levels in inside parks vs outside parks in NYC. n = 750, alpha= 0.01
+
+   
 In all of these time points, one week before the Canadian wildfires, during the Canadian wildfires, and one post after the Canadian wildfires the p-value < 0.01. Therefore we can reject the Null Hypothesis and state that there is a statistically significant difference between the average value of Aerosol in census blocks where 25% or less of the residents live below the 150% poverty line and neighborhoods where 75% of more of the residents live below the 150% poverty line. Overall, the levels or aerosol/CO were lower in areas where neighborhoods have 25% or less residents living at or below the 150% poverty line.
 
 Additionally, there were statistically significant differences between the CO and Aerosol levels inside and outside parks. However, unexpectedly, the levels outside of parks were lower than those inside of parks.
