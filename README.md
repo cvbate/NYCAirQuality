@@ -209,13 +209,13 @@ Pre(one year prior), during(June 5th- June 8th), ost(one month after)
 
 
 1. EVI (GEE)
-    - Written by Clio Bate, adapted from a thread of [Stack Exchange](https://gis.stackexchange.com/questions/370978/time-series-chart-of-evi-landsat-8-for-a-single-pixel-in-gee
-with the help of Chat GPT to make visualizations)  
-
-![Alt text](Imgs/evi_gee.png)
+    - Written by Clio Bate, adapted from a thread of [Stack Exchange](https://gis.stackexchange.com/questions/370978/time-series-chart-of-evi-landsat-8-for-a-single-pixel-in-gee) with the help of Chat GPT to make visualizations
 
 1. [Elevation 1ft DEM](https://data.cityofnewyork.us/City-Government/1-foot-Digital-Elevation-Model-DEM-Integer-Raster/7kuu-zah7/about_data)  
-![Alt text](Imgs/evlevation.png)
+
+<img src="Imgs/evi_gee.png" alt="drawing" width="400"/> <img src="Imgs/evlevation.png" alt="drawing" width="400"/>
+EVI and elevation
+
 
 ## Methodology
 
