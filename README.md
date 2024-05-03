@@ -157,22 +157,25 @@ Next, install postGIS in the bin of postgresql -- see [Troublshooting](#troubles
 ## Data
 
 ### Vector Data
+1. [City boundaries](https://data.gis.ny.gov/datasets/sharegisny::nys-civil-boundaries/explore?layer=4&location=40.695449%2C-73.623530%2C9.29)
 
-1. [City boundaries](https://data.gis.ny.gov/datasets/sharegisny::nys-civil-boundaries/explore?layer=4&location=40.695449%2C-73.623530%2C9.29)  
+1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data) 
 
-<img src="Imgs/boundary_gee.png" alt="drawing" width="400"/> <img src="Imgs/parks.png" alt="drawing" width="400"/>
-
-1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data)  
-![Alt text](Imgs/parks.png)  
-  
-1. [2020 US census data](https://data.cityofnewyork.us/City-Government/2020-Census-Tracts-Tabular/63ge-mke6/about_data)  
-![Alt text](Imgs/census.png)
+1. [2020 US census data](https://data.cityofnewyork.us/City-Government/2020-Census-Tracts-Tabular/63ge-mke6/about_data)
 
 1. [2020 Neighborhood Data](https://data.cityofnewyork.us/City-Government/2020-Neighborhood-Tabulation-Areas-NTAs-Tabular/9nt8-h7nd/about_data)  
-![Alt text](Imgs/neighborhoods.png)  
 
 1. [Borough boundaries](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm)  
-![buroghs](Imgs/buroghbounds.png)
+
+<img src="Imgs/boundary_gee.png" alt="drawing" width="400"/> <img src="Imgs/parks.png" alt="drawing" width="400"/>
+City boundaries and Parks
+
+
+<img src="Imgs/census.png.png" alt="drawing" width="400"/> <img src="Imgs/neighborhoods.png" alt="drawing" width="400"/>  
+2020 US census data and 2020 Neighborhood Data
+
+<img src="Imgs/buroghbounds.png" alt="drawing" width="400"/>
+Borough boundaries
 
 ### Raster Data
 
