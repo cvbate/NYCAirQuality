@@ -13,6 +13,7 @@
 1. [Data](#data)
     1. [Vector](#vector-data)
     1. [Raster](#raster-data)
+    1. [GEE Scripts](#gee-scripts)
 1. [Methodology](#methodology)
     1. [Data Aquisition](#data-aquisition)
     1. [GEE Scripts](#scripts)
@@ -32,15 +33,17 @@
 
 ## Introduction
 
-In June 2023, there were extensive wildfires in Quebec, Canada, causing poor air quality in much of the eastern United States with the worst periods falling between June 6th and June 8th. Particulate matter from wildfires can cause adverse health effect to affect respiratory health, cardiovascular health, birth outcomes, and mental health(Liu et al., 2017). One study by Chen et al. analyzing the impacts of the June 2023 wildfires found a significant increase in hospitalizations due to asthma in children ages 5-17 in New York City during the wildfires(2023).
+In June 2023, there were extensive wildfires in Quebec, Canada, causing poor air quality in much of the eastern United States. The worst periods fell between June 6th and June 8th(Lin, 2023). Particulate matter from wildfires can cause adverse effects to respiratory health, cardiovascular health, mental health, and birth outcomes(Liu et al., 2017). One study by Chen et al. analyzing the impacts of the June 2023 wildfires found a significant increase in hospitalizations due to asthma in children ages 5-17 in New York City during the wildfires(2023).
 
-The goal of this project is to assess Air Quality in New York City due to Canadian Wildfires using two different indices, Aerosol and Carbon Monoxide through a combination of visual analysis and SQL statistical analysis.
+The goal of this project is to assess Air Quality in New York City due to Canadian Wildfires using two different indices, Aerosol and Carbon Monoxide through a combination of visual analysis and SQL statistical t-test analysis. I will compare Air Quality in NYC census blocks where 75% or more residents live at or below the 150% poverty line to census block where 25% or less residents live ot or below the 150% poverty line. For example,[a household of 4 with a total annual income of $45,000 is considered to be at 150% poverty level.](https://liheapch.acf.hhs.gov/tables/POP.htm)This is to see if there is a disparity between the neighborhoods.
+I will also compare Air Quality inside and outside of parks. I believe that the presence of vegetation could improve air quality and parks tend to have vegetation.
+I will have three time frames: pre(one year prior), during (composite of levels from June 6th-8th), and post(one month after).
 
 ## Setup
 
-This project uses Google Cloud Console. Cloud Console essentially creates a cloud hosted virtual Linux system(bash) in which you can use to interact with the rest of console. This environment is separate from your local machine. Cloud Console uses a credit-based billing system with a trial available with $300 in free credits. Bash commands work the same as on your local machine, with VSCode Shell as the GUI interface.
+This project uses Google Cloud Console. Cloud Console essentially creates a cloud hosted virtual Linux system(bash) in which that interacts with the rest of console. This environment is separate from your local machine. Cloud Console uses a credit-based billing system with a trial available with $300 in free credits. Bash commands work the same as on your local machine, with VSCode Shell as the GUI interface.
 
-Google Cloud Pricing can be complication, so refer to read [Google Cloud Pricing: The Complete Guide](https://tinyurl.com/nh9p2dfw)
+Google Cloud Pricing can be complicated, and depends an multiple factors so refer to [Google Cloud Pricing: The Complete Guide](https://tinyurl.com/nh9p2dfw) to lear more
 
 Overview of steps to get started:
 
@@ -60,12 +63,12 @@ APIs Used in this project:
 
 ### Creating a Project and Connecting to GitHub <a name="setup1"></a>
 
-First, you must create an account and connect your git repository. I followed the instructions from [this page to connect to my repository using Cloud Build](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github). I will also walk you through the process below:
+First, create an account and connect your git repository. I followed the instructions from [this page to connect to my repository using Cloud Build](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github). I will also walk you through the process below:
 
 1. Create a Google Console account.
     I named it the same as my github repository, although I am not sure that is necessary.
 
-1. Creating a project in Cloud Console. I named it the same as this repository. 
+1. Creating a project in Cloud Console. I named it the same as this repository.
 
 1. Enable required APIs:
     Enable cloud API
@@ -91,7 +94,7 @@ First, you must create an account and connect your git repository. I followed th
     ![Alt text](Imgs/ConnectingToGitHubRepo.png)  
     After the previous steps, your repo page should now look something like this:  
     ![Alt text](Imgs/repo_ex.png)  
-1. After these steps you will have to configure your global username and email associated with your github account. Run the following code in cloud shell to finalize the configuration of your github repository:  
+1. After these steps you will have to configure your global username and email associated with your github account. Run the following code in Cloud Shell to finalize the configuration of your github repository:  
 
 ```console
 git init # you will be told to configure your username and email
@@ -100,10 +103,11 @@ git config --global user.email <email>
 ```
 
 Now you should be all set up and ready to make commits to your GitHub repository!!
-You wil make commits from VSCode CloudShell Editor 'Source Control'. Press "Commit" and then "Sync Changes", copy the code that will pop up, then you will be redirected to GitHub. Enter the code given to you and sign into your account.  
+You will make commits from VSCode CloudShell Editor 'Source Control'. Press "Commit" and then "Sync Changes", copy the code that will pop up, then you will be redirected to GitHub. Enter the code given to you and sign into your account.  
 ![Alt text](Imgs/sourcecontrol.png)  
 
-If you use ` git push ` in command line you will be asked for user and password authentication which was disabled by GitHub in 2021.
+Note: if you use ` git push ` in command line you will be asked for user and password authentication which was disabled by GitHub in 2021.
+
 ------------------------------------------------  
 
 #### Triggers - Cloud Build <a name="setup2"></a>
@@ -130,7 +134,8 @@ Setting up a Bucket is important if you are exporting raster data from GEE. If y
 ### CloudSQL/PostgresSQL Instances <a name="setup4"></a>
 
  [How to create instances](https://cloud.google.com/sql/docs/postgres/create-instance#console)  
-1. Enable Cloud SQL Admin API and Compute Engine API 
+
+1. Enable Cloud SQL Admin API and Compute Engine API
  `gcloud init`
 
 1. Create a PostgreSQL instance... Follow the steps from the link above!
@@ -140,20 +145,17 @@ Setting up a Bucket is important if you are exporting raster data from GEE. If y
     `sudo apt-get install postgresql`
 
 Go to your instances and click on the name of your instance to open the configuration panel. I named mine postgres. Scroll down to "Connect to this instance" and click on OPEN CLOUD SHELL.  
+
 <img src="Imgs/opencloudshell.png" alt="drawing" width="450"/>
 
 Upon clicking OPEN CLOUD SHELL something similar to this code will be automatically pasted into your terminal. Press enter to execute the code:  
     `gcloud sql connect postgres --user=postgres --quiet`  
-    or to connect directly to your database add the --database="name of database"  
+    or to connect directly to your database add the `--database=<name of database>`  
     `gcloud sql connect postgres --user=postgres --database=NYCAirQuality --quiet`  
   
-This is the code that you will run every time you want to access your Database in GC's SQLShell
+This is the code that you will run every time you want to access your Postgres database from Cloud Shell.
 
-The tutorial I looked at also said to then do this code which will allow you to access postgres just by typing psql in the Cloud Terminal, however when I tired to run it, it timed out before asking me for my password. It seems like this is unnecessary and the previous code will also work fine.
-
-`psql -h <publicIPAddress> -U postgres`
-
-Next, install postGIS in the bin of postgresql -- see [Troublshooting](#troubleshooting) for recurring issues accessing postGIS
+Next, install postGIS in the bin of postgresql -- see [Troubleshooting](#troubleshooting) for recurring issues accessing postGIS
 
 ```console
 <email>>@cloudshell:/usr/lib/postgresql/16/bin (nycairquality)$ sudo apt install postgis
@@ -199,8 +201,7 @@ For this L3 AER_AI product, the absorbing_aerosol_index is calculated with a pai
   
 <img src="Imgs/aero_pre_dur_post.png" alt="drawing" width="1000"/> 
   ![alt text](image.png)
-Pre(one year prior), during(June 6th-8th), post(one month later) 
-
+Pre(one year prior), during(June 6th-8th), post(one month later)
 
 1. [Sentinel-5P NRTI CO: Near Real-Time Carbon Monoxide](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_CO)
 " This dataset provides near real-time high-resolution imagery of CO concentrations.
@@ -221,13 +222,12 @@ Pre(one year prior), during(June 5th- June 8th), ost(one month after)
 <img src="Imgs/evi_gee.png" alt="drawing" width="400"/> <img src="Imgs/evlevation.png" alt="drawing" width="400"/>
 EVI and elevation
 
-
 ## Methodology
 
-### Data Aquisition
+### Data Acquisition
 
 1. Download vector data from [NYC Open Data](https://opendata.cityofnewyork.us/) and save locally on computer.
-1. Reproject all the data to ensure its in a Geospatial Cordinate Sytesm EPSG:4326 and then upload to GitHub repository. All vector data (except for NYCBoundary) is located in Data_Reprojected.
+1. Re-project all the data to ensure its in a Geospatial Cordinate System EPSG:4326 and then upload to GitHub repository. All vector data (except for NYCBoundary) is located in Data_Reprojected.
 1. The NYC Boundary Data  was loaded into GEE, only the NYC boundary was selected to be use as a boundary for my raster data and saved as a new variable. Then it was exported to Cloud storage from GEE using the following code:
 1. Acquire Raster
     - Elevation data from NYC Open Data Enable
@@ -261,7 +261,7 @@ EVI and elevation
 After exporting each of the images, from GEE. The bucket should look something like this. I moved all the Boundary SHP into a single folder.  
 ![Alt text](Imgs/bucket_exported.png)
 
-#### Scripts
+#### GEE Scripts
 
 [Link to GEE Aerosol Script](https://code.earthengine.google.com/fbd7677c9c8c354ae38f88c99c6c70fc)  
 [Link to GEE CO Script](https://code.earthengine.google.com/087b036e06b996e1cc49e5329ae9cbd2)  
@@ -307,7 +307,6 @@ Processing 1/1: aerosol_durr.tif
 
 1. navigate to the dir with the data
 1. Use raster2pgsql or shp2pgsql to convert data to a .sql file. See code example in the previous section.
-
 
 1. After downloading the data, convert vectors and Rasters to SQL see [Access Cloud Storage & Convert files to .sql](#setup5) for more information on the steps.
 
@@ -368,7 +367,7 @@ nycboundary:
 
 ### Analysis
 
-Calculate the mean for aerosol pre, during, and post both inside and outside of parks. Calculate the man for CO pre, during and post both inside and outside of parks.
+Calculate the mean for aerosol and CO pre, during, and post both inside and outside of parks. Calculate the mean for aerosol pre, during and post both in census blocks where 25% or fewer of the residents live below the 150% poverty level and in census blocks where 75% or more of the residents live below the 150% poverty level.
 
 1. Create a new table with columns val, and geom, from rast with a lateral polygon dump. EX:
 
@@ -381,16 +380,23 @@ FROM aerosol_pre_rast, LATERAL ST_DumpAsPolygons(rast) AS dp -- ST_DumpAsPolygon
 ) As foo;
 ```
 
-1. Calculate median (optional) of intersection between raster and parks
+1. Create tables for each co/aerosol vector to remove water from influencing the results. EX:
 
 ```sql
-SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
-FROM aerosol_pre_vector
-JOIN parks -- joining aerosol_pre_vector table with aerosol_pre_vector
-ON ST_Intersects(aerosol_pre_vector.geom, parks.geom); -- where the geometries of aerosol_pre_vector and parks intersect
+CREATE TABLE aerosol_pre_vector_clip AS
+SELECT 
+    a.val, ST_Intersection(a.geom, b.geom) AS geom 
+FROM 
+    aerosol_pre_vector AS a
+JOIN 
+    buroughbounds AS b
+ON 
+    ST_Intersects(a.geom, b.geom);
+
 ```
 
-1. Manually calculate average of intersection between rast and parks and convert NaN values to NULL - see [Troubleshooting](#troubleshooing) for an explanation as to why the AVG function is not used.
+
+1. Use ST_Intersects to calculate average of CO/aerosol levels in the intersection of rast and parks and convert NaN values to NULL - see [Troubleshooting](#troubleshooing) for an explanation as to why the AVG function is not used. Do this for each co/aerosol vector
 
 ```sql
 SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
@@ -400,9 +406,51 @@ ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 -- 0.1631164499369558
 ```
 
+1. Use ST_Disjoint to calculate average levels in areas outside of parks for each co/aerosol vector
+
+```sql
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM (
+    SELECT val
+    FROM aerosol_pre_vector_clip
+    JOIN parks
+    ON ST_Disjoint(aerosol_pre_vector_clip.geom, parks.geom)
+) AS outside_parks;
+```
+
+1. Complete the previous steps with 25% and 75% poverty levels for each co/aerosol vector
+
+```sql
+
+-- mean of aerosol_durr >= .75
+SELECT *
+FROM aerosol_pre_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150 >= 0.75
+) AS pov150
+ON ST_Intersects(aerosol_pre_vector.geom, pov150.geom)
+ORDER BY RANDOM()
+LIMIT 750; -- Sample 750 rows
+
+
+-- mean of aerosol_durr <= .25
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM aerosol_durr_vector
+JOIN (
+    SELECT * 
+    FROM socialvul_clean 
+    WHERE epl_pov150  <= .25) AS pov150
+ON ST_Intersects(aerosol_durr_vector.geom, pov150.geom);
+
+```
+
 #### Statistical tests
 
-1. Use SQL to sample aerosol and co values for epl_pov150 <= 0.25 and epl_pov150 >= 0.75. for each of the three time points.
+##### Prep in SQL
+
+1. Use SQL to sample aerosol and co values for epl_pov150 <= 0.25 and epl_pov150 >= 0.75. for each of the three time points. Do this for each co/aerosol vector
 
 ```sql
 FROM co_pre_vector
@@ -416,14 +464,49 @@ ORDER BY RANDOM()
 LIMIT 750;
 ```
 
+1. Do the same for inside and outside of parks for each co/aerosol vector
+
+```sql
+SELECT *
+FROM aerosol_pre_vector
+JOIN Parks
+ON ST_Intersects(aerosol_pre_vector.geom, parks.geom)
+ORDER BY RANDOM()
+LIMIT 750; -- Sample 750 rows
+
+
+SELECT *
+FROM (
+    SELECT val
+    FROM aerosol_pre_vector_clip
+    JOIN parks
+    ON ST_Disjoint(aerosol_pre_vector_clip.geom, parks.geom)
+) AS outside_parks
+ORDER BY RANDOM()
+LIMIT 750;- -- Sample 750 rows
+```
+
+##### Prep Excel
+
 1. Copy and paste the val column into an excel sheet and delete any NaN rows
 ![alt text](Imgs/aerosol_pov_mean_excel.png)  
 
 ![alt text](Imgs/co_pov_mean_excel.png)  
 
+
+##### Python T-test
+
 1. Use python to create:
-    - line charts
-    - a function that runs a Shapiro-Wilk Test to see if the data is normally distributed, plot the histograms if there one or both are normally distributed and preform a T- Test test to see if there is a statistically significant difference between the two. I originally planned to use the Mann-Whitney test because the data is not normally distributed, however I have a large sample size, therefore a t-test is more appropriate due to the central limit theorem. See the Jupyter notebook in the scripts folder.
+    - Function 1: Line charts 
+    def graph(df, ColName1, ColName2, AorCO):  
+        - graphs the mean aerosol/co values in pre, during, and post for parks and 150% poverty level.
+        - See datagraphs.ipynb in the scripts folder for more.
+    - Function: Statistical test that takes four arguments.  
+    def statAnalysis(df, colNamedf, df2, colNamedf2):  
+        - runs a Shapiro-Wilk Test to see if the data is normally distributed, 
+        - runs a Levene variance test to test of there is variance between the two datasets the data, 
+        - preform a T- Test test to see if there is a statistically significant difference between the two with variance set to the output of the previous test. I originally planned to use the Mann-Whitney test because the data is not normally distributed, however I have a large sample size, therefore a t-test is more appropriate due to the central limit theorem. See the Jupyter notebook in the scripts folder.
+        - see parks_datagraphs.ipynb in the scripts folder for more.
 
 Here is the output of two of the runs:
 
@@ -743,6 +826,8 @@ Success!
 
 Chen K, Ma Y, Bell ML, Yang W. Canadian Wildfire Smoke and Asthma Syndrome Emergency Department Visits in New York City. JAMA. 2023;330(14):1385–1387. doi:10.1001/jama.2023.18768
 
+Lin, Elizabeth. “Canadian Wildfire Smoke Associated with Increased Asthma Cases in NYC.” Yale School of Public Health, Yale School of Medicine, 5 Oct. 2023, ysph.yale.edu/news-article/canadian-wildfire-smoke-associated-with-increased-asthma-cases-in-nyc/#:~:text=Looking%20at%20data%20from%20June,June%206%20to%20June%208. 
+
 Liu  JC, Wilson  A, Mickley  LJ,  et al.  Wildfire-specific fine particulate matter and risk of hospital admissions in urban and rural counties. ﻿  Epidemiology. 2017;28(1):77-85. doi:10.1097/EDE.0000000000000556
 
 
@@ -753,12 +838,12 @@ If you have more than 15 observations in each group, you might want to use the t
 
 # Pa' hacer
 [X] add photos of my co_sheet and aero_sheet frome excel
-[] add price options for google cloud
+[X] add price options for google cloud
 [] add definition of 150% pov
 [X] add captions for all photos
 [X] fix image widths 
 [] add maps from pp for vector layers
-[] write discussion
+[X] write discussion
 [] read over everything/make edits
 [X] do same analysis for parks 
 [] if time do same analysis for evi
