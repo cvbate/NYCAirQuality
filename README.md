@@ -161,7 +161,7 @@ Next, install postGIS in the bin of postgresql -- see [Troublshooting](#troubles
 
 1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data) 
 
-1. [2020 US census data](https://data.cityofnewyork.us/City-Government/2020-Census-Tracts-Tabular/63ge-mke6/about_data)
+1. [2020 Social Vulnerability- US Census](https://www.atsdr.cdc.gov/placeandhealth/svi/index.html)
 
 1. [2020 Neighborhood Data](https://data.cityofnewyork.us/City-Government/2020-Neighborhood-Tabulation-Areas-NTAs-Tabular/9nt8-h7nd/about_data)  
 
@@ -172,7 +172,7 @@ City boundaries and Parks
 
 
 <img src="Imgs/census.png" alt="drawing" width="400"/> <img src="Imgs/neighborhoods.png" alt="drawing" width="400"/>  
-2020 US census data and 2020 Neighborhood Data
+US Census 2020 Social Vulnerability and 2020 Neighborhood Data
 
 <img src="Imgs/buroghbounds.png" alt="drawing" width="400"/>
 Borough boundaries
