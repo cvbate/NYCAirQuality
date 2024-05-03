@@ -171,7 +171,7 @@ Next, install postGIS in the bin of postgresql -- see [Troublshooting](#troubles
 City boundaries and Parks
 
 
-<img src="Imgs/census.png.png" alt="drawing" width="400"/> <img src="Imgs/neighborhoods.png" alt="drawing" width="400"/>  
+<img src="Imgs/census.png" alt="drawing" width="400"/> <img src="Imgs/neighborhoods.png" alt="drawing" width="400"/>  
 2020 US census data and 2020 Neighborhood Data
 
 <img src="Imgs/buroghbounds.png" alt="drawing" width="400"/>
