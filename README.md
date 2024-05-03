@@ -208,7 +208,7 @@ Carbon monoxide (CO) is an important atmospheric trace gas for understanding tro
 Pre(one year prior), during(June 5th- June 8th), ost(one month after)
 
 
-1. EVI (GEE)
+1. [EVI (GEE)](https://code.earthengine.google.com/64f97ca5e0c00fe861989ffcb10d6c2c)
     - Written by Clio Bate, adapted from a thread of [Stack Exchange](https://gis.stackexchange.com/questions/370978/time-series-chart-of-evi-landsat-8-for-a-single-pixel-in-gee) with the help of Chat GPT to make visualizations
 
 1. [Elevation 1ft DEM](https://data.cityofnewyork.us/City-Government/1-foot-Digital-Elevation-Model-DEM-Integer-Raster/7kuu-zah7/about_data)  
@@ -702,12 +702,19 @@ If you have more than 15 observations in each group, you might want to use the t
 [X] add photos of my co_sheet and aero_sheet frome excel
 [] add price options for google cloud
 [] add definition of 150% pov
-[] add captions for all photos
-[] fix image widths 
-` <img src="drawing.jpg" alt="drawing" width="200"/> `
+[X] add captions for all photos
+[X] fix image widths 
 [] add maps from pp for vector layers
 [] write discussion
 [] read over everything/make edits
+[] do same analysis for parks 
+[] if time do same analysis for evi
+        - calculate average cover for evi
+        - chose the neighbhood with highest coverage
+        - chose the nighbhorhood with lowest coverage
+        - take samples
+        - t-test
+[] update analysis to include parks and quiza evi
 [] make nicer maps for rasters
 ##### For Assignment 1 Due 04/12/24 5pm EST
 
