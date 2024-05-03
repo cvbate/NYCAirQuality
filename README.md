@@ -475,9 +475,8 @@ Caption: Average CO in New York City census blocks in which 0.25% and 0.75% of r
 | Pre         | 1.4322021775843049e-05  |
 | During      | 2.6793994544163655e-25  |
 | Post        | 0.00025965145594260324  |
-[Social vulnerability statistical difference in Carbon Monoxide levels in census blocks in which 0.25% and 0.75% of residents live below the 150% poverty level.
-n = 750
-alpha= 0.01]
+
+[Social vulnerability statistical difference in Carbon Monoxide levels in census blocks in which 0.25% and 0.75% of residents live below the 150% poverty level. n = 750, alpha= 0.01]
 
 Pre:  
 T- Test had an alpha = 0.01 and a P_value = 1.4322021775843049e-05  
