@@ -465,7 +465,17 @@ stat= 4.793372307443263, p_value=2.6793994544163655e-25
 
 ### Carbon Monoxide levels in New York City
 
+#### Social Vulnerability - CO
+
 ![alt text](Imgs/co_monox_lineplot.png)  
+
+| Time frame  | P_value                 |
+| ----------- | ----------------------- |
+| Pre         | 1.4322021775843049e-05  |
+| During      | 2.6793994544163655e-25  |
+| Post        | 0.00025965145594260324  |
+
+alpha= 0.01
 
 Pre:  
 T- Test had an alpha = 0.01 and a P_value = 1.4322021775843049e-05  
@@ -477,21 +487,48 @@ Post:
 T- Test had an alpha = 0.01 and a P_value =  0.00025965145594260324
 
 In all of these time points, one week before the Canadian wildfires, during the Canadian wildfires, and one post after the Canadian wildfires the p-value < 0.01. Therefore we can reject the Null Hypothesis and state that there is a statistically significant difference between the average value of Carbon Monoxide in census blocks where 25% or less of the residents live below the 150% poverty line and neighborhoods where 75% of more of the residents live below the 150% poverty line.
+
+#### Parks -CO
+
+Pre:  
+T- Test had an alpha = 0.01 and a P_value =
+
+During:  
+T- Test had an alpha = 0.01 and a P_value =  
+
+Post:  
+T- Test had an alpha = 0.01 and a P_value =  
   
 ### Aerosol Levels in New York City
 
-![alt text](Imgs/Aerosol_lineplot.png)  
+#### Social Vulnerability - Aerosol
 
+![alt text](Imgs/Aerosol_lineplot.png)  
+  
 Pre:  
 T- Test had an alpha = 0.01 and a P_value = 5.650764493008713e-07  
-
+  
 During:  
 T- Test had an alpha = 0.01 and a P_value = 1.2330289153745144e-45  
-
+  
 Post:  
 T- Test had an alpha = 0.01 and a P_value =  2.8070983375251e-44  
+  
+#### Parks - Aerosol
+  
+Pre:  
+T- Test had an alpha = 0.01 and a P_value = 8.065236401073932e-59  
+  
+During:  
+T- Test had an alpha = 0.01 and a P_value =  1.0819950853631183e-07  
+  
+Post:  
+T- Test had an alpha = 0.01 and a P_value =  1.0819950853631183e-07  
 
-In all of these time points, one week before the Canadian wildfires, during the Canadian wildfires, and one post after the Canadian wildfires the p-value < 0.01. Therefore we can reject the Null Hypothesis and state that there is a statistically significant difference between the average value of Aerosol in census blocks where 25% or less of the residents live below the 150% poverty line and neighborhoods where 75% of more of the residents live below the 150% poverty line.
+  
+In all of these time points, one week before the Canadian wildfires, during the Canadian wildfires, and one post after the Canadian wildfires the p-value < 0.01. Therefore we can reject the Null Hypothesis and state that there is a statistically significant difference between the average value of Aerosol in census blocks where 25% or less of the residents live below the 150% poverty line and neighborhoods where 75% of more of the residents live below the 150% poverty line. Overall, the levels or aerosol/CO were lower in areas where neighborhoods have 25% or less residents living at or below the 150% poverty line.
+
+Additionally, there were statistically significant differences between the CO and Aerosol levels inside and outside parks. However, unexpectedly, the levels outside of parks were lower than those inside of parks.
 
 Based on the above figures, we can see a sharp increase in both CO and Aerosol levels in New York City from June 5th- June 8th. Carbon Monoxides don't return to levels a week prior the the fire, however Aerosol levels actually decrease.  
 
@@ -499,9 +536,17 @@ Based on the above figures, we can see a sharp increase in both CO and Aerosol l
 
 There are a number of factors that could contribute to the decrease we see in Aerosol to that of our "pre" data, like wind.....
 
-It was suprising that co/aerosol levels would be lower outside of parks than inside of parks. 
-However, overall more analysis is needed. In the next couple weeks, for my own curiosity, I will do a comparison of co/aerosol levels in relation to EVI masked for elevation(so as to only include trees and not grass)
+It was surprising that co/aerosol levels would be lower outside of parks than inside of parks. There a couple of possibilities including:
 
+1. inaccuracies in the data
+1. issue with the sql query
+1. the parks being mostly grass, or parks of playgrounds, skate parks, the size of parks ect could influence the data.
+1. outside variable influencing results
+1. The could be more trees overall outside of parks than inside all parks(due to reasons described in  #3 and #4)
+
+However, overall more analysis is needed. In the next couple weeks, for my own curiosity, I will do a comparison of co/aerosol levels in relation to EVI masked for elevation(so as to only include trees and not grass) and create the same charts and conduct the same statistical tests. This is a better method to determine how vegetation impacts CO/Aerosol levels than of inside/outside of parks
+
+I actually will be doing this analysis in the next couple weeks for the sake of my own curiosity.
 
 #### Troubleshooting
 
@@ -710,7 +755,7 @@ If you have more than 15 observations in each group, you might want to use the t
 [] add maps from pp for vector layers
 [] write discussion
 [] read over everything/make edits
-[] do same analysis for parks 
+[X] do same analysis for parks 
 [] if time do same analysis for evi
         - calculate average cover for evi
         - chose the neighbhood with highest coverage
