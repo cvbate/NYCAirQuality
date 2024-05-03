@@ -166,11 +166,14 @@ LIMIT 750; -- Sample 750 rows
 
 
 SELECT *
-FROM aerosol_pre_vector
-LEFT JOIN parks
-ON ST_Difference(aerosol_pre_vector.geom, parks.geom) = aerosol_pre_vector.geom
+FROM (
+    SELECT val
+    FROM aerosol_pre_vector_clip
+    JOIN parks
+    ON ST_Disjoint(aerosol_pre_vector_clip.geom, parks.geom)
+) AS outside_parks
 ORDER BY RANDOM()
-LIMIT 750; -- Sample 750 rows
+LIMIT 750;- -- Sample 750 rows
 
 ----------------------------------------------------------------------AERO DUR
 
@@ -184,11 +187,14 @@ LIMIT 750; -- Sample 750 rows
 
 
 SELECT *
-FROM aerosol_durr_vector
-LEFT JOIN parks
-ON ST_Difference(aerosol_durr_vector.geom, parks.geom) = aerosol_durr_vector.geom
+FROM (
+    SELECT val
+    FROM aerosol_durr_vector_clip
+    JOIN parks
+    ON ST_Disjoint(aerosol_durr_vector_clip.geom, parks.geom)
+) AS outside_parks
 ORDER BY RANDOM()
-LIMIT 750; -- Sample 750 rows
+LIMIT 750;
 
 
 ----------------------------------------------------------------------AERO POST
@@ -203,11 +209,14 @@ LIMIT 750; -- Sample 750 rows
 
 
 SELECT *
-FROM aerosol_post_vector
-LEFT JOIN parks
-ON ST_Difference(aerosol_post_vector.geom, parks.geom) = aerosol_post_vector.geom
+FROM (
+    SELECT val
+    FROM aerosol_post_vector_clip
+    JOIN parks
+    ON ST_Disjoint(aerosol_post_vector_clip.geom, parks.geom)
+) AS outside_parks
 ORDER BY RANDOM()
-LIMIT 750; -- Sample 750 rows
+LIMIT 750;
 
 
 ----------------------------------------------------------------------CO PRE
@@ -221,9 +230,12 @@ LIMIT 750; -- Sample 750 rows
 
 
 SELECT *
-FROM co_pre_vector
-LEFT JOIN parks
-ON ST_Difference(co_pre_vector.geom, parks.geom) = co_pre_vector.geom
+FROM (
+    SELECT val
+    FROM co_pre_vector_clip
+    JOIN parks
+    ON ST_Disjoint(co_pre_vector_clip.geom, parks.geom)
+) AS outside_parks
 ORDER BY RANDOM()
 LIMIT 750; -- Sample 750 rows
 
@@ -240,9 +252,12 @@ LIMIT 750; -- Sample 750 rows
 
 
 SELECT *
-FROM co_durr_vector
-LEFT JOIN parks
-ON ST_Difference(co_durr_vector.geom, parks.geom) = co_durr_vector.geom
+FROM (
+    SELECT val
+    FROM co_durr_vector_clip
+    JOIN parks
+    ON ST_Disjoint(co_durr_vector_clip.geom, parks.geom)
+) AS outside_parks
 ORDER BY RANDOM()
 LIMIT 750; -- Sample 750 rows
 
@@ -257,8 +272,12 @@ LIMIT 750; -- Sample 750 rows
 
 
 SELECT *
-FROM co_post_vector
-LEFT JOIN parks
-ON ST_Difference(co_post_vector.geom, parks.geom) = co_post_vector.geom
+FROM (
+    SELECT val
+    FROM co_post_vector_clip
+    JOIN parks
+    ON ST_Disjoint(co_post_vector_clip.geom, parks.geom)
+) AS outside_parks
 ORDER BY RANDOM()
-LIMIT 750; -- Sample 750 rows
+LIMIT 750;
+ -- Sample 750 rows

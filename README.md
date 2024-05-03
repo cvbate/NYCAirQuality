@@ -499,6 +499,9 @@ Based on the above figures, we can see a sharp increase in both CO and Aerosol l
 
 There are a number of factors that could contribute to the decrease we see in Aerosol to that of our "pre" data, like wind.....
 
+It was suprising that co/aerosol levels would be lower outside of parks than inside of parks. 
+However, overall more analysis is needed. In the next couple weeks, for my own curiosity, I will do a comparison of co/aerosol levels in relation to EVI masked for elevation(so as to only include trees and not grass)
+
 
 #### Troubleshooting
 
@@ -716,6 +719,7 @@ If you have more than 15 observations in each group, you might want to use the t
         - t-test
 [] update analysis to include parks and quiza evi
 [] make nicer maps for rasters
+[] update analysis to account for change in code
 ##### For Assignment 1 Due 04/12/24 5pm EST
 
 1. Find and Process Geospatial Data (10 Points)

@@ -1,4 +1,74 @@
 
+-- create tables for all vectors to remove water from influencing the results.
+CREATE TABLE aerosol_pre_vector_clip AS
+SELECT 
+    a.val, ST_Intersection(a.geom, b.geom) AS geom 
+FROM 
+    aerosol_pre_vector AS a
+JOIN 
+    buroughbounds AS b
+ON 
+    ST_Intersects(a.geom, b.geom);
+
+CREATE TABLE aerosol_durr_vector_clip AS
+SELECT 
+    a.val, ST_Intersection(a.geom, b.geom) AS geom 
+FROM 
+    aerosol_durr_vector AS a
+JOIN 
+    buroughbounds AS b
+ON 
+    ST_Intersects(a.geom, b.geom);
+
+
+
+CREATE TABLE aerosol_post_vector_clip AS
+SELECT 
+    a.val, ST_Intersection(a.geom, b.geom) AS geom 
+FROM 
+    aerosol_post_vector AS a
+JOIN 
+    buroughbounds AS b
+ON 
+    ST_Intersects(a.geom, b.geom);
+
+
+--------------------------------------------------------------------CO
+
+CREATE TABLE co_pre_vector_clip AS
+SELECT 
+    a.val, ST_Intersection(a.geom, b.geom) AS geom 
+FROM 
+    co_pre_vector AS a
+JOIN 
+    buroughbounds AS b
+ON 
+    ST_Intersects(a.geom, b.geom);
+
+
+CREATE TABLE co_durr_vector_clip AS
+SELECT 
+    a.val, ST_Intersection(a.geom, b.geom) AS geom 
+FROM 
+    co_durr_vector AS a
+JOIN 
+    buroughbounds AS b
+ON 
+    ST_Intersects(a.geom, b.geom);
+
+
+CREATE TABLE co_post_vector_clip AS
+SELECT 
+    a.val, ST_Intersection(a.geom, b.geom) AS geom 
+FROM 
+    co_post_vector AS a
+JOIN 
+    buroughbounds AS b
+ON 
+    ST_Intersects(a.geom, b.geom);
+
+
+
 -------------------------------------------------------------AEROSOL_PRE
 -- CALCULATE MEAN OF AEROSOL_PRE INSIDE OF PARKS
 -- convert raster to vector and create a new table
@@ -25,10 +95,13 @@ ON ST_Intersects(aerosol_pre_vector.geom, parks.geom);
 -- CALCULATE MEAN OF AEROSOL OUTSIDE OF PARKS
 
 SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
-FROM aerosol_pre_vector
-LEFT JOIN parks
-ON ST_Difference(aerosol_pre_vector.geom, parks.geom) = aerosol_pre_vector.geom;
--- avg val: 0.03640181433373871
+FROM (
+    SELECT val
+    FROM aerosol_pre_vector_clip
+    JOIN parks
+    ON ST_Disjoint(aerosol_pre_vector_clip.geom, parks.geom)
+) AS outside_parks;
+-- avg val: 0.13988510973048698
 
 -------------------------------------------------------------AEROSOL_DURR
 CREATE TABLE aerosol_durr_vector AS
@@ -57,10 +130,23 @@ ON ST_Intersects(aerosol_durr_vector.geom, parks.geom);
 -- CALCULATE MEAN OF AEROSOL OUTSIDE OF PARKS
 
 SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
-FROM aerosol_durr_vector
-LEFT JOIN parks
-ON ST_Difference(aerosol_durr_vector.geom, parks.geom) = aerosol_durr_vector.geom;
--- avg val: 1.9572445261879672
+FROM (
+    SELECT val
+    FROM aerosol_durr_vector_clip
+    JOIN parks
+    ON ST_Disjoint(aerosol_durr_vector_clip.geom, parks.geom)
+) AS outside_parks;
+-- avg val: 2.0200085119193893
+
+
+SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
+FROM (
+    SELECT val
+    FROM aerosol_durr_vector
+    JOIN parks
+    ON ST_Disjoint(aerosol_durr_vector.geom, parks.geom)
+) AS outside_parks;
+-- 1.9571972834152926
 
 
 -------------------------------------------------------------AEROSOL_POST
@@ -89,11 +175,13 @@ ON ST_Intersects(aerosol_post_vector.geom, parks.geom);
 -- CALCULATE MEAN OF AEROSOL OUTSIDE OF PARKS
 
 SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
-FROM aerosol_post_vector
-LEFT JOIN parks
-ON ST_Difference(aerosol_post_vector.geom, parks.geom) = aerosol_post_vector.geom;
--- avg val: -0.30599026363376086
-
+FROM (
+    SELECT val
+    FROM aerosol_post_vector_clip
+    JOIN parks
+    ON ST_Disjoint(aerosol_post_vector_clip.geom, parks.geom)
+) AS outside_parks;
+-- avg val: -0.20736667382452978
 ------------------------------------ CO PRE
 
 CREATE TABLE co_pre_vector AS
@@ -120,13 +208,15 @@ ON ST_Intersects(co_pre_vector.geom, parks.geom);
 -- 0.03454449995197067
 
 
-
 -- CALCULATE MEAN OF AEROSOL OUTSIDE OF PARKS
 SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
-FROM co_pre_vector
-LEFT JOIN parks
-ON ST_Difference(co_pre_vector.geom, parks.geom) = co_pre_vector.geom;
--- avg val: 0.03401485894914792
+FROM (
+    SELECT val
+    FROM co_pre_vector_clip
+    JOIN parks
+    ON ST_Disjoint(co_pre_vector_clip.geom, parks.geom)
+) AS outside_parks;
+-- avg val: 0.034055835751740864
 
 
 ------------------------------------------------- CO DURR
@@ -156,12 +246,19 @@ ON ST_Intersects(co_durr_vector.geom, parks.geom);
 
 -- CALCULATE MEAN OF co OUTSIDE OF PARKS
 SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
-FROM co_durr_vector
-LEFT JOIN parks
-ON ST_Difference(co_durr_vector.geom, parks.geom) = co_durr_vector.geom;
--- avg val: 0.08792659146550964
+FROM (
+    SELECT val
+    FROM co_durr_vector_clip
+    JOIN parks
+    ON ST_Disjoint(co_durr_vector_clip.geom, parks.geom)
+) AS outside_parks;
+-- avg val: 0.09061300796717715
 
--------------------------------------------------- CO Post (NOT YET RUN)
+
+
+
+
+-------------------------------------------------- CO Post 
 
 CREATE TABLE co_post_vector AS
 SELECT val, geom
@@ -186,12 +283,16 @@ JOIN parks
 ON ST_Intersects(co_post_vector.geom, parks.geom);
 --  0.047632964930155015
 
--- CALCULATE MEAN OF AEROSOL OUTSIDE OF PARKS
+
+-- CALCULATE MEAN OF co OUTSIDE OF PARKS
 SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
-FROM co_post_vector
-LEFT JOIN parks
-ON ST_Difference(co_post_vector.geom, parks.geom) = co_post_vector.geom;
--- avg val: 0.04745639917202819
+FROM (
+    SELECT val
+    FROM co_post_vector_clip
+    JOIN parks
+    ON ST_Disjoint(co_post_vector_clip.geom, parks.geom)
+) AS outside_parks;
+-- avg val: 0.047486588648198845
 
 
 
