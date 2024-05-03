@@ -135,7 +135,7 @@ Setting up a Bucket is important if you are exporting raster data from GEE. If y
     `sudo apt-get install postgresql`
 
 Go to your instances and click on the name of your instance to open the configuration panel. I named mine postgres. Scroll down to "Connect to this instance" and click on OPEN CLOUD SHELL.  
-<img src="Imgs/opencloudshell.png" alt="drawing" width="200"/>
+<img src="Imgs/opencloudshell.png" alt="drawing" width="1000"/>
 
 Upon clicking OPEN CLOUD SHELL something similar to this code will be automatically pasted into your terminal. Press enter to execute the code:  
     `gcloud sql connect postgres --user=postgres --quiet`  
