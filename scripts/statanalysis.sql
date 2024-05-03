@@ -215,7 +215,7 @@ LIMIT 750; -- Sample 750 rows
 SELECT *
 FROM co_pre_vector
 JOIN Parks
-ON ST_Intersects(co_post_vector.geom, parks.geom)
+ON ST_Intersects(co_pre_vector.geom, parks.geom)
 ORDER BY RANDOM()
 LIMIT 750; -- Sample 750 rows
 
@@ -257,7 +257,7 @@ LIMIT 750; -- Sample 750 rows
 
 
 SELECT *
-FROM co_durr_vector
+FROM co_post_vector
 LEFT JOIN parks
 ON ST_Difference(co_post_vector.geom, parks.geom) = co_post_vector.geom
 ORDER BY RANDOM()

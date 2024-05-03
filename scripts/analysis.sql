@@ -40,7 +40,7 @@ FROM aerosol_durr_rast, LATERAL ST_DumpAsPolygons(rast) AS dp
 
 --- mean of entire aerosol
 
--- calculate mean (optional) of intersection between aerosol and parks
+-- calculate median (optional) of intersection between aerosol and parks
 SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
 FROM aerosol_durr_vector
 JOIN parks
@@ -71,9 +71,8 @@ SELECT dp.*
 FROM aerosol_post_rast, LATERAL ST_DumpAsPolygons(rast) AS dp
 ) As foo;
 
---- mean of entire aerosol
 
--- calculate mean (optional) of intersection between aerosol and parks
+-- calculate median (optional) of intersection between aerosol and parks
 SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
 FROM aerosol_post_vector
 JOIN parks
@@ -106,7 +105,7 @@ FROM co_pre_rast, LATERAL ST_DumpAsPolygons(rast) AS dp
 
 --- mean of entire aerosol
 
--- calculate mean (optional) of intersection between aerosol and parks
+-- calculate median (optional) of intersection between aerosol and parks
 SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
 FROM co_pre_vector
 JOIN parks
@@ -127,7 +126,7 @@ SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
 FROM co_pre_vector
 LEFT JOIN parks
 ON ST_Difference(co_pre_vector.geom, parks.geom) = co_pre_vector.geom;
--- avg val: 
+-- avg val: 0.03401485894914792
 
 
 ------------------------------------------------- CO DURR
@@ -141,7 +140,7 @@ FROM co_durr_rast, LATERAL ST_DumpAsPolygons(rast) AS dp
 
 --- mean of entire aerosol
 
--- calculate meaian (optional) of intersection between aerosol and parks
+-- calculate median (optional) of intersection between co and parks
 SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
 FROM co_durr_vector
 JOIN parks
@@ -155,7 +154,7 @@ JOIN parks
 ON ST_Intersects(co_durr_vector.geom, parks.geom);
 -- 0.09420179041088476
 
--- CALCULATE MEAN OF AEROSOL OUTSIDE OF PARKS
+-- CALCULATE MEAN OF co OUTSIDE OF PARKS
 SELECT SUM(NULLIF(val, 'NaN')) / COUNT(val) AS average_val
 FROM co_durr_vector
 LEFT JOIN parks
@@ -173,7 +172,7 @@ FROM co_post_rast, LATERAL ST_DumpAsPolygons(rast) AS dp
 
 --- mean of entire aerosol
 
--- calculate meaian (optional) of intersection between aerosol and parks
+-- calculate median (optional) of intersection between aerosol and parks
 SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY val) AS median_val
 FROM co_post_vector
 JOIN parks
