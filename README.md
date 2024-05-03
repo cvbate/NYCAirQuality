@@ -25,17 +25,22 @@
         - [Data cleaning](#clean)
         - [Normalization](#normalization)
     1. [Analysis](#analysis)
+1. [Results](#resultsconclusions)
+1. [Discussion](#discussion)
 1. [Troubleshooting](#troubleshooting)
+1. [References](#citations)
 
-## Introduction <a name="introduction"></a>
+## Introduction
 
-In June 2023, there were extensive wildfires in Quebec, Canada, causing poor air quality in much of the eastern United States with the worst periods falling between June 6th and June 8th. Particulate matter from wildfires can cause adverse health effect to affect respiratory health, cardiovascular health, birth outcomes, and mental health(Liu et al., 2017). One study by Chen et al. analyzing the impacts of the June 2023 wildfies found a significant increase in hospitalizations due to aesthma in children ages 5-17 in New York City during the wildfies(2023).
+In June 2023, there were extensive wildfires in Quebec, Canada, causing poor air quality in much of the eastern United States with the worst periods falling between June 6th and June 8th. Particulate matter from wildfires can cause adverse health effect to affect respiratory health, cardiovascular health, birth outcomes, and mental health(Liu et al., 2017). One study by Chen et al. analyzing the impacts of the June 2023 wildfires found a significant increase in hospitalizations due to asthma in children ages 5-17 in New York City during the wildfires(2023).
 
-The goal of this project is to assess Air Quality in New York City due to Canadian Wildfires using two different indeces, Aerosol and Carbon Monoxide through a combination of visual analysis and SQL statiscitcal analysis.
+The goal of this project is to assess Air Quality in New York City due to Canadian Wildfires using two different indices, Aerosol and Carbon Monoxide through a combination of visual analysis and SQL statistical analysis.
 
 ## Setup
 
 This project uses Google Cloud Console. Cloud Console essentially creates a cloud hosted virtual Linux system(bash) in which you can use to interact with the rest of console. This environment is separate from your local machine. Cloud Console uses a credit-based billing system with a trial available with $300 in free credits. Bash commands work the same as on your local machine, with VSCode Shell as the GUI interface.
+
+Google Cloud Pricing can be complication, so refer to read [Google Cloud Pricing: The Complete Guide](https://spot.io/resources/google-cloud-pricing/google-cloud-pricing-the-complete-guide/#:~:text=Each%20Cloud%20Storage%20class%20(Standard,the%20price%20per%20GB%20decreases.)
 
 Overview of steps to get started:
 
@@ -53,7 +58,7 @@ I believe I included all the APIs necessary in the instructions, however if not,
 APIs Used in this project:  
 ![Alt text](Imgs/Apis.png)
 
-### Creating a Project and Connecting to GitHub <a name="introduction"></a>
+### Creating a Project and Connecting to GitHub <a name="setup1"></a>
 
 First, you must create an account and connect your git repository. I followed the instructions from [this page to connect to my repository using Cloud Build](https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github). I will also walk you through the process below:
 
