@@ -159,9 +159,11 @@ Next, install postGIS in the bin of postgresql -- see [Troublshooting](#troubles
 ### Vector Data
 
 1. [City boundaries](https://data.gis.ny.gov/datasets/sharegisny::nys-civil-boundaries/explore?layer=4&location=40.695449%2C-73.623530%2C9.29)  
-<img src="Imgs/boundary_gee.png" alt="drawing" width="450"/>
-![Alt text](Imgs/boundary_gee.png)  
-  
+
+<img src="Imgs/boundary_gee.png" alt="drawing" width="350"/>
+
+<img src="Imgs/parks.png" alt="drawing" width="350"/>
+
 1. [Parks](https://data.cityofnewyork.us/Recreation/Parks-Properties/enfh-gkve/about_data)  
 ![Alt text](Imgs/parks.png)  
   
