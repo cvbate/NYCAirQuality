@@ -40,7 +40,7 @@ The goal of this project is to assess Air Quality in New York City due to Canadi
 
 This project uses Google Cloud Console. Cloud Console essentially creates a cloud hosted virtual Linux system(bash) in which you can use to interact with the rest of console. This environment is separate from your local machine. Cloud Console uses a credit-based billing system with a trial available with $300 in free credits. Bash commands work the same as on your local machine, with VSCode Shell as the GUI interface.
 
-Google Cloud Pricing can be complication, so refer to read [Google Cloud Pricing: The Complete Guide](https://spot.io/resources/google-cloud-pricing/google-cloud-pricing-the-complete-guide/#:~:text=Each%20Cloud%20Storage%20class%20(Standard,the%20price%20per%20GB%20decreases.)
+Google Cloud Pricing can be complication, so refer to read [Google Cloud Pricing: The Complete Guide](https://tinyurl.com/nh9p2dfw)
 
 Overview of steps to get started:
 
