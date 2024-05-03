@@ -192,14 +192,10 @@ For this L3 AER_AI product, the absorbing_aerosol_index is calculated with a pai
 
 - Above text from GEE catalog page.
   
-Pre(one year prior):  
-![pre](Imgs/Aerosol_pre.png)  
-  
-Durring:  
-![durr](Imgs/Aerosol_durr.png)  
-  
-Post (one month after):  
-![post](Imgs/Aerosol_post.png)
+<img src="Imgs/aero_pre_dur_post.png" alt="drawing" width="1000"/> 
+  ![alt text](image.png)
+Pre(one year prior), during(June 6th-8th), post(one month later) 
+
 
 1. [Sentinel-5P NRTI CO: Near Real-Time Carbon Monoxide](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_NRTI_L3_CO)
 " This dataset provides near real-time high-resolution imagery of CO concentrations.
@@ -208,14 +204,8 @@ Carbon monoxide (CO) is an important atmospheric trace gas for understanding tro
 
 - Above text from GEE catalog page.
 
-Pre(one year prior):  
-![pre - one year before](Imgs/co_pre.png)
-  
-Durring(June 5th- June 8th):  
-![durring](Imgs/co_durr.png)
-  
-Post(one month after):  
-![post 1 month later](Imgs/co_post.png)
+<img src="Imgs/co_pre_dur_post.png" alt="drawing" width="1000"/> 
+Pre(one year prior), during(June 5th- June 8th), ost(one month after)
 
 
 1. EVI (GEE)
