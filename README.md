@@ -483,6 +483,10 @@ In each of these time points, one week before the Canadian wildfires, during the
 
 #### Parks -CO
 
+![alt text](Imgs/co_parks.png)
+Caption: Average CO levels in New York City inside vs outside of parks.  
+
+
 | Time frame  | P_value                 |
 | ----------- | ----------------------- |
 | Pre         | 4.6169291736476916e-11  |
@@ -491,15 +495,6 @@ In each of these time points, one week before the Canadian wildfires, during the
 
 Caption: Statistical difference in Carbon Monoxide levels in inside parks vs outside parks in NYC. n = 750, alpha= 0.01
 
-
-Pre:  
-T- Test had an alpha = 0.01 and a P_value =
-
-During:  
-T- Test had an alpha = 0.01 and a P_value =  
-
-Post:  
-T- Test had an alpha = 0.01 and a P_value =  
   
 ### Aerosol Levels in New York City
 
@@ -518,6 +513,9 @@ Caption: Social vulnerability statistical difference in aerosol levels in census
 
   
 #### Parks - Aerosol
+
+![alt text](image.png)
+Caption: Average aerosol levels in New York City inside vs outside of parks.
 
 | Time frame  | P_value                 |
 | ----------- | ----------------------- |
